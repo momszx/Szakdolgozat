@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.faculty</OriginalElement>
+  <nodes>
+    <node x="606.2246817404523" y="356.1425992779783">b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.faculty</node>
+    <node x="36.5" y="475.0">b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.permission</node>
+    <node x="349.0" y="464.0">b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.note</node>
+    <node x="229.9078947368421" y="650.0">b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.noteComment</node>
+    <node x="438.7499524985749" y="345.1425992779783">b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.science</node>
+    <node x="187.625" y="453.0">b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.question</node>
+    <node x="284.1578947368421" y="291.0">b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.subject</node>
+    <node x="51.90789473684211" y="650.0">b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.questionComment</node>
+    <node x="46.25" y="280.0">b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.user</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.question" target="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.subject" relationship="REFERENCES">
+      <point x="33.0" y="-72.5" />
+      <point x="286.625" y="428.0" />
+      <point x="350.1578947368421" y="428.0" />
+      <point x="0.0" y="50.5" />
+    </edge>
+    <edge source="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.noteComment" target="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.user" relationship="REFERENCES">
+      <point x="-32.75" y="-61.5" />
+      <point x="262.65789473684214" y="619.0" />
+      <point x="177.125" y="619.0" />
+      <point x="177.125" y="428.0" />
+      <point x="124.25" y="428.0" />
+      <point x="0.0" y="61.5" />
+    </edge>
+    <edge source="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.noteComment" target="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.note" relationship="REFERENCES">
+      <point x="32.75" y="-61.5" />
+      <point x="328.1578947368421" y="629.0" />
+      <point x="402.0" y="629.0" />
+      <point x="0.0" y="61.5" />
+    </edge>
+    <edge source="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.permission" target="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.user" relationship="REFERENCES">
+      <point x="0.0" y="-50.5" />
+      <point x="91.5" y="428.0" />
+      <point x="124.25" y="428.0" />
+      <point x="0.0" y="61.5" />
+    </edge>
+    <edge source="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.note" target="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.subject" relationship="REFERENCES">
+      <point x="0.0" y="-61.5" />
+      <point x="402.0" y="428.0" />
+      <point x="350.1578947368421" y="428.0" />
+      <point x="0.0" y="50.5" />
+    </edge>
+    <edge source="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.science" target="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.faculty" relationship="REFERENCES">
+      <point x="0.0" y="-50.5" />
+      <point x="504.7499524985749" y="104.0" />
+      <point x="672.2246817404523" y="104.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.subject" target="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.science" relationship="REFERENCES">
+      <point x="0.0" y="-50.5" />
+      <point x="350.1578947368421" y="260.5" />
+      <point x="504.7499524985749" y="260.5" />
+      <point x="0.0" y="50.5" />
+    </edge>
+    <edge source="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.questionComment" target="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.question" relationship="REFERENCES">
+      <point x="39.5" y="-61.5" />
+      <point x="170.4078947368421" y="629.0" />
+      <point x="253.625" y="629.0" />
+      <point x="0.0" y="72.5" />
+    </edge>
+    <edge source="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.questionComment" target="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.user" relationship="REFERENCES">
+      <point x="-39.5" y="-61.5" />
+      <point x="91.40789473684211" y="629.0" />
+      <point x="26.0" y="629.0" />
+      <point x="26.0" y="428.0" />
+      <point x="124.25" y="428.0" />
+      <point x="0.0" y="61.5" />
+    </edge>
+    <edge source="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.question" target="b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.user" relationship="REFERENCES">
+      <point x="-33.0" y="-72.5" />
+      <point x="220.625" y="428.0" />
+      <point x="124.25" y="428.0" />
+      <point x="0.0" y="61.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.6986128625472888" showDependencies="false" x="227.5" y="386.5" />
+  <SelectedNodes>
+    <node>b01c033e-8a91-4d39-a580-c01a6b52f003.TABLE:EkeHub.faculty</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
