@@ -7,6 +7,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import employeeReducer from './store/reducers/employeeReducer'
 import thunk from 'redux-thunk';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
