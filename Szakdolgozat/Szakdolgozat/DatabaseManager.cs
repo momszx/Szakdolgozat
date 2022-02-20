@@ -4,6 +4,13 @@ namespace Szakdolgozat
     public class DatabaseManager
     {
         private bool connectionState = false;
+        private static readonly string server = "192.168.50.15";
+        private static readonly string database = "EKEHub";
+        private static readonly string uid = "root";
+        private static readonly string password = "root_password";
+
+        private static readonly string connStr = "SERVER=" + server + ";" + "DATABASE=" +
+                                                 database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
 
         private readonly MySqlConnection connection = null;
         public MySqlConnection Connection => connection;
@@ -11,7 +18,7 @@ namespace Szakdolgozat
         private DatabaseManager()
         {
             connectionState = false;
-            connection = new MySqlConnection("Server=127.0.0.1; database=sop; UID=sop; password=sop; charset=utf8;");
+            connection = new MySqlConnection(connStr);
         }
 
         private static DatabaseManager _instance = null;

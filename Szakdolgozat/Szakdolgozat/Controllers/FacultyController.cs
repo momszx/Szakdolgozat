@@ -25,7 +25,7 @@ namespace Szakdolgozat
 
                         while (dataReader.Read())
                         {
-                            Facultyes.Add(new Faculty(dataReader.GetInt32(0), dataReader.GetString(1)));
+                            Facultyes.Add(new Faculty(dataReader.GetInt32(0), dataReader.GetString(1),""));
                         }
                     }
 

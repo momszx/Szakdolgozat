@@ -8,18 +8,43 @@ import reportWebVitals from './reportWebVitals';
 import employeeReducer from './store/reducers/employeeReducer'
 import thunk from 'redux-thunk';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import facultyReducer from "./store/reducers/FacultyReducer";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-    employee: employeeReducer
+    employee: employeeReducer,
+    faculty:facultyReducer,
 
 });
 
-const store = createStore(rootReducer, composeEnhancers(
-    applyMiddleware(thunk)
-));
+const loadState = () => {
+    try {
+        const serializedState = localStorage.getItem("state");
+        if (serializedState === null) {
+            return undefined
+        }
+        return JSON.parse(serializedState)
+    } catch (e) {
+        return undefined
+    }
+}
+const saveState = (state) => {
+    try {
+        const serializedState = JSON.stringify(state);
+        localStorage.setItem("state", serializedState)
+    } catch (e) {
+
+    }
+}
+const persistedState = loadState();
+const store = createStore(
+    rootReducer,/*persistedState,*/composeEnhancers(applyMiddleware(thunk))
+)
 ReactDOM.render(
     <Provider store={store}>
         <App/>
