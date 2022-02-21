@@ -72,6 +72,7 @@ const mapStareToProps = state => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onFetchFaculty: () => dispatch(actions.fetchFaculty()),
+        onFetchScience:(id)=>dispatch(actions.fetchScience(id))
     }
 }
 

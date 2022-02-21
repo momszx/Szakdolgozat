@@ -12,6 +12,14 @@ import facultyReducer from "./store/reducers/FacultyReducer";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
+import UserReducer from "./store/reducers/UserReducer";
+import SubjectReducer from "./store/reducers/SubjectReducer";
+import ScienceReducer from "./store/reducers/ScienceReducer";
+import QuestionReducer from "./store/reducers/QuestionReducer";
+import questionCommentReducer from "./store/reducers/QuestionCommentReducer";
+import PermissionReducer from "./store/reducers/PermissionReducer";
+import NoteReducer from "./store/reducers/NoteReducer";
+import NoteCommentReducer from "./store/reducers/NoteCommentReducer";
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -19,7 +27,14 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
     employee: employeeReducer,
     faculty:facultyReducer,
-
+    user:UserReducer,
+    subject:SubjectReducer,
+    science:ScienceReducer,
+    question:QuestionReducer,
+    questionComment:questionCommentReducer,
+    permission:PermissionReducer,
+    note:NoteReducer,
+    noteComment:NoteCommentReducer,
 });
 
 const loadState = () => {
