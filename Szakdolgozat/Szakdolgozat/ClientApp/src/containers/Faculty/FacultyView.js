@@ -1,16 +1,21 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import * as actions from "../store/actions";
+import * as actions from "../../store/actions";
 import Card from 'react-bootstrap/Card';
-import {fetchEmployeeSuccess} from "../store/actions/EmployeeActions";
+import {fetchEmployeeSuccess} from "../../store/actions/EmployeeActions";
 import {Spinner, Table} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
-class Faculty extends React.Component {
+class FacultyView extends React.Component {
 
     componentDidMount() {
         this.props.onFetchFaculty();
     }
-
+    mod(strResult){
+        this.props.onFetchScience(strResult.id)
+        //alert("boo")
+        return
+    }
     render() {
         const style = {
             display: "block",
@@ -40,12 +45,13 @@ class Faculty extends React.Component {
                     <Card.Text>
                         <Table>
                             <tbody>
-                                <tr>
-                                    <td style={{width:"100px"}}>{strResult.id}</td>
-                                    <td>
+                            <tr>
+                                <td>
+                                    <Link to={"/science"} onClick={() => this.mod(strResult)} >
                                         {strResult.name}
-                                    </td>
-                                </tr>
+                                    </Link>
+                                </td>
+                            </tr>
                             </tbody>
                         </Table>
 
@@ -55,12 +61,12 @@ class Faculty extends React.Component {
             ))
         }
         return (<>
-                <Card style={style} className="text-center">
-                    <Card.Text>
-                        {facultyList}
-                    </Card.Text>
-                </Card>
-            </>);
+            <Card style={style} className="text-center">
+                <Card.Text>
+                    {facultyList}
+                </Card.Text>
+            </Card>
+        </>);
     }
 }
 
@@ -72,9 +78,9 @@ const mapStareToProps = state => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onFetchFaculty: () => dispatch(actions.fetchFaculty()),
-        onFetchScience:(id)=>dispatch(actions.fetchScience(id))
+        onFetchScience: (id) => dispatch(actions.fetchScience(id))
     }
 }
 
 
-export default connect(mapStareToProps, mapDispatchToProps)(Faculty);
+export default connect(mapStareToProps, mapDispatchToProps)(FacultyView);

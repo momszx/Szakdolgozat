@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Szakdolgozat.Classes
+﻿namespace Szakdolgozat.Classes
 {
-    public class Science : BaseClass
+    public class Asd:BaseClass
     {
-        private int facultyId;
         private string name;
+        private int facultyId;
 
-        public Science(int id,  int facultyId, string name, string Uid) : base(id, Uid)
+        public Asd(string name, int facultyId,int id,string Uid):base(id, Uid)
         {
             Name = name;
             FacultyId = facultyId;
@@ -16,6 +13,5 @@ namespace Szakdolgozat.Classes
 
         public string Name { get => name; set => name = value; }
         public int FacultyId { get => facultyId; set => facultyId = value; }
-
     }
 }

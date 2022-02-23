@@ -20,21 +20,22 @@ import questionCommentReducer from "./store/reducers/QuestionCommentReducer";
 import PermissionReducer from "./store/reducers/PermissionReducer";
 import NoteReducer from "./store/reducers/NoteReducer";
 import NoteCommentReducer from "./store/reducers/NoteCommentReducer";
+import {BrowserRouter} from "react-router-dom";
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     employee: employeeReducer,
-    faculty:facultyReducer,
-    user:UserReducer,
-    subject:SubjectReducer,
-    science:ScienceReducer,
-    question:QuestionReducer,
-    questionComment:questionCommentReducer,
-    permission:PermissionReducer,
-    note:NoteReducer,
-    noteComment:NoteCommentReducer,
+    faculty: facultyReducer,
+    user: UserReducer,
+    subject: SubjectReducer,
+    science: ScienceReducer,
+    question: QuestionReducer,
+    questionComment: questionCommentReducer,
+    permission: PermissionReducer,
+    note: NoteReducer,
+    noteComment: NoteCommentReducer,
 });
 
 const loadState = () => {
@@ -61,9 +62,11 @@ const store = createStore(
     rootReducer,/*persistedState,*/composeEnhancers(applyMiddleware(thunk))
 )
 ReactDOM.render(
-    <Provider store={store}>
-        <App/>
-    </Provider>,
+    <BrowserRouter>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </BrowserRouter>,
     document.getElementById('root')
 );
 

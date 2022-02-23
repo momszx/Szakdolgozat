@@ -1,4 +1,7 @@
-﻿namespace Szakdolgozat
+﻿using System;
+using System.Collections.Generic;
+
+namespace Szakdolgozat.Classes
 {
     public class BaseClass
     {
@@ -8,7 +11,7 @@
         public int Id { get => id; set => id = value; }
         public string UID { get => uID; set => uID = value; }
 
-        public BaseClass(int id, string uID = "")
+        public BaseClass(int id, string uID)
         {
             Id = id;
             UID = uID;

@@ -7,3 +7,5 @@ export {
     removeEmployee
 } from './EmployeeActions'
 export  * from './FacultyActions'
+export * from './ScienceActions'
+export * from './SubjectActions'

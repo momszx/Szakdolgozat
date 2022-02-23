@@ -13,6 +13,7 @@ export const fetchScience = (id) => {
         body: raw,
         redirect: 'follow'
     };
+    console.log(requestOptions)
     return dispatch => {
         dispatch(fetchScienceStart())
         fetch('/Science/', requestOptions).then(response => response.json()).then(data => {

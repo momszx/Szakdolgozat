@@ -2,9 +2,12 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using Szakdolgozat.Classes;
 
 namespace Szakdolgozat.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class QuestionCommentController : ControllerBase
     {
         private DatabaseManager DB = DatabaseManager.Instance();
@@ -17,12 +20,12 @@ namespace Szakdolgozat.Controllers
                 List<QuestionComment> QuestionCommentes = new();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM noteComment wher questionId={0}", question.Id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM noteComment wher questionId={0}", 1));
                     if (dataReader.HasRows)
                     {
                         while (dataReader.Read())
                         {
-                            QuestionCommentes.Add(new QuestionComment(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3)));
+                            QuestionCommentes.Add(new QuestionComment(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), ""));
                         }
                     }
                     dataReader.Close();

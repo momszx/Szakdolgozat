@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using Szakdolgozat.Classes;
 
 namespace Szakdolgozat
 {
@@ -29,7 +30,7 @@ namespace Szakdolgozat
 
                         while (dataReader.Read())
                         {
-                            baseUser = new User(dataReader.GetInt32(0), dataReader.GetString(1), "", dataReader.GetInt32(3), uID);
+                            baseUser = new User(dataReader.GetInt32(0), uID, dataReader.GetString(1), dataReader.GetInt32(3), "");
                         }
                         Users.Add(uID, baseUser);
                     }

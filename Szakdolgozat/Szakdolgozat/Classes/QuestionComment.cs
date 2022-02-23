@@ -1,15 +1,12 @@
-﻿namespace Szakdolgozat
+﻿namespace Szakdolgozat.Classes
 {
     public class QuestionComment : BaseClass
     {
         private int questionId;
         private int userId;
         private string comment;
-        public QuestionComment(int id, string uID = "") : base(id, uID)
-        {
-        }
 
-        public QuestionComment(int id, int questionId, int userId, string comment, string uID = "") : base(id, uID)
+        public QuestionComment(int id, int questionId, int userId, string comment, string Uid) : base(id, Uid)
         {
             QuestionId = questionId;
             UserId = userId;

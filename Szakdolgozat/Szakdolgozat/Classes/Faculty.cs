@@ -1,16 +1,17 @@
-﻿namespace Szakdolgozat
+﻿using System;
+using System.Collections.Generic;
+
+namespace Szakdolgozat.Classes
 {
     public class Faculty : BaseClass
     {
         private string name;
-        public string Name { get => name; set => name = value; }
-        public Faculty(int id, string uID = "") : base(id, uID)
-        {
-        }
 
-        public Faculty(int id, string name, string uID = "") : base(id, uID)
+        public Faculty(int id, string uID,string name) : base(id, uID)
         {
             Name = name;
         }
+
+        public string Name { get => name; set => name = value; }
     }
 }

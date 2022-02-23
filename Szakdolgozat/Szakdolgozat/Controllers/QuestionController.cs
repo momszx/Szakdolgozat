@@ -2,9 +2,12 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using Szakdolgozat.Classes;
 
 namespace Szakdolgozat.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class QuestionController : ControllerBase
     {
         private DatabaseManager DB = DatabaseManager.Instance();
@@ -23,7 +26,7 @@ namespace Szakdolgozat.Controllers
 
                         while (dataReader.Read())
                         {
-                            Questiones.Add(new Question(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), dataReader.GetString(4)));
+                            Questiones.Add(new Question(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), dataReader.GetString(4), ""));
                         }
                     }
 

@@ -2,9 +2,12 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using Szakdolgozat.Classes;
 
 namespace Szakdolgozat.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class NoteCommentController : ControllerBase
     {
         private DatabaseManager DB = DatabaseManager.Instance();
@@ -22,7 +25,7 @@ namespace Szakdolgozat.Controllers
                     {
                         while (dataReader.Read())
                         {
-                            Notes.Add(new NoteComment(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3)));
+                            Notes.Add(new NoteComment(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), ""));
                         }
                     }
                     dataReader.Close();

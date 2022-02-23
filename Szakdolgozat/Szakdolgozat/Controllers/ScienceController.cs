@@ -2,9 +2,12 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using Szakdolgozat.Classes;
 
 namespace Szakdolgozat
 {
+    [ApiController]
+    [Route("[controller]")]
     public class ScienceController : ControllerBase
     {
         private DatabaseManager DB = DatabaseManager.Instance();
@@ -23,7 +26,7 @@ namespace Szakdolgozat
 
                         while (dataReader.Read())
                         {
-                            Sciences.Add(new Science(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetString(2)));
+                            Sciences.Add(new Science(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetString(2), dataReader.GetString(3)));
                         }
                     }
 
