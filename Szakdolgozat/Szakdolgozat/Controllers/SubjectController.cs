@@ -26,7 +26,7 @@ namespace Szakdolgozat
 
                         while (dataReader.Read())
                         {
-                            Subjectes.Add(new Subject(dataReader.GetInt32(0), "", dataReader.GetInt32(1), dataReader.GetString(2)));
+                            Subjectes.Add(new Subject(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetString(2),""));
                         }
                     }
 
