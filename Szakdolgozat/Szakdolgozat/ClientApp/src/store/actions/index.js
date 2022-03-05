@@ -6,6 +6,7 @@ export {
     updateEmployee,
     removeEmployee
 } from './EmployeeActions'
-export  * from './FacultyActions'
+export * from './FacultyActions'
 export * from './ScienceActions'
 export * from './SubjectActions'
+export * from './UserActions'

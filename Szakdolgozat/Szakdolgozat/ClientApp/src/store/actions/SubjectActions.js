@@ -25,9 +25,9 @@ export const fetchSubjectStart = () => {
         type: actionTypes.FETCH_SUBJECT_START
     };
 };
-export const fetchSubjectSuccess = (science) => {
+export const fetchSubjectSuccess = (subject) => {
     return {
         type: actionTypes.FETCH_SUBJECT_SUCCESS,
-        science: science
+        subject: subject
     };
 };

@@ -6,6 +6,11 @@ import Card from "react-bootstrap/Card";
 import {Link} from "react-router-dom";
 
 class ScienceView extends Component {
+    mod(strResult){
+        this.props.onFetchSubject(strResult.id)
+        //alert("boo")
+        return
+    }
     render() {
         const style = {
             display: "block",
@@ -16,6 +21,7 @@ class ScienceView extends Component {
             width: "80%",
             align: "central",
             boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+            minHeight:"700px"
         }
         const scienceListstyel = {
             display: "block",
@@ -26,7 +32,9 @@ class ScienceView extends Component {
             width: "80%",
             align: "central",
             boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+
         }
+
         let scienceList = (<Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
         </Spinner>)
@@ -37,7 +45,7 @@ class ScienceView extends Component {
                             <tbody>
                             <tr>
                                 <td>
-                                    <Link to="/science" onClick={() => this.props.onFetchScience(strResult.id)}>
+                                    <Link to="/subject"  onClick={() => this.mod(strResult)}>
                                         {strResult.name}
                                     </Link>
                                 </td>
@@ -73,7 +81,7 @@ const mapStateToProps= state =>{
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        /*onFetchScience: (id) => dispatch(actions.fetchsubject(id))*/
+        onFetchSubject: (id) => dispatch(actions.fetchSubject(id))
     }
 }
 export default connect(

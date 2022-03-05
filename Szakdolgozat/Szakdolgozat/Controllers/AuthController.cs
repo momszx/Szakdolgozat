@@ -23,20 +23,19 @@ namespace Szakdolgozat
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM users WHERE username ='{0}' && password = md5('{1}')", user.Username, user.Password));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM user WHERE username ='{0}' && password = md5('{1}')", user.Username, user.Password));
                     if (dataReader.HasRows)
                     {
                         uID = Guid.NewGuid().ToString();
-
                         while (dataReader.Read())
                         {
-                            baseUser = new User(dataReader.GetInt32(0), uID, dataReader.GetString(1), dataReader.GetInt32(3), "");
+                            baseUser = new User(dataReader.GetInt32(0), dataReader.GetString(1), "", dataReader.GetInt32(3), uID);
                         }
                         Users.Add(uID, baseUser);
                     }
                     else
                     {
-                        baseUser.UID = "WRONG_LOGIN_INFO";
+                        baseUser = new User(0, "", "", 0, "WRONG_LOGIN_INFO");
                     }
                     dataReader.Close();
                     DB.Close();
@@ -59,9 +58,26 @@ namespace Szakdolgozat
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT id, username FROM users WHERE username ='{0}' && password = md5('{1}')", user.Username, user.Password));
-                    uID = Guid.NewGuid().ToString();
-                    Users.Add(uID, user);
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("insert into user ( username, password, coin) value ('{0}',md5('{1}'),0)", user.Username, user.Password));
+                    dataReader.Close();
+                    DB.Close();
+                }
+                if (DB.Connect())
+                {
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM user WHERE username ='{0}' && password = md5('{1}')", user.Username, user.Password));
+                    if (dataReader.HasRows)
+                    {
+                        uID = Guid.NewGuid().ToString();
+                        while (dataReader.Read())
+                        {
+                            baseUser = new User(dataReader.GetInt32(0), dataReader.GetString(1),"",dataReader.GetInt32(3),uID);
+                        }
+                        Users.Add(uID, baseUser);
+                    }
+                    else
+                    {
+                        baseUser = new User(0, "", "", 0, "WRONG_LOGIN_INFO");
+                    }
                     dataReader.Close();
                     DB.Close();
                 }

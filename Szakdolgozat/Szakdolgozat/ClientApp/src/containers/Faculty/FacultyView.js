@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import * as actions from "../../store/actions";
 import Card from 'react-bootstrap/Card';
-import {fetchEmployeeSuccess} from "../../store/actions/EmployeeActions";
 import {Spinner, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
@@ -26,6 +25,7 @@ class FacultyView extends React.Component {
             width: "80%",
             align: "central",
             boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+            minHeight:"700px"
         }
         const facultyListstyel = {
             display: "block",

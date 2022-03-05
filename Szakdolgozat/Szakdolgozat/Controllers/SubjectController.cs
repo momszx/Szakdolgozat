@@ -20,7 +20,7 @@ namespace Szakdolgozat
                 List<Subject> Subjectes = new();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM science wher scienceId={0}", science.Id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM subject WHERE scienceId={0}", science.Id));
                     if (dataReader.HasRows)
                     {
 

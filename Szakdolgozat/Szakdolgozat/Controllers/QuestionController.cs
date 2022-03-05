@@ -20,13 +20,13 @@ namespace Szakdolgozat.Controllers
                 List<Question> Questiones = new();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM science wher scienceId={0}", subject.Id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM science WHERE scienceId={0}", subject.Id));
                     if (dataReader.HasRows)
                     {
 
                         while (dataReader.Read())
                         {
-                            Questiones.Add(new Question(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), dataReader.GetString(4), ""));
+                            Questiones.Add(new Question(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), "", dataReader.GetString(4)));
                         }
                     }
 

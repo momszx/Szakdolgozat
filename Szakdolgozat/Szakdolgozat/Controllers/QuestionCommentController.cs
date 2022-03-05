@@ -20,12 +20,12 @@ namespace Szakdolgozat.Controllers
                 List<QuestionComment> QuestionCommentes = new();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM noteComment wher questionId={0}", 1));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM noteComment WHERE questionId={0}", 1));
                     if (dataReader.HasRows)
                     {
                         while (dataReader.Read())
                         {
-                            QuestionCommentes.Add(new QuestionComment(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), ""));
+                            QuestionCommentes.Add(new QuestionComment(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), "", dataReader.GetString(3)));
                         }
                     }
                     dataReader.Close();

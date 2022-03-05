@@ -20,13 +20,13 @@ namespace Szakdolgozat.Controllers
                 List<Note> Notes = new();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM note wher subkectId={0}", subject.Id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM note WHERE subkectId={0}", subject.Id));
                     if (dataReader.HasRows)
                     {
 
                         while (dataReader.Read())
                         {
-                            Notes.Add(new Note(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetString(2), dataReader.GetString(3), ""));
+                            Notes.Add(new Note(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetString(2), "", dataReader.GetString(3)));
                         }
                     }
 

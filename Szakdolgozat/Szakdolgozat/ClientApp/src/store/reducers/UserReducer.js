@@ -21,9 +21,9 @@ const loginStart = (state,action) => {
 const loginSuccess = (state,action) => {
     return updateObject(state, {
         loading: false,
-        username:action.username,
-        coin:action.coin,
-        uID:action.uID
+        username:action.user.username,
+        coin:action.user.coin,
+        uID:action.user.uID
     });
 }
 const logoutStart = (state,action) => {

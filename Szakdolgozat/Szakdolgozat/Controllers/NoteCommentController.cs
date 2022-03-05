@@ -20,12 +20,12 @@ namespace Szakdolgozat.Controllers
                 List<NoteComment> Notes = new();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM noteComment wher noteId={0}", note.Id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM noteComment WHERE noteId={0}", note.Id));
                     if (dataReader.HasRows)
                     {
                         while (dataReader.Read())
                         {
-                            Notes.Add(new NoteComment(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), ""));
+                            Notes.Add(new NoteComment(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), "", dataReader.GetString(3)));
                         }
                     }
                     dataReader.Close();
