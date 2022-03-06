@@ -6,12 +6,14 @@ import {Spinner, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 class SubjectView extends React.Component {
-    mod(strResult){
+    mod(strResult) {
         this.props.onFetchNote(strResult.id)
-        this.props.onFetchQuestion(strResult.id)
-        //alert("boo")
+        setTimeout(() => {
+            this.props.onFetchQuestion(strResult.id)
+        }, 100)
         return
     }
+
     render() {
         const style = {
             display: "block",
@@ -22,7 +24,7 @@ class SubjectView extends React.Component {
             width: "80%",
             align: "central",
             boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-            minHeight:"700px"
+            minHeight: "700px"
         }
         const subjectListstyel = {
             display: "block",
@@ -44,7 +46,7 @@ class SubjectView extends React.Component {
                             <tbody>
                             <tr>
                                 <td>
-                                    <Link to={"/subjectDetails"}  >
+                                    <Link to={"/subjectDetails"} onClick={() => this.mod(strResult)}>
                                         {strResult.name}
                                     </Link>
                                 </td>
@@ -69,7 +71,7 @@ class SubjectView extends React.Component {
     }
 }
 
-const mapStateToProps= state =>{
+const mapStateToProps = state => {
     return {
         subject: state.subject.subject,
         loading: state.subject.loading
@@ -78,8 +80,8 @@ const mapStateToProps= state =>{
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onFetchNote:(id)=>dispatch(actions.fetchNote(id)),
-        onFetchQuestion:(id)=>dispatch(actions.fetchQuestion(id)),
+        onFetchNote: (id) => dispatch(actions.fetchNote(id)),
+        onFetchQuestion: (id) => dispatch(actions.fetchQuestion(id)),
     }
 }
 

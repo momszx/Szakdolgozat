@@ -20,7 +20,7 @@ namespace Szakdolgozat.Controllers
                 List<Question> Questiones = new();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM science WHERE scienceId={0}", subject.Id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM question WHERE subjectId={0}", subject.Id));
                     if (dataReader.HasRows)
                     {
 

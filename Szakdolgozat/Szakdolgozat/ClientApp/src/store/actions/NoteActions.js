@@ -26,7 +26,7 @@ export  const fetchNoteStart=()=>{
 }
 export  const fetchNoteSuccess=(note)=>{
     return{
-        type:actionTypes.FETCH_NOTE_COMMENT_SUCCESS,
+        type:actionTypes.FETCH_NOTE_SUCCESS,
         note:note
     }
 }

@@ -3,8 +3,20 @@ import {connect} from 'react-redux';
 import Card from "react-bootstrap/Card";
 import {Spinner, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {fetchNoteComment, fetchQuestionComment} from "../../store/actions";
+import * as actions from "../../store/actions";
 
 class SubjectDetailsView extends Component {
+    fetchQuestionComment(strResult){
+        this.props.onFetchQuestionComment(strResult.id)
+        //alert("boo")
+        return
+    }
+    fetchNoteComment(strResult){
+        this.props.onFetchNoteComment(strResult.id)
+        //alert("boo")
+        return
+    }
     render() {
         const style = {
             display: "block",
@@ -15,7 +27,10 @@ class SubjectDetailsView extends Component {
             width: "80%",
             align: "central",
             boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-            minHeight: "700px"
+            minHeight: "350px"
+        }
+        const min={
+
         }
         const liststyel = {
             display: "block",
@@ -37,7 +52,7 @@ class SubjectDetailsView extends Component {
                             <tbody>
                             <tr>
                                 <td>
-                                    <Link to={"/subjectDetails"} onClick={() => this.mod(strResult)}>
+                                    <Link to={"/noteDetails"} onClick={() => this.fetchNoteComment(strResult)}>
                                         {strResult.name}
                                     </Link>
                                 </td>
@@ -59,7 +74,7 @@ class SubjectDetailsView extends Component {
                             <tbody>
                             <tr>
                                 <td>
-                                    <Link to={"/subjectDetails"} onClick={() => this.mod(strResult)}>
+                                    <Link to={"/questionDetails"} onClick={() => this.fetchQuestionComment(strResult)}>
                                         {strResult.name}
                                     </Link>
                                 </td>
@@ -99,7 +114,10 @@ const mapStateToProps = state => {
     };
 }
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        onFetchQuestionComment:(id)=>dispatch(actions.fetchQuestionComment(id)),
+        onFetchNoteComment:(id)=>dispatch(actions.fetchNoteComment(id))
+    }
 }
 
 export default connect(
