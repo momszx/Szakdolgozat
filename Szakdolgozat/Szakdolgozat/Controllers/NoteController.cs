@@ -40,5 +40,60 @@ namespace Szakdolgozat.Controllers
                 throw;
             }
         }
+        //Innentől átnézni 
+        [HttpPut]
+        public int AddNote(Note note){
+            try
+            {
+                DB = DatabaseManager.Instance();
+                if (DB.Connect())
+                {
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO note(subjectId,name)value('{0}','{1}')",note.subjectId,note.name));
+                    dataReader.Close();
+                    DB.Close();
+                }
+                return 1;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+         [HttpPatch]
+        public int AddNote(Note note){
+            try
+            {
+                DB = DatabaseManager.Instance();
+                if (DB.Connect())
+                {
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE note set name='{0}',subjectId='{1}' where id='{2}'",note.name,note.subjectId,note.id));
+                    dataReader.Close();
+                    DB.Close();
+                }
+                return 1;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+         [HttpDelete]
+        public int AddNote(Note note){
+            try
+            {
+                DB = DatabaseManager.Instance();
+                if (DB.Connect())
+                {//először tötölni a jegyzet és a kérdés kommenteket majd törölni a jegyzeteket és a kérdéseket majd a tárgyat majd képzést 
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("delete note where id='{0}'",note.id));
+                    dataReader.Close();
+                    DB.Close();
+                }
+                return 1;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
