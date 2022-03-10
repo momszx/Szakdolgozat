@@ -41,5 +41,60 @@ namespace Szakdolgozat
                 throw;
             }
         }
+        //Innentől átnézni 
+        [HttpPut]
+        public int AddFaculty(Science science){
+            try
+            {
+                DB = DatabaseManager.Instance();
+                if (DB.Connect())
+                {
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO science(facultyId,name)value('{0}','{1}')",science.facultyId,science.name));
+                    dataReader.Close();
+                    DB.Close();
+                }
+                return 1;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+         [HttpPatch]
+        public int AddFaculty(Science science){
+            try
+            {
+                DB = DatabaseManager.Instance();
+                if (DB.Connect())
+                {
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE science set name='{0}',facultyId='{1}' where id='{2}'",science.name,science.facultyId,science.id));
+                    dataReader.Close();
+                    DB.Close();
+                }
+                return 1;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+         [HttpDelete]
+        public int AddFaculty(Science science){
+            try
+            {
+                DB = DatabaseManager.Instance();
+                if (DB.Connect())
+                {//először tötölni a jegyzet és a kérdés kommenteket majd törölni a jegyzeteket és a kérdéseket majd a tárgyat majd képzést 
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("delete science where id='{0}'",science.id));
+                    dataReader.Close();
+                    DB.Close();
+                }
+                return 1;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
