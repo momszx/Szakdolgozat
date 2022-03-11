@@ -26,7 +26,7 @@ namespace Szakdolgozat.Controllers
 
                         while (dataReader.Read())
                         {
-                            Notes.Add(new Note(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetString(2), "", dataReader.GetString(3)));
+                            Notes.Add(new Note(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), dataReader.GetString(4), "", dataReader.GetDateTime(5)));
                         }
                     }
                     dataReader.Close();
