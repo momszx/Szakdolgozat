@@ -6,7 +6,7 @@
         private string password;
         private int coin;
 
-        public User(int id,string username, string password, int coin, string Uid) : base(id, Uid)
+        public User(int id, string username, string password, int coin, string Uid) : base(id, Uid)
         {
             Username = username;
             Password = password;

@@ -70,7 +70,7 @@ namespace Szakdolgozat
                         uID = Guid.NewGuid().ToString();
                         while (dataReader.Read())
                         {
-                            baseUser = new User(dataReader.GetInt32(0), dataReader.GetString(1),"",dataReader.GetInt32(3),uID);
+                            baseUser = new User(dataReader.GetInt32(0), dataReader.GetString(1), "", dataReader.GetInt32(3), uID);
                         }
                         Users.Add(uID, baseUser);
                     }

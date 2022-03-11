@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Szakdolgozat.Classes
+﻿namespace Szakdolgozat.Classes
 {
     public class Note : BaseClass
     {

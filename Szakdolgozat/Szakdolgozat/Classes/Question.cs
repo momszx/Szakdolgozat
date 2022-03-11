@@ -1,6 +1,6 @@
 ﻿namespace Szakdolgozat.Classes
 {
-    public class Question :BaseClass
+    public class Question : BaseClass
     {
         private int userId;
         private int subjectId;

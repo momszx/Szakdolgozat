@@ -5,7 +5,7 @@
         private int sciencedId;
         private string name;
 
-        public Subject(int id,int sciencedId, string name ,string uID):base(id,uID)
+        public Subject(int id, int sciencedId, string name, string uID) : base(id, uID)
         {
             SciencedId = sciencedId;
             Name = name;

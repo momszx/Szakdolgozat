@@ -42,13 +42,14 @@ namespace Szakdolgozat.Controllers
         }
         //Innentől átnézni 
         [HttpPut]
-        public int AddNote(Note note){
+        public int AddNote(Note note)
+        {
             try
             {
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO note(subjectId,name)value('{0}','{1}')",note.subjectId,note.name));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO note(subjectId,name)value('{0}','{1}')", note.SubjectId, note.Name));
                     dataReader.Close();
                     DB.Close();
                 }
@@ -59,14 +60,15 @@ namespace Szakdolgozat.Controllers
                 throw;
             }
         }
-         [HttpPatch]
-        public int AddNote(Note note){
+        [HttpPatch]
+        public int UpdateNote(Note note)
+        {
             try
             {
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE note set name='{0}',subjectId='{1}' where id='{2}'",note.name,note.subjectId,note.id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE note set name='{0}',subjectId='{1}' where id='{2}'", note.Name, note.SubjectId, note.Id));
                     dataReader.Close();
                     DB.Close();
                 }
@@ -77,14 +79,15 @@ namespace Szakdolgozat.Controllers
                 throw;
             }
         }
-         [HttpDelete]
-        public int AddNote(Note note){
+        [HttpDelete]
+        public int DeleteNote(Note note)
+        {
             try
             {
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {//először tötölni a jegyzet és a kérdés kommenteket majd törölni a jegyzeteket és a kérdéseket majd a tárgyat majd képzést 
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("delete note where id='{0}'",note.id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("delete note where id='{0}'", note.Id));
                     dataReader.Close();
                     DB.Close();
                 }

@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace Szakdolgozat.Classes
 {
     public class Science : BaseClass
@@ -8,7 +5,7 @@ namespace Szakdolgozat.Classes
         private int facultyId;
         private string name;
 
-        public Science(int id,  int facultyId, string name, string Uid) : base(id, Uid)
+        public Science(int id, int facultyId, string name, string Uid) : base(id, Uid)
         {
             Name = name;
             FacultyId = facultyId;

@@ -43,13 +43,14 @@ namespace Szakdolgozat
         }
         //Innentől átnézni 
         [HttpPut]
-        public int AddFaculty(Science science){
+        public int AddFaculty(Science science)
+        {
             try
             {
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO science(facultyId,name)value('{0}','{1}')",science.facultyId,science.name));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO science(facultyId,name)value('{0}','{1}')", science.FacultyId, science.Name));
                     dataReader.Close();
                     DB.Close();
                 }
@@ -60,14 +61,15 @@ namespace Szakdolgozat
                 throw;
             }
         }
-         [HttpPatch]
-        public int AddFaculty(Science science){
+        [HttpPatch]
+        public int UpdateFaculty(Science science)
+        {
             try
             {
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE science set name='{0}',facultyId='{1}' where id='{2}'",science.name,science.facultyId,science.id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE science set name='{0}',facultyId='{1}' where id='{2}'", science.Name, science.FacultyId, science.Id));
                     dataReader.Close();
                     DB.Close();
                 }
@@ -78,14 +80,15 @@ namespace Szakdolgozat
                 throw;
             }
         }
-         [HttpDelete]
-        public int AddFaculty(Science science){
+        [HttpDelete]
+        public int DeleteFaculty(Science science)
+        {
             try
             {
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {//először tötölni a jegyzet és a kérdés kommenteket majd törölni a jegyzeteket és a kérdéseket majd a tárgyat majd képzést 
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("delete science where id='{0}'",science.id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("delete science where id='{0}'", science.Id));
                     dataReader.Close();
                     DB.Close();
                 }

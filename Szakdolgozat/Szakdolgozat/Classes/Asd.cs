@@ -1,11 +1,11 @@
 ﻿namespace Szakdolgozat.Classes
 {
-    public class Asd:BaseClass
+    public class Asd : BaseClass
     {
         private string name;
         private int facultyId;
 
-        public Asd(string name, int facultyId,int id,string Uid):base(id, Uid)
+        public Asd(string name, int facultyId, int id, string Uid) : base(id, Uid)
         {
             Name = name;
             FacultyId = facultyId;

@@ -26,7 +26,7 @@ namespace Szakdolgozat
 
                         while (dataReader.Read())
                         {
-                            Subjectes.Add(new Subject(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetString(2),""));
+                            Subjectes.Add(new Subject(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetString(2), ""));
                         }
                     }
 
@@ -41,15 +41,16 @@ namespace Szakdolgozat
                 throw;
             }
         }
-         //Innentől átnézni 
+        //Innentől átnézni 
         [HttpPut]
-        public int AddSubject(Subject subject){
+        public int AddSubject(Subject subject)
+        {
             try
             {
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO subject(scienceId,name)value('{0}','{1}')",subject.scienceId,subject.name));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO subject(scienceId,name)value('{0}','{1}')", subject.SciencedId, subject.Name));
                     dataReader.Close();
                     DB.Close();
                 }
@@ -60,14 +61,15 @@ namespace Szakdolgozat
                 throw;
             }
         }
-         [HttpPatch]
-        public int AddSubject(Subject subject){
+        [HttpPatch]
+        public int UpdateSubject(Subject subject)
+        {
             try
             {
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE subject set name='{0}',scienceId='{1}' where id='{2}'",subject.name,subject.scienceId,subject.id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE subject set name='{0}',scienceId='{1}' where id='{2}'", subject.Name, subject.SciencedId, subject.Id));
                     dataReader.Close();
                     DB.Close();
                 }
@@ -78,14 +80,15 @@ namespace Szakdolgozat
                 throw;
             }
         }
-         [HttpDelete]
-        public int AddSubject(Subject subject){
+        [HttpDelete]
+        public int DeleteSubject(Subject subject)
+        {
             try
             {
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {//először tötölni a jegyzet és a kérdés kommenteket majd törölni a jegyzeteket és a kérdéseket majd a tárgyat majd képzést 
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("delete subject where id='{0}'",subject.id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("delete subject where id='{0}'", subject.Id));
                     dataReader.Close();
                     DB.Close();
                 }

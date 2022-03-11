@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using MySql.Data.MySqlClient;
+﻿using Microsoft.AspNetCore.Mvc;
 using Szakdolgozat.Classes;
 
 namespace Szakdolgozat.Controllers
