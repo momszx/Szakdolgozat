@@ -8,48 +8,46 @@ namespace Szakdolgozat.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class NoteController : ControllerBase
+    public class CommentController : ControllerBase
     {
         private DatabaseManager DB = DatabaseManager.Instance();
         [HttpPost]
-        public IEnumerable<Note> ListNote(Subject subject)
+        public IEnumerable<Comment> ListComment(Topic topic)
         {
             try
             {
                 DB = DatabaseManager.Instance();
-                List<Note> Notes = new();
+                List<Comment> comments = new();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM note WHERE subjectId={0}", subject.Id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM comment WHERE topicId={0}", topic.Id));
                     if (dataReader.HasRows)
                     {
-
                         while (dataReader.Read())
                         {
-                            Notes.Add(new Note(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), dataReader.GetString(4), "", dataReader.GetDateTime(5)));
+                            comments.Add(new Comment(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), "", dataReader.GetDateTime(4),dataReader.GetString(5)));
                         }
                     }
                     dataReader.Close();
                     DB.Close();
                 }
-                return Notes;
+                return comments;
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
         //Innentől átnézni 
         [HttpPut]
-        public int AddNote(Note note)
+        public int AddComment(Comment comment)
         {
             try
             {
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO note(subjectId,name)value('{0}','{1}')", note.SubjectId, note.Name));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO comment( topicId, userId, text, dateTime, themeType) value('{0}','{1}')", comment.TopicId,comment.UserId,comment.Text, comment.Text,comment.ThemeType));
                     dataReader.Close();
                     DB.Close();
                 }
@@ -61,14 +59,14 @@ namespace Szakdolgozat.Controllers
             }
         }
         [HttpPatch]
-        public int UpdateNote(Note note)
+        public int UpdateComment(Comment comment)
         {
             try
             {
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE note set name='{0}',subjectId='{1}' where id='{2}'", note.Name, note.SubjectId, note.Id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE comment set text='{0}' where id='{1}'", comment.Text, comment.Id));
                     dataReader.Close();
                     DB.Close();
                 }
@@ -80,14 +78,14 @@ namespace Szakdolgozat.Controllers
             }
         }
         [HttpDelete]
-        public int DeleteNote(Note note)
+        public int DeleteComment(Comment comment)
         {
             try
             {
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {//először tötölni a jegyzet és a kérdés kommenteket majd törölni a jegyzeteket és a kérdéseket majd a tárgyat majd képzést 
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("delete note where id='{0}'", note.Id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("delete comment where id='{0}'", comment.Id));
                     dataReader.Close();
                     DB.Close();
                 }
