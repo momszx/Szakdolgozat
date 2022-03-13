@@ -12,7 +12,11 @@ class QuestionDetailsView extends Component {
 }
 
 const mapStateToProps = state => {
-    return {};
+    return {
+        question:state.questionComment.viewQuestion,
+        questionComment:state.questionComment.questionComment,
+        loading:state.questionComment.loading,
+    };
 }
 const mapDispatchToProps = (dispatch) => {
     return {}

@@ -1,20 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Card from "react-bootstrap/Card";
-import {Spinner, Table} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import {fetchNoteComment, fetchQuestionComment} from "../../store/actions";
+import {Spinner} from "react-bootstrap";
 import * as actions from "../../store/actions";
+import MyCard from "../MyCard";
 
 class SubjectDetailsView extends Component {
     fetchQuestionComment(strResult){
-        this.props.onFetchQuestionComment(strResult.id)
-        //alert("boo")
+        this.props.onFetchQuestionComment(strResult)
         return
     }
     fetchNoteComment(strResult){
-        this.props.onFetchNoteComment(strResult.id)
-        //alert("boo")
+        this.props.onFetchNoteComment(strResult)
         return
     }
     render() {
@@ -29,61 +26,20 @@ class SubjectDetailsView extends Component {
             boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
             minHeight: "350px"
         }
-        const min={
-
-        }
-        const liststyel = {
-            display: "block",
-            marginTop: "10px",
-            marginLeft: "auto",
-            marginRight: "auto",
-            padding: "20px",
-            width: "80%",
-            align: "central",
-            boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-        }
         let noteList = (<Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
         </Spinner>)
         if (!this.props.loading) {
-            noteList = this.props.note.map(strResult => (<Card style={liststyel} className="text-center">
-                    <Card.Text>
-                        <Table>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <Link to={"/noteDetails"} onClick={() => this.fetchNoteComment(strResult)}>
-                                        {strResult.name}
-                                    </Link>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </Table>
-                    </Card.Text>
-                </Card>
-
+            noteList = this.props.note.map(strResult => (
+                <MyCard url={"/noteDetails"} name={strResult.name} click={() =>this.fetchNoteComment(strResult)}/>
             ))
         }
         let questionList = (<Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
         </Spinner>)
         if (!this.props.loading) {
-            questionList = this.props.question.map(strResult => (<Card style={liststyel} className="text-center">
-                    <Card.Text>
-                        <Table>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <Link to={"/questionDetails"} onClick={() => this.fetchQuestionComment(strResult)}>
-                                        {strResult.name}
-                                    </Link>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </Table>
-                    </Card.Text>
-                </Card>
-
+            questionList = this.props.question.map(strResult => (
+                <MyCard url={"/questionDetails"} name={strResult.name} click={() =>this.fetchQuestionComment(strResult)}/>
             ))
         }
         return (
@@ -115,8 +71,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        onFetchQuestionComment:(id)=>dispatch(actions.fetchQuestionComment(id)),
-        onFetchNoteComment:(id)=>dispatch(actions.fetchNoteComment(id))
+        onFetchQuestionComment:(strResult)=>dispatch(actions.fetchQuestionComment(strResult)),
+        onFetchNoteComment:(strResult)=>dispatch(actions.fetchNoteComment(strResult))
     }
 }
 

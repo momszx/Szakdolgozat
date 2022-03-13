@@ -17,8 +17,6 @@ const fetchNoteStart = (state, action) => {
         loading: true
     });
 }
-
-
 const NoteReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_NOTE_SUCCESS:

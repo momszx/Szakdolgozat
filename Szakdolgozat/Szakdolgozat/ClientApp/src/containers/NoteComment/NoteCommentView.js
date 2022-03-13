@@ -12,7 +12,11 @@ class NoteCommentView extends Component {
 }
 
 const mapStateToProps= state =>{
-    return {};
+    return {
+        note:state.noteComment.note,
+        noteComment:state.noteComment.noteComment,
+        loading:state.noteComment.loading,
+    };
 }
 
 export default connect(

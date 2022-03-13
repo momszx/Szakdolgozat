@@ -4,27 +4,34 @@ import {updateObject} from "../utility";
 const initialState = {
     error: '',
     loading: true,
-    questionComment:[]
+    questionComment:[],
+    viewQuestion:''
 };
-const fetchFacultySuccess = (state, action) => {
+const fetchQuestionCommentSuccess = (state, action) => {
     return updateObject(state, {
         questionComment: action.questionComment,
         loading: false
     });
 }
-const fetchFacultyStart = (state, action) => {
+const fetchQuestionCommentStart = (state, action) => {
     return updateObject(state, {
         loading: true
     });
 }
-
+const setQuestionComment=(state, action)=>{
+    return updateObject(state,{
+        viewQuestion:action.question
+    })
+}
 
 const QuestionCommentReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_QUESTION_COMMENT_START:
-            return fetchFacultyStart(state,action)
+            return fetchQuestionCommentStart(state,action)
         case actionTypes.FETCH_QUESTION_COMMENT_SUCCESS:
-            return fetchFacultySuccess(state,action)
+            return fetchQuestionCommentSuccess(state,action)
+        case  actionTypes.SET_QUESTION:
+            return setQuestionComment(state,action)
         default:
             return state
     }
