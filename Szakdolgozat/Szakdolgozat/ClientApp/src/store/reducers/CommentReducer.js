@@ -5,7 +5,7 @@ const initialState = {
     error: '',
     loading: true,
     comment:[],
-    viewNote: {
+    viewTopic: {
         subjectId:"",
         name:"",
         noteWrite:"",

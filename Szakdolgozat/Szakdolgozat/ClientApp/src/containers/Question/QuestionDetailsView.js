@@ -13,9 +13,9 @@ class QuestionDetailsView extends Component {
 
 const mapStateToProps = state => {
     return {
-        question:state.questionComment.viewQuestion,
-        questionComment:state.questionComment.questionComment,
-        loading:state.questionComment.loading,
+        question:state.comment.viewTopic,
+        comment:state.comment.comment,
+        loading:state.comment.loading,
     };
 }
 const mapDispatchToProps = (dispatch) => {

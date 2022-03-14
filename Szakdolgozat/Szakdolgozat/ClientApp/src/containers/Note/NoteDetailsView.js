@@ -37,9 +37,9 @@ class NoteDetailsView extends Component {
 
 const mapStateToProps = state => {
     return {
-        note:state.noteComment.viewNote,
-        noteComment:state.noteComment.noteComment,
-        loading:state.noteComment.loading,
+        note:state.comment.viewTopic,
+        noteComment:state.comment.comment,
+        loading:state.comment.loading,
     };
 }
 const mapDispatchToProps = (dispatch) => {
