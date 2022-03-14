@@ -26,10 +26,10 @@ export  const fetchCommentStart=()=>{
         type:actionTypes.FETCH_COMMENT_START
     };
 }
-export  const fetchCommentSuccess=(Comment)=>{
+export  const fetchCommentSuccess=(comment)=>{
     return{
         type:actionTypes.FETCH_COMMENT_SUCCESS,
-        Comment:Comment
+        comment:comment
     }
 }
 export const setTopic=(strResult)=>{
