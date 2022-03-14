@@ -9,13 +9,15 @@ namespace Szakdolgozat.Classes
         private string name;
         private string text;
         private DateTime dateTime;
-        public Topic(int id, int userId, int subjectId, string name, string text, string Uid, DateTime dateTime) : base(id, Uid)
+        private string themeType;
+        public Topic(int id, int userId, int subjectId, string name, string text, string Uid, DateTime dateTime, string themeType) : base(id, Uid)
         {
             UserId = userId;
             SubjectId = subjectId;
             Name = name;
             Text = text;
             DateTime= dateTime;
+            ThemeType = themeType;
         }
 
         public int SubjectId { get => subjectId; set => subjectId = value; }
@@ -23,5 +25,6 @@ namespace Szakdolgozat.Classes
         public string Text { get => text; set => text = value; }
         public DateTime DateTime { get => dateTime; set => dateTime = value; }
         public int UserId { get => userId; set => userId = value; }
+        public string ThemeType { get => themeType; set => themeType = value; }
     }
 }

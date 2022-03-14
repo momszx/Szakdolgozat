@@ -8,10 +8,7 @@ import MyCard from "../MyCard";
 
 class SubjectView extends React.Component {
     mod(strResult) {
-        this.props.onFetchNote(strResult.id)
-        setTimeout(() => {
-            this.props.onFetchQuestion(strResult.id)
-        }, 100)
+        this.props.onFetchTopic(strResult.id)
         return
     }
 
@@ -56,8 +53,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onFetchNote: (id) => dispatch(actions.fetchNote(id)),
-        onFetchQuestion: (id) => dispatch(actions.fetchQuestion(id)),
+        onFetchTopic: (id) => dispatch(actions.fetchTopic(id))
     }
 }
 

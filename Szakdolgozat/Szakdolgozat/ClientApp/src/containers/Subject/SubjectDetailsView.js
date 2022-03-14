@@ -6,12 +6,8 @@ import * as actions from "../../store/actions";
 import MyCard from "../MyCard";
 
 class SubjectDetailsView extends Component {
-    fetchQuestionComment(strResult){
-        this.props.onFetchQuestionComment(strResult)
-        return
-    }
-    fetchNoteComment(strResult){
-        this.props.onFetchNoteComment(strResult)
+    fetchComment(strResult){
+        this.props.onFetchComment(strResult)
         return
     }
     render() {
@@ -30,16 +26,16 @@ class SubjectDetailsView extends Component {
             <span className="visually-hidden">Loading...</span>
         </Spinner>)
         if (!this.props.loading) {
-            noteList = this.props.note.map(strResult => (
-                <MyCard url={"/noteDetails"} name={strResult.name} click={() =>this.fetchNoteComment(strResult)}/>
+            noteList = this.props.topic.filter(topic => topic.themeType === "Note").map(strResult => (
+                <MyCard url={"/noteDetails"} name={strResult.name} click={() =>this.fetchComment(strResult)}/>
             ))
         }
         let questionList = (<Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
         </Spinner>)
         if (!this.props.loading) {
-            questionList = this.props.question.map(strResult => (
-                <MyCard url={"/questionDetails"} name={strResult.name} click={() =>this.fetchQuestionComment(strResult)}/>
+            questionList = this.props.topic.filter(topic => topic.themeType === "Question").map(strResult => (
+                <MyCard url={"/questionDetails"} name={strResult.name} click={() =>this.fetchComment(strResult)}/>
             ))
         }
         return (
@@ -63,16 +59,13 @@ class SubjectDetailsView extends Component {
 
 const mapStateToProps = state => {
     return {
-        note: state.note.note,
-        noteLoading: state.note.loading,
-        question: state.question.question,
-        noteQuestion: state.question.loading,
+        topic: state.topic.topic,
+        topicLoading: state.topic.loading,
     };
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        onFetchQuestionComment:(strResult)=>dispatch(actions.fetchQuestionComment(strResult)),
-        onFetchNoteComment:(strResult)=>dispatch(actions.fetchNoteComment(strResult))
+        onFetchComment:(strResult)=>dispatch(actions.fetchComment(strResult)),
     }
 }
 

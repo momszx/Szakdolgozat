@@ -25,7 +25,7 @@ namespace Szakdolgozat.Controllers
                     {
                         while (dataReader.Read())
                         {
-                            comments.Add(new Comment(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), "", dataReader.GetDateTime(4),dataReader.GetString(5)));
+                            comments.Add(new Comment(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), "", dataReader.GetDateTime(4)));
                         }
                     }
                     dataReader.Close();
@@ -47,7 +47,7 @@ namespace Szakdolgozat.Controllers
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO comment( topicId, userId, text, dateTime, themeType) value('{0}','{1}')", comment.TopicId,comment.UserId,comment.Text, comment.Text,comment.ThemeType));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO comment( topicId, userId, text, dateTime) value('{0}','{1}','{2}','{3}')", comment.TopicId,comment.UserId,comment.Text, comment.Text));
                     dataReader.Close();
                     DB.Close();
                 }

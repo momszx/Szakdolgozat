@@ -15,11 +15,9 @@ import 'mdbreact/dist/css/mdb.css';
 import UserReducer from "./store/reducers/UserReducer";
 import SubjectReducer from "./store/reducers/SubjectReducer";
 import ScienceReducer from "./store/reducers/ScienceReducer";
-import QuestionReducer from "./store/reducers/QuestionReducer";
-import questionCommentReducer from "./store/reducers/QuestionCommentReducer";
 import PermissionReducer from "./store/reducers/PermissionReducer";
-import NoteReducer from "./store/reducers/NoteReducer";
-import NoteCommentReducer from "./store/reducers/NoteCommentReducer";
+import TopicReducer from "./store/reducers/TopicReducer";
+import CommentReducer from "./store/reducers/CommentReducer";
 import {BrowserRouter} from "react-router-dom";
 
 
@@ -31,11 +29,9 @@ const rootReducer = combineReducers({
     user: UserReducer,
     subject: SubjectReducer,
     science: ScienceReducer,
-    question: QuestionReducer,
-    questionComment: questionCommentReducer,
     permission: PermissionReducer,
-    note: NoteReducer,
-    noteComment: NoteCommentReducer,
+    topic: TopicReducer,
+    comment: CommentReducer,
 });
 
 const loadState = () => {

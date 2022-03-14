@@ -1,5 +1,5 @@
 import * as actionTypes from './actionsTypes';
-export const fetchNote=(id)=>{
+export const fetchTopic=(id)=>{
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     let raw = JSON.stringify({
@@ -13,20 +13,20 @@ export const fetchNote=(id)=>{
         redirect: 'follow'
     };
     return dispatch=>{
-        dispatch(fetchNoteStart())
-        fetch('/Note',requestOptions).then(response=>response.json()).then(data=>{
-            dispatch(fetchNoteSuccess(data))
+        dispatch(fetchTopicStart())
+        fetch('/Topic',requestOptions).then(response=>response.json()).then(data=>{
+            dispatch(fetchTopicSuccess(data))
         })
     }
 }
-export  const fetchNoteStart=()=>{
+export  const fetchTopicStart=()=>{
     return{
-        type:actionTypes.FETCH_NOTE_START
+        type:actionTypes.FETCH_TOPIC_START
     };
 }
-export  const fetchNoteSuccess=(note)=>{
+export  const fetchTopicSuccess=(topic)=>{
     return{
-        type:actionTypes.FETCH_NOTE_SUCCESS,
-        note:note
+        type:actionTypes.FETCH_TOPIC_SUCCESS,
+        topic:topic
     }
 }
