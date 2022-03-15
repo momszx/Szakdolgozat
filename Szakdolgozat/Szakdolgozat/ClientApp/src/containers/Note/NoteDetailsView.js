@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Card, Spinner} from "react-bootstrap";
-import MyCard from "../MyCard";
+import {Card, Spinner, Table} from "react-bootstrap";
+import parse from "html-react-parser"
 import Comment from "../Comment";
 
 class NoteDetailsView extends Component {
+    dateReplace(dateTime) {
+        return dateTime.replace("T", " ");
+    }
+
     render() {
         const style = {
             display: "block",
@@ -20,8 +24,8 @@ class NoteDetailsView extends Component {
         let commentList = (<Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
         </Spinner>)
-        if (!this.props.loading && this.props.noteComment != []) {
-            commentList = this.props.noteComment.map(strResult => (
+        if (!this.props.loading && this.props.comment != []) {
+            commentList = this.props.comment.map(strResult => (
                 <Comment dateTime={strResult.dateTime} points={strResult.points} user={strResult.user}
                          text={strResult.text}/>
             ))
@@ -31,10 +35,21 @@ class NoteDetailsView extends Component {
                 <Card style={style} className="text-center">
                     <Card.Text>
                         <Card className="text-center">
-                            <Card.Header>{this.props.note.name}</Card.Header>
+                            <Card.Header>
+                                <Table>
+                                    <tbody>
+                                    <tr>
+                                        <td>{this.props.note.points}</td>
+                                        <td>{this.props.note.user}</td>
+                                        <td>{this.props.note.name}</td>
+                                        <td>{this.dateReplace(this.props.note.dateTime)}</td>
+                                    </tr>
+                                    </tbody>
+                                </Table>
+                            </Card.Header>
                             <Card.Body>
                                 <Card.Text>
-                                    {this.props.note.text}
+                                    {parse(this.props.note.text)}
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -49,7 +64,6 @@ class NoteDetailsView extends Component {
                         </Card.Body>
                     </Card.Text>
                 </Card>
-
             </>
         );
     }
@@ -58,7 +72,7 @@ class NoteDetailsView extends Component {
 const mapStateToProps = state => {
     return {
         note: state.comment.viewTopic,
-        noteComment: state.comment.comment,
+        comment: state.comment.comment,
         loading: state.comment.loading,
     };
 }

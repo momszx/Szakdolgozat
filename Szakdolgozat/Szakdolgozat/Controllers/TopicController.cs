@@ -20,13 +20,13 @@ namespace Szakdolgozat.Controllers
                 List<Topic> topics = new();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM topic WHERE subjectId={0}", subject.Id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT topic.id,topic.userId,topic.subjectId,topic.name,topic.text,topic.dateTime,topic.themeType,topic.point,user.username FROM topic inner join user on topic.userId = user.id where subjectId={0}", subject.Id));
                     if (dataReader.HasRows)
                     {
 
                         while (dataReader.Read())
                         {
-                            topics.Add(new Topic(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), dataReader.GetString(4), "", dataReader.GetDateTime(5), dataReader.GetString(6)));
+                            topics.Add(new Topic(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), dataReader.GetString(4), "", dataReader.GetDateTime(5), dataReader.GetString(6), dataReader.GetInt32(7), dataReader.GetString(8)));
                         }
                     }
                     dataReader.Close();

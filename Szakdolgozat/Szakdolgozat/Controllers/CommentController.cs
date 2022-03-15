@@ -20,12 +20,12 @@ namespace Szakdolgozat.Controllers
                 List<Comment> comments = new();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM comment WHERE topicId={0}", topic.Id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT comment.id,comment.topicId,comment.userId,comment.text,comment.dateTime,comment.point,user.username FROM comment inner join user on comment.userId = user.id where topicId={0}", topic.Id));
                     if (dataReader.HasRows)
                     {
                         while (dataReader.Read())
                         {
-                            comments.Add(new Comment(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), "", dataReader.GetDateTime(4)));
+                            comments.Add(new Comment(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), "", dataReader.GetDateTime(4), dataReader.GetInt32(5), dataReader.GetString(6)));
                         }
                     }
                     dataReader.Close();
@@ -47,7 +47,7 @@ namespace Szakdolgozat.Controllers
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO comment( topicId, userId, text, dateTime) value('{0}','{1}','{2}','{3}')", comment.TopicId,comment.UserId,comment.Text, comment.Text));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO comment( topicId, userId, text, dateTime) value('{0}','{1}','{2}','{3}')", comment.TopicId,comment.UserId,comment.Text, comment.DateTime));
                     dataReader.Close();
                     DB.Close();
                 }

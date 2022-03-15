@@ -39,3 +39,72 @@ export const setTopic=(strResult)=>{
         topic:strResult
     }
 }
+export const addComment=(strResult)=>{
+    console.log("ADD!!!")
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    let raw = JSON.stringify({
+        "uid": strResult.uid,
+        "topicId": strResult.topicId,
+        "userId": strResult.userId,
+        "text": strResult.text,
+    })
+    let requestOptions = {
+        method: 'PUT',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+    return dispatch=>{
+        fetch('/Comment',requestOptions).then(response=>response.json()).then(data=>{
+            setTimeout(function(){
+                dispatch(fetchComment(strResult.topicId))
+            }, 100)
+        })
+    }
+}
+export  const updateComment=(strResult)=>{
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    let raw = JSON.stringify({
+        "id": strResult.id,
+        "uid": strResult.uid,
+        "topicId": strResult.topicId,
+        "userId": strResult.userId,
+        "text": strResult.text,
+    })
+    let requestOptions = {
+        method: 'PATCH',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+    return dispatch=>{
+        fetch('/Comment',requestOptions).then(response=>response.json()).then(data=>{
+            setTimeout(function(){
+                dispatch(fetchComment(strResult.topicId))
+            }, 100)
+        })
+    }
+}
+export  const deleteComment=(strResult)=>{
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    let raw = JSON.stringify({
+        "id": strResult.id,
+        "uid": strResult.uid,
+    })
+    let requestOptions = {
+        method: 'DELETE',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+    return dispatch=>{
+        fetch('/Comment',requestOptions).then(response=>response.json()).then(data=>{
+            setTimeout(function(){
+                dispatch(fetchComment(strResult.topicId))
+            }, 100)
+        })
+    }
+}

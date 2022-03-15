@@ -15,9 +15,6 @@ class Comment extends React.Component {
         const myStyle = {
             marginBottom:"20px"
         }
-        /*function dateReplace(text) {
-            return text.replace("T", " ");
-        }*/
         return (
             <>
                 <Card style={myStyle}>
@@ -42,7 +39,6 @@ class Comment extends React.Component {
             </>
         )
     }
-
     dateReplace(dateTime) {
         return dateTime.replace("T", " ");
     }
