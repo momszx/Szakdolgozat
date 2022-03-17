@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {Card, Spinner, Table} from "react-bootstrap";
 import parse from "html-react-parser"
 import Comment from "../Comment";
+import ModalEditor from "../ModalEditor";
+import AddEditor from "../AddEditor";
 
 class QuestionDetailsView extends Component {
     dateReplace(dateTime) {
@@ -26,7 +28,11 @@ class QuestionDetailsView extends Component {
         if (!this.props.loading && this.props.comment != []) {
             commentList = this.props.comment.map(strResult => (
                 <Comment dateTime={strResult.dateTime} points={strResult.points} user={strResult.user}
-                         text={strResult.text}/>
+                         text={strResult.text} action={(
+                    <ModalEditor text={strResult.text} actionType={"ModTopic"} topicId={this.props.note.id}
+                              userId={strResult.userId} subjectId={""} name={""} id={strResult.id} uId={this.props.uid}
+                              themeType={""}/>
+                )}/>
             ))
         }
         return (
@@ -42,6 +48,14 @@ class QuestionDetailsView extends Component {
                                         <td>{this.props.question.user}</td>
                                         <td>{this.props.question.name}</td>
                                         <td>{this.dateReplace(this.props.question.dateTime)}</td>
+                                        <td>
+                                            <ModalEditor text={this.props.question.text} actionType={"ModTopic"}
+                                                      topicId={""}
+                                                      userId={this.props.question.userId}
+                                                      subjectId={this.props.question.subjectId} name={""}
+                                                      id={this.props.question.id} uId={this.props.uid}
+                                                      themeType={this.props.question.themeType}/>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </Table>
@@ -59,6 +73,12 @@ class QuestionDetailsView extends Component {
                         <Card.Body>
                             <Card.Text>
                                 {commentList}
+                                <AddEditor text={""} actionType={"AddComment"}
+                                          topicId={this.props.question.id}
+                                          userId={this.props.userId}
+                                          subjectId={this.props.question.subjectId} name={""}
+                                          id={""} uId={this.props.uid}
+                                          themeType={""}/>
                             </Card.Text>
                         </Card.Body>
                     </Card.Text>
@@ -73,6 +93,8 @@ const mapStateToProps = state => {
         question:state.comment.viewTopic,
         comment:state.comment.comment,
         loading:state.comment.loading,
+        uid:state.user.uid,
+        id:state.user.id
     };
 }
 const mapDispatchToProps = (dispatch) => {

@@ -1,13 +1,13 @@
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import React from "react"
-import {Button} from "react-bootstrap";
+import {Button, Image} from "react-bootstrap";
 import ReactModal from "react-modal"
 import * as actions from "../store/actions";
 import {connect} from "react-redux";
-import {addComment, addTopic, updateComment} from "../store/actions";
+import EditIcon from'../IMG/edit-svgrepo-com.svg'
 
-class MyEditor extends React.Component {
+class ModalEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -46,13 +46,6 @@ class MyEditor extends React.Component {
             themeType:ThemeType
         }
         switch (actionType) {
-            case "AddComment":
-                console.log("switch!")
-                this.props.onAddComment(temp)
-                break;
-            case "AddTopic":
-                this.props.onAddTopic(temp)
-                break;
             case "ModComment":
                 this.props.onUpdateComment(temp)
                 break;
@@ -60,14 +53,13 @@ class MyEditor extends React.Component {
                 this.props.onUpdateTopic(temp)
                 break;
             default:
-            // code block
         }
     }
 
     render() {
         return (
             <>
-                <Button onClick={this.handleOpenModal}>Trigger Modal</Button>
+                <Button variant="outline-success" size="sm" onClick={this.handleOpenModal}><Image  style={{width: "20px"}} src={EditIcon}/></Button>
                 <ReactModal
                     isOpen={this.state.showModal}
                     contentLabel="Minimal Modal Example"
@@ -84,7 +76,7 @@ class MyEditor extends React.Component {
                         </div>
                         <Button variant="success"
                                 onClick={()=>this.myAction(this.state.actionType, this.state.topicId, this.state.userId, this.state.text, this.state.subjectId, this.state.name, this.state.id, this.state.uid,this.state.themeType)}>Save</Button>
-                        <Button variant="danger" onClick={this.handleCloseModal}>Close Modal</Button>
+                        <Button variant="danger" onClick={this.handleCloseModal}>Close</Button>
                     </div>
                 </ReactModal>
             </>
@@ -94,11 +86,9 @@ class MyEditor extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAddComment: (strResult) => dispatch(actions.addComment(strResult)),
         onUpdateComment: (strResult) => dispatch(actions.updateComment(strResult)),
-        onAddTopic: (strResult) => dispatch(actions.addTopic(strResult)),
         onUpdateTopic: (strResult) => dispatch(actions.updateTopic(strResult)),
     }
 }
 
-export default connect(null,mapDispatchToProps)(MyEditor)
+export default connect(null,mapDispatchToProps)(ModalEditor)

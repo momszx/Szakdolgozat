@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Card, Spinner, Table} from "react-bootstrap";
-import parse from "html-react-parser"
+import parse from 'html-react-parser';
 import Comment from "../Comment";
+import ModalEditor from "../ModalEditor";
+import AddEditor from "../AddEditor";
 
 class NoteDetailsView extends Component {
     dateReplace(dateTime) {
@@ -27,7 +29,11 @@ class NoteDetailsView extends Component {
         if (!this.props.loading && this.props.comment != []) {
             commentList = this.props.comment.map(strResult => (
                 <Comment dateTime={strResult.dateTime} points={strResult.points} user={strResult.user}
-                         text={strResult.text}/>
+                         text={strResult.text} action={(
+                    <ModalEditor text={strResult.text} actionType={"ModComment"} topicId={this.props.note.id}
+                              userId={strResult.userId} subjectId={""} name={""} id={strResult.id} uId={this.props.uid}
+                              themeType={""}/>
+                )}/>
             ))
         }
         return (
@@ -43,6 +49,14 @@ class NoteDetailsView extends Component {
                                         <td>{this.props.note.user}</td>
                                         <td>{this.props.note.name}</td>
                                         <td>{this.dateReplace(this.props.note.dateTime)}</td>
+                                        <td>
+                                            <ModalEditor text={this.props.note.text} actionType={"ModComment"}
+                                                      topicId={""}
+                                                      userId={this.props.note.userId}
+                                                      subjectId={this.props.note.subjectId} name={""}
+                                                      id={this.props.note.id} uId={this.props.uid}
+                                                      themeType={this.props.note.themeType}/>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </Table>
@@ -60,6 +74,12 @@ class NoteDetailsView extends Component {
                         <Card.Body>
                             <Card.Text>
                                 {commentList}
+                                <AddEditor text={""} actionType={"AddComment"}
+                                          topicId={this.props.note.id}
+                                          userId={this.props.userId}
+                                          subjectId={this.props.note.subjectId} name={""}
+                                          id={""} uId={this.props.uid}
+                                          themeType={""}/>
                             </Card.Text>
                         </Card.Body>
                     </Card.Text>
@@ -74,6 +94,8 @@ const mapStateToProps = state => {
         note: state.comment.viewTopic,
         comment: state.comment.comment,
         loading: state.comment.loading,
+        uid:state.user.uid,
+        id:state.user.id
     };
 }
 const mapDispatchToProps = (dispatch) => {

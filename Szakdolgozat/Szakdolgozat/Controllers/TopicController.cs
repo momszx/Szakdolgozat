@@ -49,7 +49,7 @@ namespace Szakdolgozat.Controllers
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("insert into topic( userId, subjectId, name, text, dateTime) value('{0}','{1}','{2}','{3}','{4}')", topic.UserId, topic.SubjectId,topic.Name,topic.Text,topic.DateTime));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("insert into topic( userId, subjectId, name, text, dateTime) value('{0}','{1}','{2}','{3}','{4}')", topic.UserId, topic.SubjectId,topic.Name,topic.Text, DateTime.Now.ToString("yyyy-MM-dd H:mm:ss")));
                     dataReader.Close();
                     DB.Close();
                 }

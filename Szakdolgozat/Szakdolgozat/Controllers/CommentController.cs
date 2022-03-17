@@ -47,7 +47,7 @@ namespace Szakdolgozat.Controllers
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO comment( topicId, userId, text, dateTime) value('{0}','{1}','{2}','{3}')", comment.TopicId,comment.UserId,comment.Text, comment.DateTime));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO comment( topicId, userId, text, dateTime) value('{0}','{1}','{2}','{3}')", comment.TopicId,comment.UserId,comment.Text, DateTime.Now.ToString("yyyy-MM-dd H:mm:ss")));
                     dataReader.Close();
                     DB.Close();
                 }

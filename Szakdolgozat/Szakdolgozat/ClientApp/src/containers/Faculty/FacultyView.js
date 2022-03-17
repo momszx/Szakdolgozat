@@ -4,7 +4,7 @@ import * as actions from "../../store/actions";
 import Card from 'react-bootstrap/Card';
 import {Spinner} from "react-bootstrap";
 import MyCard from "../MyCard"
-import MyEditor from "../MyEditor";
+import MyEditor from "../ModalEditor";
 
 class FacultyView extends React.Component {
 
@@ -43,8 +43,7 @@ class FacultyView extends React.Component {
                     {facultyList}
                 </Card.Text>
             </Card>
-            <MyEditor text={"teszt"} actionType={"AddComment"} topicId={"1"} userId={"1"} subjectId={"1"} name={"asd"} id={"1"} uId={"1"}
-                      themeType={""}></MyEditor>
+
         </>);
     }
 }

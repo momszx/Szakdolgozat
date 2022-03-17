@@ -8,7 +8,8 @@ class Comment extends React.Component {
             text:this.props.text,
             user:this.props.user,
             points:this.props.points,
-            dateTime:this.props.dateTime
+            dateTime:this.props.dateTime,
+            action:this.props.action
         }
     }
     render() {
@@ -25,6 +26,7 @@ class Comment extends React.Component {
                                 <td>{this.state.points}</td>
                                 <td>{this.state.user}</td>
                                 <td>{this.dateReplace(this.state.dateTime)}</td>
+                                <td>{this.state.action}</td>
                             </tr>
                             </tbody>
                         </Table>
