@@ -4,12 +4,15 @@ import Card from "react-bootstrap/Card";
 import {Spinner} from "react-bootstrap";
 import * as actions from "../../store/actions";
 import MyCard from "../MyCard";
+import {Link} from "react-router-dom";
+import AddEditor from "../AddEditor";
 
 class SubjectDetailsView extends Component {
-    fetchComment(strResult){
+    fetchComment(strResult) {
         this.props.onFetchComment(strResult)
         return
     }
+
     render() {
         const style = {
             display: "block",
@@ -27,7 +30,7 @@ class SubjectDetailsView extends Component {
         </Spinner>)
         if (!this.props.loading) {
             noteList = this.props.topic.filter(topic => topic.themeType === "Note").map(strResult => (
-                <MyCard url={"/noteDetails"} name={strResult.name} click={() =>this.fetchComment(strResult)}/>
+                <MyCard url={"/noteDetails"} name={strResult.name} click={() => this.fetchComment(strResult)}/>
             ))
         }
         let questionList = (<Spinner animation="border" role="status">
@@ -35,8 +38,34 @@ class SubjectDetailsView extends Component {
         </Spinner>)
         if (!this.props.loading) {
             questionList = this.props.topic.filter(topic => topic.themeType === "Question").map(strResult => (
-                <MyCard url={"/questionDetails"} name={strResult.name} click={() =>this.fetchComment(strResult)}/>
+                <MyCard url={"/questionDetails"} name={strResult.name} click={() => this.fetchComment(strResult)}/>
             ))
+        }
+        let editor = (
+            <>
+                Kérlek <Link to="/user">jelentkezz be</Link> vagy <Link to="/user">regisztrálj</Link> először
+            </>
+        )
+        if (this.props.uid != "" &&this.props.topic[0]!=undefined) {
+            console.log(this.props.topic[0])
+            editor = (
+                <Card style={style} className="text-center">
+                    <Card.Text>
+                        <AddEditor text={""} actionType={"AddTopic"}
+                                   topicId={""}
+                                   userId={this.props.userId}
+                                   subjectId={this.props.topic[0].subjectId} name={""}
+                                   id={""} uId={this.props.uid}
+                                   themeType={""} topic={true}/>
+                    </Card.Text>
+                </Card>
+            )
+        } else {
+            editor = (
+                <>
+                    Kérlek <Link to="/user">jelentkezz be</Link> vagy <Link to="/user">regisztrálj</Link> először
+                </>
+            )
         }
         return (
             <>
@@ -52,6 +81,7 @@ class SubjectDetailsView extends Component {
                         {questionList}
                     </Card.Text>
                 </Card>
+                {editor}
             </>
         );
     }
@@ -61,11 +91,13 @@ const mapStateToProps = state => {
     return {
         topic: state.topic.topic,
         topicLoading: state.topic.loading,
+        uid: state.user.uid,
+        userId: state.user.id
     };
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        onFetchComment:(strResult)=>dispatch(actions.fetchComment(strResult)),
+        onFetchComment: (strResult) => dispatch(actions.fetchComment(strResult)),
     }
 }
 

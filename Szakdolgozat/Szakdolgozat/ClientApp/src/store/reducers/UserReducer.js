@@ -6,7 +6,8 @@ const initialState = {
     loading: true,
     username:'',
     coin:0,
-    uID:''
+    uid:'',
+    id:''
 };
 const fetch = (state, action) => {
     return updateObject(state, {
@@ -19,11 +20,13 @@ const loginStart = (state,action) => {
     });
 }
 const loginSuccess = (state,action) => {
+    console.log(action.user)
     return updateObject(state, {
         loading: false,
         username:action.user.username,
         coin:action.user.coin,
-        uID:action.user.uID
+        uid:action.user.uid,
+        id:action.user.id
     });
 }
 const logoutStart = (state,action) => {
@@ -36,7 +39,8 @@ const logoutSuccess = (state,action) => {
         loading: false,
         username:'',
         coin:'',
-        uID:''
+        uid:'',
+        id:''
     });
 }
 
