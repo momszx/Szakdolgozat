@@ -6,6 +6,8 @@ import Comment from "../Comment";
 import ModalEditor from "../ModalEditor";
 import AddEditor from "../AddEditor";
 import {Link} from "react-router-dom";
+import DeleteButton from "../DeleteButton";
+import * as actions from "../../store/actions";
 
 class NoteDetailsView extends Component {
     dateReplace(dateTime) {
@@ -31,10 +33,16 @@ class NoteDetailsView extends Component {
             commentList = this.props.comment.map(strResult => (
                 <Comment dateTime={strResult.dateTime} points={strResult.points} user={strResult.user}
                          text={strResult.text} action={(
-                    <ModalEditor text={strResult.text} actionType={"ModComment"} topicId={this.props.note.id}
-                                 userId={strResult.userId} subjectId={""} name={""} id={strResult.id}
-                                 uId={this.props.uid}
-                                 themeType={""}/>
+                    <>
+                        <ModalEditor text={strResult.text} actionType={"ModComment"}
+                                     topicId={this.props.note.id}
+                                     userId={strResult.userId} subjectId={""}
+                                     name={""} id={strResult.id}
+                                     uId={this.props.uid}
+                                     themeType={""}/>
+                        <DeleteButton click={() => this.props.onDeleteComment(strResult)}/>
+                    </>
+
                 )}/>
             ))
         }
@@ -52,9 +60,8 @@ class NoteDetailsView extends Component {
                            id={""} uId={this.props.uid}
                            themeType={""}/>
             )
-        }
-        else {
-            editor=(
+        } else {
+            editor = (
                 <>
                     Kérlek <Link to="/user">jelentkezz be</Link> vagy <Link to="/user">regisztrálj</Link> először
                 </>
@@ -80,6 +87,7 @@ class NoteDetailsView extends Component {
                                                          subjectId={this.props.note.subjectId} name={""}
                                                          id={this.props.note.id} uId={this.props.uid}
                                                          themeType={this.props.note.themeType}/>
+                                            <DeleteButton click={() => this.props.onDeleteTopic(this.props.note)}/>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -118,7 +126,10 @@ const mapStateToProps = state => {
     };
 }
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        onDeleteComment: (srt) => dispatch(actions.deleteComment(srt)),
+        onDeleteTopic: (srt) => dispatch(actions.deleteTopic(srt))
+    }
 }
 
 export default connect(

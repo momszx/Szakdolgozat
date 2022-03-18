@@ -100,6 +100,7 @@ export  const deleteComment=(strResult)=>{
         body: raw,
         redirect: 'follow'
     };
+    console.log(raw)
     return dispatch=>{
         fetch('/Comment',requestOptions).then(response=>response.json()).then(data=>{
             setTimeout(function(){

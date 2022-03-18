@@ -86,7 +86,7 @@ namespace Szakdolgozat
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {//először tötölni a jegyzet és a kérdés kommenteket majd törölni a jegyzeteket és a kérdéseket majd a tárgyat majd képzést majd a szakot
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("delete faculty where id='{0}'", faculty.Id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("delete FROM faculty where id='{0}'", faculty.Id));
                     dataReader.Close();
                     DB.Close();
                 }

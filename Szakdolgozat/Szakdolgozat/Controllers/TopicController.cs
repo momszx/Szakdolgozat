@@ -49,7 +49,7 @@ namespace Szakdolgozat.Controllers
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("insert into topic( userId, subjectId, name, text, dateTime) value('{0}','{1}','{2}','{3}','{4}')", topic.UserId, topic.SubjectId,topic.Name,topic.Text, DateTime.Now.ToString("yyyy-MM-dd H:mm:ss")));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("insert into topic(userId, subjectId, name, text, dateTime ,themeType) value ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')", topic.UserId, topic.SubjectId,topic.Name,topic.Text, DateTime.Now.ToString("yyyy-MM-dd H:mm:ss"),topic.ThemeType));
                     dataReader.Close();
                     DB.Close();
                 }
@@ -87,7 +87,7 @@ namespace Szakdolgozat.Controllers
                 DB = DatabaseManager.Instance();
                 if (DB.Connect())
                 {//először tötölni a jegyzet és a kérdés kommenteket majd törölni a jegyzeteket és a kérdéseket majd a tárgyat majd képzést 
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("delete topic where id='{0}'", topic.Id));
+                    MySqlDataReader dataReader = DB.DataReader(string.Format("delete FROM topic where id='{0}'", topic.Id));
                     dataReader.Close();
                     DB.Close();
                 }
