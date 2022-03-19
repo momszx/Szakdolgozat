@@ -1,6 +1,6 @@
 import * as actionTypes from './actionsTypes';
 
-export  const fetchComment=(strResult)=>{
+export  const fetchComment=(strResult,needSet)=>{
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     let raw = JSON.stringify({
@@ -15,7 +15,9 @@ export  const fetchComment=(strResult)=>{
     };
     return dispatch=>{
         dispatch(fetchCommentStart())
-        dispatch(setTopic(strResult))
+        if(needSet){
+            dispatch(setTopic(strResult))
+        }
         fetch('/Comment',requestOptions).then(response=>response.json()).then(data=>{
             dispatch(fetchCommentSuccess(data))
         })
@@ -58,12 +60,13 @@ export const addComment=(strResult)=>{
     return dispatch=>{
         fetch('/Comment',requestOptions).then(response=>response.json()).then(data=>{
             setTimeout(function(){
-                dispatch(fetchComment(strResult.topicId))
+                dispatch(fetchComment(strResult.topicId,false))
             }, 100)
         })
     }
 }
 export  const updateComment=(strResult)=>{
+    console.log(strResult)
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     let raw = JSON.stringify({
@@ -82,7 +85,7 @@ export  const updateComment=(strResult)=>{
     return dispatch=>{
         fetch('/Comment',requestOptions).then(response=>response.json()).then(data=>{
             setTimeout(function(){
-                dispatch(fetchComment(strResult.topicId))
+                dispatch(fetchComment(strResult.topicId,false))
             }, 100)
         })
     }
@@ -104,7 +107,7 @@ export  const deleteComment=(strResult)=>{
     return dispatch=>{
         fetch('/Comment',requestOptions).then(response=>response.json()).then(data=>{
             setTimeout(function(){
-                dispatch(fetchComment(strResult.topicId))
+                dispatch(fetchComment(strResult.topicId,false))
             }, 100)
         })
     }

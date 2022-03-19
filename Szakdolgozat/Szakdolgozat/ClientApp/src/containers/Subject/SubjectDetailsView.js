@@ -97,7 +97,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        onFetchComment: (strResult) => dispatch(actions.fetchComment(strResult)),
+        onFetchComment: (strResult) => dispatch(actions.fetchComment(strResult,true)),
     }
 }
 

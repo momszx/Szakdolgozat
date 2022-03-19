@@ -1,5 +1,6 @@
 import React from 'react'
 import {Button, Card, Table} from "react-bootstrap";
+import parse from 'html-react-parser';
 
 class Comment extends React.Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class Comment extends React.Component {
                     </Card.Header>
                     <Card.Body>
                         <Card.Text>
-                            {this.state.text}
+                            {parse(this.state.text)}
                         </Card.Text>
                         <Button variant="primary">Go somewhere</Button>
                     </Card.Body>

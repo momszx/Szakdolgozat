@@ -1,17 +1,16 @@
-import {CKEditor} from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import React from "react"
+import React, {Component} from 'react';
 import {Button, Image} from "react-bootstrap";
 import ReactModal from "react-modal"
 import * as actions from "../store/actions";
 import {connect} from "react-redux";
-import EditIcon from'../IMG/edit-svgrepo-com.svg'
+import EditIcon from '../IMG/edit-svgrepo-com.svg'
+import RichTextEditor from 'react-rte';
 
-class ModalEditor extends React.Component {
+class ModalEditor extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            text: this.props.text,
+            text: RichTextEditor.createValueFromString(this.props.text, 'html'),
             actionType: this.props.actionType,
             showModal: false,
             topicId: this.props.topicId,
@@ -20,7 +19,7 @@ class ModalEditor extends React.Component {
             name: this.props.name,
             id: this.props.id,
             uid: this.props.uId,
-            themeType:this.props.themeType
+            themeType: this.props.themeType,
         }
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -34,7 +33,7 @@ class ModalEditor extends React.Component {
         this.setState({showModal: false});
     }
 
-    myAction(actionType, TopicId, UserId, Text, SubjectId, Name, Id, uId,ThemeType) {
+    myAction(actionType, TopicId, UserId, Text, SubjectId, Name, Id, uId, ThemeType) {
         let temp = {
             topicId: TopicId,
             userId: UserId,
@@ -43,8 +42,9 @@ class ModalEditor extends React.Component {
             name: Name,
             id: Id,
             uid: uId,
-            themeType:ThemeType
+            themeType: ThemeType
         }
+        console.log(temp)
         switch (actionType) {
             case "ModComment":
                 this.props.onUpdateComment(temp)
@@ -59,23 +59,22 @@ class ModalEditor extends React.Component {
     render() {
         return (
             <>
-                <Button variant="outline-success" size="sm" onClick={this.handleOpenModal}><Image  style={{width: "20px"}} src={EditIcon}/></Button>
+                <Button variant="outline-success" size="sm" onClick={this.handleOpenModal}><Image
+                    style={{width: "20px"}} src={EditIcon}/></Button>
                 <ReactModal
                     isOpen={this.state.showModal}
                     contentLabel="Minimal Modal Example"
                 >
                     <div className="App">
                         <div className="editor">
-                            <CKEditor
-                                editor={ClassicEditor}
-                                data={this.state.text}
-                                onChange={(event, editor) => {
-                                    this.setState({text: editor.getData()})
-                                }}
+                            <RichTextEditor
+                                value={this.state.text}
+                                onChange={value => this.setState({text: value})}
+                                placeholder="Szólj hozzá"
                             />
                         </div>
                         <Button variant="success"
-                                onClick={()=>this.myAction(this.state.actionType, this.state.topicId, this.state.userId, this.state.text, this.state.subjectId, this.state.name, this.state.id, this.state.uid,this.state.themeType)}>Save</Button>
+                                onClick={() => this.myAction(this.state.actionType, this.state.topicId, this.state.userId, this.state.text.toString('html'), this.state.subjectId, this.state.name, this.state.id, this.state.uid, this.state.themeType)}>Save</Button>
                         <Button variant="danger" onClick={this.handleCloseModal}>Close</Button>
                     </div>
                 </ReactModal>
@@ -84,6 +83,7 @@ class ModalEditor extends React.Component {
     }
 }
 
+ModalEditor.propTypes = {};
 const mapDispatchToProps = (dispatch) => {
     return {
         onUpdateComment: (strResult) => dispatch(actions.updateComment(strResult)),
@@ -91,4 +91,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null,mapDispatchToProps)(ModalEditor)
+export default connect(null, mapDispatchToProps)(ModalEditor)

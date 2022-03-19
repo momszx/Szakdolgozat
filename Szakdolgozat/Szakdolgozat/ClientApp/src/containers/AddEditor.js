@@ -4,13 +4,13 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import {Button, Form} from "react-bootstrap";
 import * as actions from "../store/actions";
 import {connect} from "react-redux";
-
+import RichTextEditor from 'react-rte';
 
 class AddEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            text: this.props.text,
+            text: RichTextEditor.createValueFromString(this.props.text, 'html'),
             actionType: this.props.actionType,
             showModal: false,
             topicId: this.props.topicId,
@@ -87,16 +87,14 @@ class AddEditor extends React.Component {
                 <div className="App">
                     <div className="editor">
                         {topic}
-                        <CKEditor
-                            editor={ClassicEditor}
-                            data={this.state.text}
-                            onChange={(event, editor) => {
-                                this.setState({text: editor.getData()})
-                            }}
+                        <RichTextEditor
+                            value={this.state.text}
+                            onChange={value => this.setState({text: value})}
+                            placeholder="Szólj hozzá"
                         />
                     </div>
                     <Button variant="success"
-                            onClick={() => this.myAction(this.state.actionType, this.state.topicId, this.state.userId, this.state.text, this.state.subjectId, this.state.name, this.state.id, this.state.uid, this.state.themeType)}>Save</Button>
+                            onClick={() => this.myAction(this.state.actionType, this.state.topicId, this.state.userId, this.state.text.toString('html'), this.state.subjectId, this.state.name, this.state.id, this.state.uid, this.state.themeType)}>Save</Button>
                 </div>
             </>
         )
