@@ -36,7 +36,6 @@ class Comment extends React.Component {
                         <Card.Text>
                             {parse(this.state.text)}
                         </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
                     </Card.Body>
                 </Card>
             </>

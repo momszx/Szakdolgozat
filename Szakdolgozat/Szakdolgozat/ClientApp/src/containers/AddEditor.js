@@ -67,6 +67,7 @@ class AddEditor extends React.Component {
                     <Form.Control type="text" placeholder="Kérlek add meg a címet" onChange={(event, editor) => {
                         this.setState({name: event.target.value})
                     }}></Form.Control>
+                    <br/>
                     <Form.Control as="select" defaultValue={0} onChange={(event, editor) => {
                         this.setState({themeType: event.target.value})
                     }}>
@@ -74,6 +75,7 @@ class AddEditor extends React.Component {
                         <option value={"Note"}>Jegyzet</option>
                         <option value={"Question"}>Kérdés</option>
                     </Form.Control>
+                    <br/>
                 </>
             )
         } else {

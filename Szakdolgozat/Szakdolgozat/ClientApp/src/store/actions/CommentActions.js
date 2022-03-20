@@ -42,7 +42,6 @@ export const setTopic=(strResult)=>{
     }
 }
 export const addComment=(strResult)=>{
-    console.log("ADD!!!")
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     let raw = JSON.stringify({
@@ -57,10 +56,15 @@ export const addComment=(strResult)=>{
         body: raw,
         redirect: 'follow'
     };
+    let  temp={
+        "id":strResult.topicId,
+        "uid":strResult.uid
+    }
     return dispatch=>{
         fetch('/Comment',requestOptions).then(response=>response.json()).then(data=>{
             setTimeout(function(){
-                dispatch(fetchComment(strResult.topicId,false))
+                console.log(strResult.topicId)
+                dispatch(fetchComment(temp,false))
             }, 100)
         })
     }
@@ -82,10 +86,14 @@ export  const updateComment=(strResult)=>{
         body: raw,
         redirect: 'follow'
     };
+    let  temp={
+        "id":strResult.topicId,
+        "uid":strResult.uid
+    }
     return dispatch=>{
         fetch('/Comment',requestOptions).then(response=>response.json()).then(data=>{
             setTimeout(function(){
-                dispatch(fetchComment(strResult.topicId,false))
+                dispatch(fetchComment(temp,false))
             }, 100)
         })
     }
@@ -103,11 +111,14 @@ export  const deleteComment=(strResult)=>{
         body: raw,
         redirect: 'follow'
     };
-    console.log(raw)
+    let  temp={
+        "id":strResult.topicId,
+        "uid":strResult.uid
+    }
     return dispatch=>{
         fetch('/Comment',requestOptions).then(response=>response.json()).then(data=>{
             setTimeout(function(){
-                dispatch(fetchComment(strResult.topicId,false))
+                dispatch(fetchComment(temp,false))
             }, 100)
         })
     }

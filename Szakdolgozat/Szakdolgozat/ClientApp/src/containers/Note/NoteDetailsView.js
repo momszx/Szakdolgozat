@@ -14,6 +14,27 @@ class NoteDetailsView extends Component {
         return dateTime.replace("T", " ");
     }
 
+    MyAction(text, actionType, topicId, userId, subjectId, name, id, uId, themeType, loginUserId, action) {
+        if (userId == loginUserId) {
+            return (
+                <>
+                    <ModalEditor text={text} actionType={actionType}
+                                 topicId={id}
+                                 userId={userId} subjectId={subjectId}
+                                 name={name} id={id}
+                                 uId={uId}
+                                 themeType={themeType}/>
+                    <DeleteButton click={action}/>
+                </>
+            )
+        } else {
+            return (
+                <>
+                </>
+            )
+        }
+    }
+
     render() {
         const style = {
             display: "block",
@@ -34,13 +55,7 @@ class NoteDetailsView extends Component {
                 <Comment dateTime={strResult.dateTime} points={strResult.points} user={strResult.user}
                          text={strResult.text} action={(
                     <>
-                        <ModalEditor text={strResult.text} actionType={"ModComment"}
-                                     topicId={this.props.note.id}
-                                     userId={strResult.userId} subjectId={""}
-                                     name={""} id={strResult.id}
-                                     uId={this.props.uid}
-                                     themeType={""}/>
-                        <DeleteButton click={() => this.props.onDeleteComment(strResult)}/>
+                        {this.MyAction(strResult.text, "ModComment", this.props.note.id, strResult.userId, "", "", strResult.id, this.props.uid, "", this.props.userId, () => this.props.onDeleteComment(strResult))}
                     </>
 
                 )}/>
@@ -81,13 +96,7 @@ class NoteDetailsView extends Component {
                                         <td>{this.props.note.name}</td>
                                         <td>{this.dateReplace(this.props.note.dateTime)}</td>
                                         <td>
-                                            <ModalEditor text={this.props.note.text} actionType={"ModComment"}
-                                                         topicId={""}
-                                                         userId={this.props.note.userId}
-                                                         subjectId={this.props.note.subjectId} name={""}
-                                                         id={this.props.note.id} uId={this.props.uid}
-                                                         themeType={this.props.note.themeType}/>
-                                            <DeleteButton click={() => this.props.onDeleteTopic(this.props.note)}/>
+                                            {this.MyAction(this.props.note.text, "ModComment", "", this.props.note.userId, this.props.note.subjectId, "", this.props.note.id, this.props.uid, this.props.note.themeType, this.props.userId, () => this.props.onDeleteTopic(this.props.note))}
                                         </td>
                                     </tr>
                                     </tbody>
