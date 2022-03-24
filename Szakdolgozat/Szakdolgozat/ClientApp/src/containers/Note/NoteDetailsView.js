@@ -8,6 +8,8 @@ import AddEditor from "../AddEditor";
 import {Link} from "react-router-dom";
 import DeleteButton from "../DeleteButton";
 import * as actions from "../../store/actions";
+import Vote from "../Vote";
+import Reactions from "../Reactions";
 
 class NoteDetailsView extends Component {
     dateReplace(dateTime) {
@@ -47,6 +49,8 @@ class NoteDetailsView extends Component {
             boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
             minHeight: "700px"
         }
+        let reactionNumber = [5, 2, 2];
+        let radioValue = 1;
         let commentList = (<Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
         </Spinner>)
@@ -58,7 +62,7 @@ class NoteDetailsView extends Component {
                         {this.MyAction(strResult.text, "ModComment", this.props.note.id, strResult.userId, "", "", strResult.id, this.props.uid, "", this.props.userId, () => this.props.onDeleteComment(strResult))}
                     </>
 
-                )}/>
+                )} userId={this.props.userId} conId={strResult.id} uid={this.props.userId} value={0} reactionNumber={reactionNumber} radioValue={radioValue}/>
             ))
         }
         let editor = (
@@ -82,6 +86,7 @@ class NoteDetailsView extends Component {
                 </>
             )
         }
+
         return (
             <>
                 <Card style={style} className="text-center">
@@ -91,7 +96,11 @@ class NoteDetailsView extends Component {
                                 <Table>
                                     <tbody>
                                     <tr>
-                                        <td>{this.props.note.points}</td>
+                                        <td>
+                                            <Vote number={this.props.note.points} userId={this.props.userId}
+                                                  conId={this.props.note.id} type={"Topic"} value={0}
+                                                  uid={this.props.uid}></Vote>
+                                        </td>
                                         <td>{this.props.note.user}</td>
                                         <td>{this.props.note.name}</td>
                                         <td>{this.dateReplace(this.props.note.dateTime)}</td>
@@ -105,6 +114,12 @@ class NoteDetailsView extends Component {
                             <Card.Body>
                                 <Card.Text>
                                     {parse(this.props.note.text)}
+                                    <div className="d-flex flex-row-reverse">
+                                        <div className="p-2">
+                                            <Reactions reactionNumber={reactionNumber}
+                                                       radioValue={radioValue}/>
+                                        </div>
+                                    </div>
                                 </Card.Text>
                             </Card.Body>
                         </Card>

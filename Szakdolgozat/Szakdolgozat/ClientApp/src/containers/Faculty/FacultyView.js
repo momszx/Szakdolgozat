@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import {Spinner} from "react-bootstrap";
 import MyCard from "../MyCard"
 import MyEditor from "../ModalEditor";
+import LiveEdit from "../LiveEdit";
 
 class FacultyView extends React.Component {
 
@@ -42,6 +43,7 @@ class FacultyView extends React.Component {
                 <Card.Text>
                     {facultyList}
                 </Card.Text>
+                <LiveEdit/>
             </Card>
 
         </>);

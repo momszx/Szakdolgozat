@@ -8,6 +8,7 @@ import AddEditor from "../AddEditor";
 import {Link} from "react-router-dom";
 import * as actions from "../../store/actions";
 import DeleteButton from "../DeleteButton";
+import Reactions from "../Reactions";
 
 class QuestionDetailsView extends Component {
     dateReplace(dateTime) {
@@ -45,6 +46,8 @@ class QuestionDetailsView extends Component {
             boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
             minHeight: "700px"
         }
+        let reactionNumber = [5, 2, 2];
+        let radioValue = 1;
         let commentList = (<Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
         </Spinner>)
@@ -56,7 +59,7 @@ class QuestionDetailsView extends Component {
                         {this.MyAction(strResult.text, "ModTopic", this.props.note.id, strResult.userId, "", "", strResult.id, this.props.uid, "", this.props.userId, () => this.props.onDeleteComment(strResult))}
                     </>
 
-                )}/>
+                )} userId={this.props.userId} conId={strResult.id} uid={this.props.userId} value={0} reactionNumber={reactionNumber} radioValue={radioValue}/>
             ))
         }
         let editor = (
@@ -103,6 +106,12 @@ class QuestionDetailsView extends Component {
                             <Card.Body>
                                 <Card.Text>
                                     {parse(this.props.question.text)}
+                                    <div className="d-flex flex-row-reverse">
+                                        <div className="p-2">
+                                            <Reactions reactionNumber={reactionNumber}
+                                                       radioValue={radioValue}/>
+                                        </div>
+                                    </div>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
