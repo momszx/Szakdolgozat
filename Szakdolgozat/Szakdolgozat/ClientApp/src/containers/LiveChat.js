@@ -1,48 +1,42 @@
+import React, {useState, useEffect, useRef} from 'react';
+import {HubConnectionBuilder} from '@microsoft/signalr';
+import ChatWindow from "./Chat/ChatWindow";
+import ChatInput from "./Chat/ChatInput";
 
-import React, { useState, useEffect, useRef } from 'react';
-import { HubConnectionBuilder } from '@microsoft/signalr';
-import ChatWindow from "./delete/ChatWindow";
-import ChatInput from "./delete/ChatInput";
-
-const LiveEdit = () => {
-    const [ connection, setConnection ] = useState(null);
-    const [ chat, setChat ] = useState([]);
+const LiveChat = () => {
+    const [connection, setConnection] = useState(null);
+    const [chat, setChat] = useState([{
+        user:"",
+        message:""
+    }]);
     const latestChat = useRef(null);
-
     latestChat.current = chat;
-
     useEffect(() => {
         const newConnection = new HubConnectionBuilder()
             .withUrl('/chatHub')
             .withAutomaticReconnect()
             .build();
-
         setConnection(newConnection);
     }, []);
-
     useEffect(() => {
         if (connection) {
             connection.start()
                 .then(result => {
-                    console.log('Connected!');
-
                     connection.on('ReceiveMessage', message => {
-                        const updatedChat = [...latestChat.current];
+                        const updatedChat = [];
                         updatedChat.push(message);
-
                         setChat(updatedChat);
+                        console.log(chat)
                     });
                 })
                 .catch(e => console.log('Connection failed: ', e));
         }
     }, [connection]);
-
     const sendMessage = async (user, message) => {
         const chatMessage = {
             user: user,
             message: message
         };
-        console.log(connection)
         if (connection._connectionStarted) {
             try {
                 await connection.send('SendMessage', chatMessage);
@@ -65,4 +59,4 @@ const LiveEdit = () => {
     );
 };
 
-export default LiveEdit;
+export default LiveChat;

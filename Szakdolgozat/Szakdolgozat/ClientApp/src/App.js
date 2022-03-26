@@ -14,6 +14,7 @@ import UserView from "./containers/User/UserView";
 import SubjectDetailsView from "./containers/Subject/SubjectDetailsView";
 import QuestionDetailsView from "./containers/Question/QuestionDetailsView";
 import NoteDetailsView from "./containers/Note/NoteDetailsView";
+import LiveEditorController from "./containers/LiveEditorController";
 
 function App() {
     return (
@@ -37,6 +38,8 @@ function App() {
                     <Route exact path="/noteDetails" element={<NoteDetailsView/>}>
                     </Route>
                     <Route exact path="/questionDetails" element={<QuestionDetailsView/>}>
+                    </Route>
+                    <Route exact path="/liveEditor" element={<LiveEditorController/>}>
                     </Route>
                     <Route exact path="/*" element={<_404/>}>
                     </Route>

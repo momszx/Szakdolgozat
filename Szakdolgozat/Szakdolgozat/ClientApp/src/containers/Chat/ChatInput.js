@@ -1,15 +1,11 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 const ChatInput = (props) => {
     const [user, setUser] = useState('');
     const [message, setMessage] = useState('');
-
     const onSubmit = (e) => {
-        e.preventDefault();
-
         const isUserProvided = user && user !== '';
         const isMessageProvided = message && message !== '';
-
         if (isUserProvided && isMessageProvided) {
             props.sendMessage(user, message);
         }
@@ -17,15 +13,16 @@ const ChatInput = (props) => {
             alert('Please insert an user and a message.');
         }
     }
-
     const onUserUpdate = (e) => {
         setUser(e.target.value);
     }
-
     const onMessageUpdate = (e) => {
         setMessage(e.target.value);
     }
-
+    useEffect((e) => {
+        console.log('Do something after counter has changed', message);
+        onSubmit(e)
+    }, [message]);
     return (
         <form
             onSubmit={onSubmit}>

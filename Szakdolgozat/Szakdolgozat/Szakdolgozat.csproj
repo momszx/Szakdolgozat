@@ -70,7 +70,6 @@
       <None Remove="ClientApp\src\containers\Science\ScienceView.js" />
       <None Remove="ClientApp\src\containers\Subject\SubjectDetailsView.js" />
       <None Remove="ClientApp\src\containers\Subject\SubjectView.js" />
-      <None Remove="ClientApp\src\containers\TextEditor.js" />
       <None Remove="ClientApp\src\containers\User\UserView.js" />
       <None Remove="ClientApp\src\IMG\uniHub.png" />
       <None Remove="ClientApp\src\IMG\university-svgrepo-com.svg" />

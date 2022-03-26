@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Card, Spinner, Table} from "react-bootstrap";
+import {Card, Col, Container, Image, Row, Spinner, Table} from "react-bootstrap";
 import parse from 'html-react-parser';
 import Comment from "../Comment";
 import ModalEditor from "../ModalEditor";
@@ -10,6 +10,7 @@ import DeleteButton from "../DeleteButton";
 import * as actions from "../../store/actions";
 import Vote from "../Vote";
 import Reactions from "../Reactions";
+import EditIcon from "../../IMG/edit-svgrepo-com.svg";
 
 class NoteDetailsView extends Component {
     dateReplace(dateTime) {
@@ -20,12 +21,16 @@ class NoteDetailsView extends Component {
         if (userId == loginUserId) {
             return (
                 <>
-                    <ModalEditor text={text} actionType={actionType}
+                    {/*<ModalEditor text={text} actionType={actionType}
                                  topicId={id}
                                  userId={userId} subjectId={subjectId}
                                  name={name} id={id}
                                  uId={uId}
-                                 themeType={themeType}/>
+                                 themeType={themeType}/>*/}
+                    <Link to={"/liveEditor"} >
+                        <Image
+                            style={{width: "20px"}} src={EditIcon}/>
+                    </Link>
                     <DeleteButton click={action}/>
                 </>
             )
@@ -93,6 +98,17 @@ class NoteDetailsView extends Component {
                     <Card.Text>
                         <Card className="text-center">
                             <Card.Header>
+                                <Container>
+                                    <Row>
+                                        <Col>1 of 2</Col>
+                                        <Col>2 of 2</Col>
+                                        <Col>2 of 2</Col>
+                                        <Col>2 of 2</Col>
+                                        <Col>2 of 2</Col>
+                                        <Col>2 of 2</Col>
+                                    </Row>
+
+                                </Container>
                                 <Table>
                                     <tbody>
                                     <tr>
@@ -105,7 +121,10 @@ class NoteDetailsView extends Component {
                                         <td>{this.props.note.name}</td>
                                         <td>{this.dateReplace(this.props.note.dateTime)}</td>
                                         <td>
-                                            {this.MyAction(this.props.note.text, "ModComment", "", this.props.note.userId, this.props.note.subjectId, "", this.props.note.id, this.props.uid, this.props.note.themeType, this.props.userId, () => this.props.onDeleteTopic(this.props.note))}
+                                            {this.MyAction(this.props.note.text, "ModTopic", "", this.props.note.userId,
+                                                this.props.note.subjectId, "", this.props.note.id, this.props.uid,
+                                                this.props.note.themeType, this.props.userId,
+                                                () => this.props.onDeleteTopic(this.props.note))}
                                         </td>
                                     </tr>
                                     </tbody>

@@ -5,5 +5,6 @@ namespace Szakdolgozat.Hubs
     public interface IChatClient
     {
         Task ReceiveMessage(ChatMessage message);
+        Task ReceiveGroupMessage(string edit);
     }
 }
