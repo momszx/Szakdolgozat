@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Formik} from "formik";
 import * as Yup from "yup";
 import {Button, Col, Form} from "react-bootstrap";
-import * as actions from "../store/actions";
+import * as actions from "../../store/actions";
 
 class Registration extends Component {
     render() {

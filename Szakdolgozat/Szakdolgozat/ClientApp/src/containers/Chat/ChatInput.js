@@ -1,50 +1,39 @@
 import React, {useEffect, useState} from 'react';
+import {Button, FormControl, InputGroup} from "react-bootstrap";
 
 const ChatInput = (props) => {
-    const [user, setUser] = useState('');
+    const [user] = useState(props.username);
+    const [userId] = useState(props.userId);
     const [message, setMessage] = useState('');
     const onSubmit = (e) => {
         const isUserProvided = user && user !== '';
         const isMessageProvided = message && message !== '';
         if (isUserProvided && isMessageProvided) {
-            props.sendMessage(user, message);
+            props.sendMessage(user, message,userId);
         }
         else {
             alert('Please insert an user and a message.');
         }
     }
-    const onUserUpdate = (e) => {
-        setUser(e.target.value);
-    }
     const onMessageUpdate = (e) => {
         setMessage(e.target.value);
     }
-    useEffect((e) => {
-        console.log('Do something after counter has changed', message);
-        onSubmit(e)
-    }, [message]);
     return (
-        <form
-            onSubmit={onSubmit}>
-            <label htmlFor="user">User:</label>
-            <br />
-            <input
-                id="user"
-                name="user"
-                value={user}
-                onChange={onUserUpdate} />
-            <br/>
-            <label htmlFor="message">Message:</label>
-            <br />
-            <input
-                type="text"
-                id="message"
-                name="message"
-                value={message}
-                onChange={onMessageUpdate} />
-            <br/><br/>
-            <button>Submit</button>
-        </form>
+        <>
+            <InputGroup className="mb-3">
+                <InputGroup.Text id="basic-addon1">{user}</InputGroup.Text>
+                <FormControl
+                    placeholder="Üzenj"
+                    onChange={onMessageUpdate}
+                />
+                <InputGroup.Text id="basic-addon2">
+                    <Button size="sm" onClick={onSubmit}>
+                        Küld
+                    </Button>
+                </InputGroup.Text>
+            </InputGroup>
+
+        </>
     )
 };
 

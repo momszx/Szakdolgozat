@@ -3,13 +3,13 @@ import {connect} from 'react-redux';
 import {Card, Col, Container, Image, Row, Spinner, Table} from "react-bootstrap";
 import parse from 'html-react-parser';
 import Comment from "../Comment";
-import ModalEditor from "../ModalEditor";
-import AddEditor from "../AddEditor";
+import ModalEditor from "../Editor/ModalEditor";
+import AddEditor from "../Editor/AddEditor";
 import {Link} from "react-router-dom";
 import DeleteButton from "../DeleteButton";
 import * as actions from "../../store/actions";
-import Vote from "../Vote";
-import Reactions from "../Reactions";
+import Vote from "../Rection/Vote";
+import Reactions from "../Rection/Reactions";
 import EditIcon from "../../IMG/edit-svgrepo-com.svg";
 
 class NoteDetailsView extends Component {
@@ -27,7 +27,7 @@ class NoteDetailsView extends Component {
                                  name={name} id={id}
                                  uId={uId}
                                  themeType={themeType}/>*/}
-                    <Link to={"/liveEditor"} >
+                    <Link to={"/liveEditor"}>
                         <Image
                             style={{width: "20px"}} src={EditIcon}/>
                     </Link>
@@ -67,7 +67,8 @@ class NoteDetailsView extends Component {
                         {this.MyAction(strResult.text, "ModComment", this.props.note.id, strResult.userId, "", "", strResult.id, this.props.uid, "", this.props.userId, () => this.props.onDeleteComment(strResult))}
                     </>
 
-                )} userId={this.props.userId} conId={strResult.id} uid={this.props.userId} value={0} reactionNumber={reactionNumber} radioValue={radioValue}/>
+                )} userId={this.props.userId} conId={strResult.id} uid={this.props.userId} value={0}
+                         reactionNumber={reactionNumber} radioValue={radioValue}/>
             ))
         }
         let editor = (
@@ -100,35 +101,28 @@ class NoteDetailsView extends Component {
                             <Card.Header>
                                 <Container>
                                     <Row>
-                                        <Col>1 of 2</Col>
-                                        <Col>2 of 2</Col>
-                                        <Col>2 of 2</Col>
-                                        <Col>2 of 2</Col>
-                                        <Col>2 of 2</Col>
-                                        <Col>2 of 2</Col>
-                                    </Row>
-
-                                </Container>
-                                <Table>
-                                    <tbody>
-                                    <tr>
-                                        <td>
+                                        <Col xs={1}>
                                             <Vote number={this.props.note.points} userId={this.props.userId}
                                                   conId={this.props.note.id} type={"Topic"} value={0}
-                                                  uid={this.props.uid}></Vote>
-                                        </td>
-                                        <td>{this.props.note.user}</td>
-                                        <td>{this.props.note.name}</td>
-                                        <td>{this.dateReplace(this.props.note.dateTime)}</td>
-                                        <td>
+                                                  uid={this.props.uid}/>
+                                        </Col>
+                                        <Col xs={2}>
+                                            {this.props.note.user}
+                                        </Col>
+                                        <Col>
+                                            {this.props.note.name}
+                                        </Col>
+                                        <Col xs={2}>
+                                            {this.dateReplace(this.props.note.dateTime)}
+                                        </Col>
+                                        <Col xs={1}>
                                             {this.MyAction(this.props.note.text, "ModTopic", "", this.props.note.userId,
                                                 this.props.note.subjectId, "", this.props.note.id, this.props.uid,
                                                 this.props.note.themeType, this.props.userId,
                                                 () => this.props.onDeleteTopic(this.props.note))}
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </Table>
+                                        </Col>
+                                    </Row>
+                                </Container>
                             </Card.Header>
                             <Card.Body>
                                 <Card.Text>

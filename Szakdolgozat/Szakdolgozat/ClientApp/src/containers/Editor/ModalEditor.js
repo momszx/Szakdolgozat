@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {Button, Image} from "react-bootstrap";
 import ReactModal from "react-modal"
-import * as actions from "../store/actions";
+import * as actions from "../../store/actions";
 import {connect} from "react-redux";
-import EditIcon from '../IMG/edit-svgrepo-com.svg'
+import EditIcon from '../../IMG/edit-svgrepo-com.svg'
 import RichTextEditor from 'react-rte';
 
 class ModalEditor extends Component {

@@ -1,8 +1,8 @@
 import React from 'react'
-import arrow from '../IMG/up-arrow-svgrepo-com.svg'
-import {Image, Table} from "react-bootstrap";
+import arrow from '../../IMG/up-arrow-svgrepo-com.svg'
+import {Col, Container, Image, Row, Table} from "react-bootstrap";
 import {connect} from "react-redux";
-import * as actions from "../store/actions";
+import * as actions from "../../store/actions";
 
 class Vote extends React.Component {
     constructor(props) {
@@ -84,19 +84,17 @@ class Vote extends React.Component {
 
         return (
             <>
-                <Table hover size="sm">
-                    <tbody>
-                        <tr>
-                            <td><Image src={arrow} style={{width:"20px"}} onClick={()=>this.click("up")}/></td>
-                        </tr>
-                        <tr>
-                            <td>{this.valueRender()}</td>
-                        </tr>
-                        <tr>
-                            <td><Image style={style} onClick={()=>this.click("down")} src={arrow}/></td>
-                        </tr>
-                    </tbody>
-                </Table>
+                <Container>
+                    <Row>
+                        <Col>
+                            <Image src={arrow} style={{width:"20px"}} onClick={()=>this.click("up")}/>
+                        </Col>
+                        <Col>{this.valueRender()}</Col>
+                        <Col>
+                            <Image style={style} onClick={()=>this.click("down")} src={arrow}/>
+                        </Col>
+                    </Row>
+                </Container>
             </>
         )
     }

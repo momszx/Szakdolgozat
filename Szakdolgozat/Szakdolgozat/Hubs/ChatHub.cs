@@ -9,9 +9,25 @@ namespace Szakdolgozat.Hubs
     public class ChatHub : Hub<IChatClient>
     {
         private DatabaseManager DB = DatabaseManager.Instance();
-        public async Task SendMessage(ChatMessage message)
+        public async Task SendMessage(string user, string message, int userId)
         {
-            await Clients.All.ReceiveMessage (message);
+            DatabaseManager localdb = DatabaseManager.Instance();
+            ChatMessage chat=new ChatMessage(user,message, userId);
+            await Clients.All.ReceiveMessage (chat);
+            try
+            {
+                localdb = DatabaseManager.Instance();
+                if (localdb.Connect())
+                {
+                    MySqlDataReader dataReader = localdb.DataReader(string.Format("insert into chat ( userId, message, created) VALUE ('{0}','{1}','{2}')", chat.UserId, chat.Message, chat.Created));
+                    dataReader.Close();
+                    localdb.Close();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public async Task JoinGroup(string group)
         {
@@ -43,6 +59,10 @@ namespace Szakdolgozat.Hubs
         {
 
             return base.OnDisconnectedAsync(exception);
+        }
+        private void savechat(ChatMessage message)
+        {
+            message.Message = "asd";
         }
     }
 }

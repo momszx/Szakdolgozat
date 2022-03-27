@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Card, Table} from "react-bootstrap";
-import Vote from "./Vote";
+import Vote from "../Rection/Vote";
 import parse from "html-react-parser";
-import Reactions from "./Reactions";
+import Reactions from "../Rection/Reactions";
 import LiveEditor from "./LiveEditor";
 
 class LiveEditorController extends Component {

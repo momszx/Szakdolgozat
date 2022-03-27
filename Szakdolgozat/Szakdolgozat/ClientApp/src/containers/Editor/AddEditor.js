@@ -2,7 +2,7 @@ import React from 'react'
 import {CKEditor} from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import {Button, Form} from "react-bootstrap";
-import * as actions from "../store/actions";
+import * as actions from "../../store/actions";
 import {connect} from "react-redux";
 import RichTextEditor from 'react-rte';
 
@@ -96,7 +96,17 @@ class AddEditor extends React.Component {
                         />
                     </div>
                     <Button variant="success"
-                            onClick={() => this.myAction(this.state.actionType, this.state.topicId, this.state.userId, this.state.text.toString('html'), this.state.subjectId, this.state.name, this.state.id, this.state.uid, this.state.themeType)}>Save</Button>
+                            onClick={() => this.myAction(this.state.actionType,
+                                this.state.topicId,
+                                this.state.userId,
+                                this.state.text.toString('html'),
+                                this.state.subjectId,
+                                this.state.name,
+                                this.state.id,
+                                this.state.uid,
+                                this.state.themeType)}>
+                        Save
+                    </Button>
                 </div>
             </>
         )

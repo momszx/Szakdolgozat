@@ -35,7 +35,6 @@ const LiveEditor = (props) => {
         try {
 
             if (connection._connectionStarted) {
-                console.log("connected")
                 try {
                     connection.send('JoinGroup', props.group);
                 } catch (e) {
@@ -54,7 +53,6 @@ const LiveEditor = (props) => {
                 .then(result => {
                     set_ConnectionStarted(true)
                     connection.on('ReceiveGroupMessage', text => {
-                        console.log("ReceiveGroupMessage?")
                         const updatedText = [];
                         updatedText.push(RichTextEditor.createValueFromString(text, 'html'));
                         setText(RichTextEditor.createValueFromString(text, 'html'));

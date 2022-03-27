@@ -4,8 +4,7 @@ import * as actions from "../../store/actions";
 import Card from 'react-bootstrap/Card';
 import {Spinner} from "react-bootstrap";
 import MyCard from "../MyCard"
-import MyEditor from "../ModalEditor";
-import LiveEditor from "../LiveEditor";
+import LiveChat from "../Chat/LiveChat";
 
 class FacultyView extends React.Component {
 
@@ -38,21 +37,26 @@ class FacultyView extends React.Component {
                 <MyCard url={"/science"} name={strResult.name} click={() => this.mod(strResult)}/>
             ))
         }
-        return (<>
-            <Card style={style} className="text-center">
-                <Card.Text>
-                    {facultyList}
-                </Card.Text>
+        return (
+            <>
+                <Card style={style} className="text-center">
+                    <Card.Text>
+                        {facultyList}
+                        <LiveChat myUsername={this.props.username} uid={this.props.uid} id={this.props.id}/>
+                    </Card.Text>
+                </Card>
 
-            </Card>
-
-        </>);
+            </>);
     }
 }
 
 const mapStareToProps = state => {
     return {
-        facultyes: state.faculty.faculty, loading: state.faculty.loading
+        facultyes: state.faculty.faculty,
+        loading: state.faculty.loading,
+        username: state.user.username,
+        uid:state.user.uId,
+        id:state.user.id
     };
 };
 const mapDispatchToProps = (dispatch) => {

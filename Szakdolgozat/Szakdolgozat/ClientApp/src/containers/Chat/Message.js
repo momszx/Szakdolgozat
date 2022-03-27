@@ -1,9 +1,17 @@
 import React from 'react';
+import {Col, Container, Row} from "react-bootstrap";
 
 const Message = (props) => (
-    <div style={{ background: "#eee", borderRadius: '5px', padding: '0 10px' }}>
-        <p><strong>{props.user}</strong>: </p>
-        <p>{props.message}</p>
+    <div style={{ background: "#eee", borderRadius: '50px', padding: '0 10px' }}>
+        <p>
+            <Container fluid>
+                <Row>
+                    <Col sm={2}><strong>{props.user}</strong>:</Col>
+                    <Col>{props.message}</Col>
+                    <Col sm={2}>{props.time}</Col>
+                </Row>
+            </Container>
+        </p>
     </div>
 );
 

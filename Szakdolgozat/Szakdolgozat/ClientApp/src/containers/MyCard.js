@@ -1,6 +1,6 @@
 import React from 'react'
 import Card from "react-bootstrap/Card";
-import {Table} from "react-bootstrap";
+import {Col, Container, Row, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 class MyCard extends React.Component {
@@ -9,7 +9,7 @@ class MyCard extends React.Component {
         this.state = {
             url: this.props.url,
             name: this.props.name,
-            click:this.props.click
+            click: this.props.click
         }
     }
 
@@ -28,21 +28,20 @@ class MyCard extends React.Component {
             <>
                 <Card style={facultyListstyel} className="text-center">
                     <Card.Text>
-                        <Table>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <Link to={this.state.url} onClick={this.state.click} >
+                        <Container>
+                            <Row>
+                                <Col>
+                                    <Link to={this.state.url} onClick={this.state.click}>
                                         {this.state.name}
                                     </Link>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </Table>
+                                </Col>
+                            </Row>
+                        </Container>
                     </Card.Text>
                 </Card>
             </>
         )
     }
 }
+
 export default MyCard

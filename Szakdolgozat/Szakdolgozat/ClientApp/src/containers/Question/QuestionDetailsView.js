@@ -1,19 +1,20 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Card, Spinner, Table} from "react-bootstrap";
+import {Card, Col, Container, Row, Spinner, Table} from "react-bootstrap";
 import parse from "html-react-parser"
 import Comment from "../Comment";
-import ModalEditor from "../ModalEditor";
-import AddEditor from "../AddEditor";
+import ModalEditor from "../Editor/ModalEditor";
+import AddEditor from "../Editor/AddEditor";
 import {Link} from "react-router-dom";
 import * as actions from "../../store/actions";
 import DeleteButton from "../DeleteButton";
-import Reactions from "../Reactions";
+import Reactions from "../Rection/Reactions";
 
 class QuestionDetailsView extends Component {
     dateReplace(dateTime) {
         return dateTime.replace("T", " ");
     }
+
     MyAction(text, actionType, topicId, userId, subjectId, name, id, uId, themeType, loginUserId, action) {
         if (userId == loginUserId) {
             return (
@@ -34,6 +35,7 @@ class QuestionDetailsView extends Component {
             )
         }
     }
+
     render() {
         const style = {
             display: "block",
@@ -59,7 +61,8 @@ class QuestionDetailsView extends Component {
                         {this.MyAction(strResult.text, "ModTopic", this.props.note.id, strResult.userId, "", "", strResult.id, this.props.uid, "", this.props.userId, () => this.props.onDeleteComment(strResult))}
                     </>
 
-                )} userId={this.props.userId} conId={strResult.id} uid={this.props.userId} value={0} reactionNumber={reactionNumber} radioValue={radioValue}/>
+                )} userId={this.props.userId} conId={strResult.id} uid={this.props.userId} value={0}
+                         reactionNumber={reactionNumber} radioValue={radioValue}/>
             ))
         }
         let editor = (
@@ -89,19 +92,38 @@ class QuestionDetailsView extends Component {
                     <Card.Text>
                         <Card className="text-center">
                             <Card.Header>
-                                <Table>
-                                    <tbody>
-                                    <tr>
-                                        <td>{this.props.question.points}</td>
-                                        <td>{this.props.question.user}</td>
-                                        <td>{this.props.question.name}</td>
-                                        <td>{this.dateReplace(this.props.question.dateTime)}</td>
-                                        <td>
-                                            {this.MyAction(this.props.question.text, "ModTopic", "", this.props.question.userId, this.props.question.subjectId, "", this.props.question.id, this.props.uid, this.props.question.themeType, this.props.userId, () => this.props.onDeleteTopic(this.props.question))}
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </Table>
+                                <Container>
+                                    <Row>
+                                        <Col xs={1}>
+                                            {this.props.question.points}
+                                        </Col>
+                                        <Col xs={2}>
+                                            {this.props.question.user}
+                                        </Col>
+                                        <Col>
+                                            {this.props.question.name}
+                                        </Col>
+                                        <Col xs={2}>
+                                            {this.dateReplace(this.props.question.dateTime)}
+                                        </Col>
+                                        <Col xs={1}>
+                                            {this.MyAction(
+                                                this.props.question.text,
+                                                "ModTopic",
+                                                "",
+                                                this.props.question.userId,
+                                                this.props.question.subjectId,
+                                                "",
+                                                this.props.question.id,
+                                                this.props.uid,
+                                                this.props.question.themeType,
+                                                this.props.userId,
+                                                () => this.props.onDeleteTopic(this.props.question))
+                                            }
+                                        </Col>
+                                    </Row>
+
+                                </Container>
                             </Card.Header>
                             <Card.Body>
                                 <Card.Text>

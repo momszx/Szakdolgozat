@@ -5,7 +5,7 @@ import Home from "./containers/Faculty/FacultyView";
 import _404 from "./containers/404";
 import NavBar from "./containers/NavBar";
 import { Routes, Route, Outlet, Link } from "react-router-dom";
-import Login from "./containers/LoginView";
+import Login from "./containers/User/LoginView";
 import Footer from "./containers/Footer";
 import ScienceView from "./containers/Science/ScienceView";
 import SubjectView from "./containers/Subject/SubjectView";
@@ -14,7 +14,7 @@ import UserView from "./containers/User/UserView";
 import SubjectDetailsView from "./containers/Subject/SubjectDetailsView";
 import QuestionDetailsView from "./containers/Question/QuestionDetailsView";
 import NoteDetailsView from "./containers/Note/NoteDetailsView";
-import LiveEditorController from "./containers/LiveEditorController";
+import LiveEditorController from "./containers/Editor/LiveEditorController";
 
 function App() {
     return (

@@ -5,7 +5,7 @@ import {Spinner} from "react-bootstrap";
 import * as actions from "../../store/actions";
 import MyCard from "../MyCard";
 import {Link} from "react-router-dom";
-import AddEditor from "../AddEditor";
+import AddEditor from "../Editor/AddEditor";
 
 class SubjectDetailsView extends Component {
     fetchComment(strResult) {
