@@ -21,7 +21,7 @@ const LiveChat = (props) => {
             .withAutomaticReconnect()
             .build();
         setConnection(newConnection);
-        setTimeout(() => { console.log(""); }, 1000);
+        setTimeout(() => { console.log(""); }, 1500);
         fetch('/Chat/').then(response => response.json()).then(data => {
             setChat(data)
         })

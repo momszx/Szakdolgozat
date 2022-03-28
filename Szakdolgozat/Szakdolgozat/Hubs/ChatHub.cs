@@ -2,18 +2,22 @@
 using Microsoft.AspNetCore.SignalR;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Szakdolgozat.Classes;
 
 namespace Szakdolgozat.Hubs
 {
     public class ChatHub : Hub<IChatClient>
     {
         private DatabaseManager DB = DatabaseManager.Instance();
+        private static readonly List<LiveEdit> Rooms = new();
         public async Task SendMessage(string user, string message, int userId)
         {
             DatabaseManager localdb = DatabaseManager.Instance();
-            ChatMessage chat=new ChatMessage(user,message, userId);
-            await Clients.All.ReceiveMessage (chat);
+            ChatMessage chat = new ChatMessage(user, message, userId);
+            await Clients.All.ReceiveMessage(chat);
             try
             {
                 localdb = DatabaseManager.Instance();
@@ -31,38 +35,82 @@ namespace Szakdolgozat.Hubs
         }
         public async Task JoinGroup(string group)
         {
+            bool has = false;
+            for (int i = 0; i < Rooms.Count ; i++)
+            {
+                if(Rooms[i].Group == group)
+                {
+                    has = true;
+                }
+            }
+            string[] subs = group.Split('|');
+            int id = Convert.ToInt32( subs[0]);
+            if (!has)
+            {
+                Rooms.Add(new LiveEdit(id, "", group, new List<string> { Context.ConnectionId }));
+            }
+            else
+            {
+                int n = 0;
+                for (int i = 0; i < Rooms.Count-1; i++)
+                {
+                    if (Rooms[i].Id == id)
+                    {
+                        n= i;
+                    }
+                }
+                Rooms[n].Userlist.Add(Context.ConnectionId);
+            }
             await Groups.AddToGroupAsync(Context.ConnectionId, group);
         }
         public async Task SendMessageToGroup(string group, string message)
         {
-            await Clients.OthersInGroup(group).ReceiveGroupMessage( message);
-        }
-        public async Task RemoveFromGroup(string group)
-        {
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId, group);
-            try
+            int n = 0;
+            for (int i = 0; i < Rooms.Count ; i++)
             {
-                DB = DatabaseManager.Instance();
-                if (DB.Connect())
-                {
-                   // MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE topic set text='{0}' where id='{1}'", topic.Text, topic.Id));
-                    //dataReader.Close();
-                    DB.Close();
-                }
+                    if (Rooms[i].Group == group)
+                    {
+                        n = i;
+                    }
             }
-            catch (Exception)
-            {
-                throw;
-            }
+            Rooms[n].Text = message;
+            await Clients.OthersInGroup(group).ReceiveGroupMessage(message);
         }
         public override Task OnDisconnectedAsync(Exception exception)
         {
-
+            int n = -1;
+            for (int i = 0; i < Rooms.Count ; i++)
+            {
+                for (int y = 0; y < Rooms[i].Userlist.Count ; y++)
+                {
+                    if (Rooms[i].Userlist[y] == Context.ConnectionId)
+                    {
+                        n = i;
+                    }
+                }
+            }
+            if (n != -1)
+            {
+                Rooms[n].Userlist.Remove(Context.ConnectionId);
+                if (Rooms[n].Userlist.Count == 0)
+                {
+                    try
+                    {
+                        DB = DatabaseManager.Instance();
+                        if (DB.Connect())
+                        {
+                            MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE topic set text='{0}' where id='{1}'", Rooms[n].Text, Rooms[n].Id));
+                            dataReader.Close();
+                            DB.Close();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
+            }
             return base.OnDisconnectedAsync(exception);
-        }
-        private void savechat(ChatMessage message)
-        {
-            message.Message = "asd";
         }
     }
 }

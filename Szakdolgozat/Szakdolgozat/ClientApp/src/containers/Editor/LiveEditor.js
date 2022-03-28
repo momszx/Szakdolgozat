@@ -20,18 +20,14 @@ const LiveEditor = (props) => {
         onSubmit()
     }
     latestText.current = text;
-    useEffect( () => {
+    useEffect(() => {
         const newConnection = new HubConnectionBuilder()
             .withUrl('/chatHub')
             .withAutomaticReconnect()
             .build();
         setConnection(newConnection);
-        return () => {
-            set_ConnectionStarted(false);
-            setText(RichTextEditor.createValueFromString("", 'html'))
-        };
     }, []);
-    useEffect( () => {
+    useEffect(() => {
         try {
 
             if (connection._connectionStarted) {
@@ -43,11 +39,11 @@ const LiveEditor = (props) => {
             } else {
                 console.log('No connection to server yet.');
             }
-        }catch (e) {
+        } catch (e) {
 
         }
     }, [_connectionStarted]);
-    useEffect( () => {
+    useEffect(() => {
         if (connection) {
             connection.start()
                 .then(result => {
@@ -74,12 +70,12 @@ const LiveEditor = (props) => {
     }
 
     return (<>
-            <RichTextEditor
-                value={text}
-                onChange={onMessageUpdate}
-                placeholder="Szólj hozzá"
-            />
-        </>)
+        <RichTextEditor
+            value={text}
+            onChange={onMessageUpdate}
+            placeholder="Szólj hozzá"
+        />
+    </>)
 
 }
 

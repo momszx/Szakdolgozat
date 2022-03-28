@@ -29,7 +29,7 @@ class LiveEditorController extends Component {
                             </Card.Header>
                             <Card.Body>
                                 <Card.Text>
-                                    <LiveEditor text={this.props.note.text} uid={this.props.uid} group={this.props.note.id+"|"+this.props.note.name}/>
+                                    <LiveEditor text={this.props.note.text} Id={this.props.note.id} uid={this.props.uid} group={this.props.note.id+"|"+this.props.note.name} />
                                 </Card.Text>
                             </Card.Body>
                         </Card>
