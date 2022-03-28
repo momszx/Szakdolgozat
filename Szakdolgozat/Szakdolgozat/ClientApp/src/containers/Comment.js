@@ -29,7 +29,7 @@ class Comment extends React.Component {
             <>
                 <Card style={myStyle}>
                     <Card.Header className="text-center">
-                        <Container>
+                        <Container fluid>
                             <Row>
                                 <Col xs={1}>
                                     <Vote number={this.state.points} userId={this.state.userId}

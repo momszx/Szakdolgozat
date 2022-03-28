@@ -29,7 +29,7 @@ class Registration extends Component {
 
                                 <Form.Group as={Col}>
                                     <Form.Label>Felhasználónév</Form.Label>
-                                    <Form.Control name="username" type="text" placeholder="Add meg a felshaszálóneved"
+                                    <Form.Control name="username" type="text" placeholder="Add meg a felhasználónév"
                                                   onChange={handleChange} onBlur={handleBlur}
                                                   className={errors.username && touched.username ? "form-control is-invalid" : "form-control"}/>
                                     {errors.username && touched.username && (
@@ -44,8 +44,8 @@ class Registration extends Component {
                                         <div className={"invalid-feedback"}>{errors.password}{" "}</div>)}
                                 </Form.Group>
                                 <Form.Group as={Col}>
-                                    <Form.Label>Megerősitő jelszó</Form.Label>
-                                    <Form.Control name="passwordConfirmation" type="password" placeholder="Add meg a megerősitő jelszavad"
+                                    <Form.Label>Jelszó megerősítése</Form.Label>
+                                    <Form.Control name="passwordConfirmation" type="password" placeholder="Add meg a jelszó megerősítése"
                                                   onChange={handleChange} onBlur={handleBlur}
                                                   className={errors.passwordConfirmation && touched.passwordConfirmation ? "form-control is-invalid" : "form-control"}/>
                                     {errors.passwordConfirmation && touched.passwordConfirmation && (

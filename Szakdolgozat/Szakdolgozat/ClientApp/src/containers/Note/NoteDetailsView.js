@@ -99,7 +99,7 @@ class NoteDetailsView extends Component {
                     <Card.Text>
                         <Card className="text-center">
                             <Card.Header>
-                                <Container>
+                                <Container fluid>
                                     <Row>
                                         <Col xs={1}>
                                             <Vote number={this.props.note.points} userId={this.props.userId}

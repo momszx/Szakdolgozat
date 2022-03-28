@@ -28,7 +28,7 @@ class MyCard extends React.Component {
             <>
                 <Card style={facultyListstyel} className="text-center">
                     <Card.Text>
-                        <Container>
+                        <Container fluid>
                             <Row>
                                 <Col>
                                     <Link to={this.state.url} onClick={this.state.click}>

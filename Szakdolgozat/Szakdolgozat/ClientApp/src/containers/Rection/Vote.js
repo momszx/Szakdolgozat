@@ -84,7 +84,7 @@ class Vote extends React.Component {
 
         return (
             <>
-                <Container>
+                <Container >
                     <Row>
                         <Col>
                             <Image src={arrow} style={{width:"20px"}} onClick={()=>this.click("up")}/>

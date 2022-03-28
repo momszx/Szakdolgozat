@@ -82,7 +82,7 @@ const LiveChat = (props) => {
         <>
             <Card style={facultyListstyel} className="text-center">
                 <Card.Text>
-                    <Container>
+                    <Container fluid>
                         <Row style={{maxHeight:"500px",overflow: "auto"}}>
                             <Col>
                                 <ChatWindow chat={chat} myUsername={myUsername}/>
