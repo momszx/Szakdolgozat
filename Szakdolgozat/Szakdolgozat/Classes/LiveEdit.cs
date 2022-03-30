@@ -4,10 +4,10 @@ namespace Szakdolgozat.Classes
 {
     public class LiveEdit
     {
-        int id;
-        string text;
-        string group;
-        List<string> userlist;
+        private int id;
+        private string text;
+        private string group;
+        private List<string> userlist;
         public LiveEdit()
         {
             Id = 0;

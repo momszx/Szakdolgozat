@@ -10,91 +10,98 @@ namespace Szakdolgozat
     [Route("[controller]")]
     public class FacultyController : ControllerBase
     {
-        private DatabaseManager DB = DatabaseManager.Instance();
         [HttpGet]
         public IEnumerable<Faculty> ListFaculty()
         {
-            try
+            using (DatabaseManager DB = DatabaseManager.Instance())
             {
-                DB = DatabaseManager.Instance();
-                List<Faculty> Facultyes = new();
-                if (DB.Connect())
+                try
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM faculty"));
-                    if (dataReader.HasRows)
+                    List<Faculty> Facultyes = new();
+                    if (DB.Connect())
                     {
-
-                        while (dataReader.Read())
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM faculty"));
+                        if (dataReader.HasRows)
                         {
-                            Facultyes.Add(new Faculty(dataReader.GetInt32(0), "", dataReader.GetString(1)));
-                        }
-                    }
 
-                    dataReader.Close();
-                    DB.Close();
+                            while (dataReader.Read())
+                            {
+                                Facultyes.Add(new Faculty(dataReader.GetInt32(0), "", dataReader.GetString(1)));
+                            }
+                        }
+
+                        dataReader.Close();
+                        DB.Close();
+                    }
+                    return Facultyes;
                 }
-                return Facultyes;
+                catch (Exception)
+                {
+                    throw;
+                }
             }
-            catch (Exception)
-            {
-                throw;
-            }
-        }//Innentől átnézni 
+        }
         [HttpPost]
         public int AddFaculty(Faculty faculty)
         {
-            try
+            using (DatabaseManager DB = DatabaseManager.Instance())
             {
-                DB = DatabaseManager.Instance();
-                if (DB.Connect())
+                try
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO faculty(name)value('{0}')", faculty.Name));
-                    dataReader.Close();
-                    DB.Close();
+                    if (DB.Connect())
+                    {
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO faculty(name)value('{0}')", faculty.Name));
+                        dataReader.Close();
+                        DB.Close();
+                    }
+                    return 1;
                 }
-                return 1;
-            }
-            catch (Exception)
-            {
-                throw;
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
         [HttpPatch]
         public int UpdateFaculty(Faculty faculty)
         {
-            try
+            using (DatabaseManager DB = DatabaseManager.Instance())
             {
-                DB = DatabaseManager.Instance();
-                if (DB.Connect())
+                try
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE faculty set name='{0}' where id='{1}'", faculty.Name, faculty.Id));
-                    dataReader.Close();
-                    DB.Close();
+                    if (DB.Connect())
+                    {
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE faculty set name='{0}' where id='{1}'", faculty.Name, faculty.Id));
+                        dataReader.Close();
+                        DB.Close();
+                    }
+                    return 1;
                 }
-                return 1;
-            }
-            catch (Exception)
-            {
-                throw;
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
         [HttpDelete]
         public int DeleteFaculty(Faculty faculty)
         {
-            try
+            using (DatabaseManager DB = DatabaseManager.Instance())
             {
-                DB = DatabaseManager.Instance();
-                if (DB.Connect())
-                {//először tötölni a jegyzet és a kérdés kommenteket majd törölni a jegyzeteket és a kérdéseket majd a tárgyat majd képzést majd a szakot
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("delete FROM faculty where id='{0}'", faculty.Id));
-                    dataReader.Close();
-                    DB.Close();
+                try
+                {
+                    if (DB.Connect())
+                    {//először tötölni a jegyzet és a kérdés kommenteket majd törölni a jegyzeteket és a kérdéseket majd a tárgyat majd képzést majd a szakot
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("delete FROM faculty where id='{0}'", faculty.Id));
+                        dataReader.Close();
+                        DB.Close();
+                    }
+                    return 1;
                 }
-                return 1;
-            }
-            catch (Exception)
-            {
-                throw;
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
     }

@@ -10,14 +10,14 @@ namespace Szakdolgozat.Classes
         private DateTime dateTime;
         private int points;
         private string user;
-        
 
-        public Comment(int id, int topicId, int userId, string text, string Uid, DateTime dateTime,int points,string user) : base(id, Uid)
+
+        public Comment(int id, int topicId, int userId, string text, string Uid, DateTime dateTime, int points, string user) : base(id, Uid)
         {
             TopicId = topicId;
             UserId = userId;
             Text = text;
-            DateTime = dateTime;  
+            DateTime = dateTime;
             Points = points;
             User = user;
         }

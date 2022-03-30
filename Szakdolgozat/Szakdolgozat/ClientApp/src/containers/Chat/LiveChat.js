@@ -21,7 +21,7 @@ const LiveChat = (props) => {
             .withAutomaticReconnect()
             .build();
         setConnection(newConnection);
-        setTimeout(() => { console.log(""); }, 1500);
+        setTimeout(() => { console.log(""); }, 2000);
         fetch('/Chat/').then(response => response.json()).then(data => {
             setChat(data)
         })
@@ -40,12 +40,6 @@ const LiveChat = (props) => {
         }
     }, [connection]);
     const sendMessage = async (user, message,userId) => {
-        const chatMessage = {
-            user: user,
-            message: message,
-            userid:userId,
-            //created:''
-        };
         if (connection._connectionStarted) {
             try {
                 await connection.send('SendMessage', user,message,userId);

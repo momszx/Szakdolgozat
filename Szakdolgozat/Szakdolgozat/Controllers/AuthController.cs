@@ -10,7 +10,7 @@ namespace Szakdolgozat
     [Route("[controller]")]
     public class AuthController : ControllerBase
     {
-        private DatabaseManager DB = DatabaseManager.Instance();
+        //private DatabaseManager DB;
         private static readonly Dictionary<string, User> Users = new();
 
         [HttpPost]
@@ -20,27 +20,31 @@ namespace Szakdolgozat
             {
                 string uID = string.Empty;
                 User baseUser = null;
-                DB = DatabaseManager.Instance();
-                if (DB.Connect())
+                using (DatabaseManager DB = DatabaseManager.Instance())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM user WHERE username ='{0}' && password = md5('{1}')", user.Username, user.Password));
-                    if (dataReader.HasRows)
+                    // DB = DatabaseManager.Instance();
+                    if (DB.Connect())
                     {
-                        uID = Guid.NewGuid().ToString();
-                        while (dataReader.Read())
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM user WHERE username ='{0}' && password = md5('{1}')", user.Username, user.Password));
+                        if (dataReader.HasRows)
                         {
-                            baseUser = new User(dataReader.GetInt32(0), dataReader.GetString(1), "", dataReader.GetInt32(3), uID);
+                            uID = Guid.NewGuid().ToString();
+                            while (dataReader.Read())
+                            {
+                                baseUser = new User(dataReader.GetInt32(0), dataReader.GetString(1), "", dataReader.GetInt32(3), uID);
+                            }
+                            Users.Add(uID, baseUser);
                         }
-                        Users.Add(uID, baseUser);
+                        else
+                        {
+                            baseUser = new User(0, "", "", 0, "WRONG_LOGIN_INFO");
+                        }
+                        dataReader.Close();
+                        DB.Close();
                     }
-                    else
-                    {
-                        baseUser = new User(0, "", "", 0, "WRONG_LOGIN_INFO");
-                    }
-                    dataReader.Close();
-                    DB.Close();
+                    return baseUser;
                 }
-                return baseUser;
+
             }
             catch (System.Exception)
             {
@@ -55,33 +59,37 @@ namespace Szakdolgozat
             {
                 string uID = string.Empty;
                 User baseUser = null;
-                DB = DatabaseManager.Instance();
-                if (DB.Connect())
+                //DB = DatabaseManager.Instance();
+                using (DatabaseManager DB = DatabaseManager.Instance())
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("insert into user ( username, password, coin) value ('{0}',md5('{1}'),0)", user.Username, user.Password));
-                    dataReader.Close();
-                    DB.Close();
-                }
-                if (DB.Connect())
-                {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM user WHERE username ='{0}' && password = md5('{1}')", user.Username, user.Password));
-                    if (dataReader.HasRows)
+                    if (DB.Connect())
                     {
-                        uID = Guid.NewGuid().ToString();
-                        while (dataReader.Read())
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("insert into user ( username, password, coin) value ('{0}',md5('{1}'),0)", user.Username, user.Password));
+                        dataReader.Close();
+                        DB.Close();
+                    }
+                    if (DB.Connect())
+                    {
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM user WHERE username ='{0}' && password = md5('{1}')", user.Username, user.Password));
+                        if (dataReader.HasRows)
                         {
-                            baseUser = new User(dataReader.GetInt32(0), dataReader.GetString(1), "", dataReader.GetInt32(3), uID);
+                            uID = Guid.NewGuid().ToString();
+                            while (dataReader.Read())
+                            {
+                                baseUser = new User(dataReader.GetInt32(0), dataReader.GetString(1), "", dataReader.GetInt32(3), uID);
+                            }
+                            Users.Add(uID, baseUser);
                         }
-                        Users.Add(uID, baseUser);
+                        else
+                        {
+                            baseUser = new User(0, "", "", 0, "WRONG_LOGIN_INFO");
+                        }
+                        dataReader.Close();
+                        DB.Close();
                     }
-                    else
-                    {
-                        baseUser = new User(0, "", "", 0, "WRONG_LOGIN_INFO");
-                    }
-                    dataReader.Close();
-                    DB.Close();
+                    return baseUser;
                 }
-                return baseUser;
+
             }
             catch (Exception)
             {

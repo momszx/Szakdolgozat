@@ -18,7 +18,7 @@ namespace Szakdolgozat.Classes
             SubjectId = subjectId;
             Name = name;
             Text = text;
-            DateTime= dateTime;
+            DateTime = dateTime;
             ThemeType = themeType;
             Points = points;
             User = user;

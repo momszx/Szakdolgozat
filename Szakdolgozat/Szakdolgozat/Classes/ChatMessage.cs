@@ -15,7 +15,7 @@ namespace Szakdolgozat.Hubs
             UserId = userId;
             Created = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
         }
-        public ChatMessage(string user, string message,DateTime created)
+        public ChatMessage(string user, string message, DateTime created)
         {
             User = user;
             Message = message;

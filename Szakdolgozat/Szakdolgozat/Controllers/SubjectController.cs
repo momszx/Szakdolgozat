@@ -10,93 +10,100 @@ namespace Szakdolgozat
     [Route("[controller]")]
     public class SubjectController : ControllerBase
     {
-        private DatabaseManager DB = DatabaseManager.Instance();
         [HttpPost]
         public IEnumerable<Subject> ListSubject(Science science)
         {
-            try
+            using (DatabaseManager DB = DatabaseManager.Instance())
             {
-                DB = DatabaseManager.Instance();
-                List<Subject> Subjectes = new();
-                if (DB.Connect())
+                try
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM subject WHERE scienceId={0}", science.Id));
-                    if (dataReader.HasRows)
+                    List<Subject> Subjectes = new();
+                    if (DB.Connect())
                     {
-
-                        while (dataReader.Read())
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT * FROM subject WHERE scienceId={0}", science.Id));
+                        if (dataReader.HasRows)
                         {
-                            Subjectes.Add(new Subject(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetString(2), ""));
+
+                            while (dataReader.Read())
+                            {
+                                Subjectes.Add(new Subject(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetString(2), ""));
+                            }
                         }
+
+                        dataReader.Close();
+                        DB.Close();
                     }
-
-                    dataReader.Close();
-                    DB.Close();
+                    return Subjectes;
                 }
-                return Subjectes;
-            }
-            catch (Exception)
-            {
+                catch (Exception)
+                {
 
-                throw;
+                    throw;
+                }
             }
         }
         //Innentől átnézni 
         [HttpPut]
         public int AddSubject(Subject subject)
         {
-            try
+            using (DatabaseManager DB = DatabaseManager.Instance())
             {
-                DB = DatabaseManager.Instance();
-                if (DB.Connect())
+                try
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO subject(scienceId,name)value('{0}','{1}')", subject.SciencedId, subject.Name));
-                    dataReader.Close();
-                    DB.Close();
+                    if (DB.Connect())
+                    {
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("INSERT INTO subject(scienceId,name)value('{0}','{1}')", subject.SciencedId, subject.Name));
+                        dataReader.Close();
+                        DB.Close();
+                    }
+                    return 1;
                 }
-                return 1;
-            }
-            catch (Exception)
-            {
-                throw;
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
         [HttpPatch]
         public int UpdateSubject(Subject subject)
         {
-            try
+            using (DatabaseManager DB = DatabaseManager.Instance())
             {
-                DB = DatabaseManager.Instance();
-                if (DB.Connect())
+                try
                 {
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE subject set name='{0}',scienceId='{1}' where id='{2}'", subject.Name, subject.SciencedId, subject.Id));
-                    dataReader.Close();
-                    DB.Close();
+                    if (DB.Connect())
+                    {
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE subject set name='{0}',scienceId='{1}' where id='{2}'", subject.Name, subject.SciencedId, subject.Id));
+                        dataReader.Close();
+                        DB.Close();
+                    }
+                    return 1;
                 }
-                return 1;
-            }
-            catch (Exception)
-            {
-                throw;
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
         [HttpDelete]
         public int DeleteSubject(Subject subject)
         {
-            try
+            using (DatabaseManager DB = DatabaseManager.Instance())
             {
-                DB = DatabaseManager.Instance();
-                if (DB.Connect())
-                {//először tötölni a jegyzet és a kérdés kommenteket majd törölni a jegyzeteket és a kérdéseket majd a tárgyat  
-                    MySqlDataReader dataReader = DB.DataReader(string.Format("delete FROM subject where id='{0}'", subject.Id));
-                    dataReader.Close();
-                    DB.Close();
+                try
+                {
+                    if (DB.Connect())
+                    {//először tötölni a jegyzet és a kérdés kommenteket majd törölni a jegyzeteket és a kérdéseket majd a tárgyat  
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("delete FROM subject where id='{0}'", subject.Id));
+                        dataReader.Close();
+                        DB.Close();
+                    }
+                    return 1;
                 }
-                return 1;
-            }
-            catch (Exception)
-            {
-                throw;
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
     }

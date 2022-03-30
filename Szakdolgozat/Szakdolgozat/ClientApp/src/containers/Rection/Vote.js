@@ -1,109 +1,106 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react';
 import arrow from '../../IMG/up-arrow-svgrepo-com.svg'
 import {Col, Container, Image, Row, Table} from "react-bootstrap";
 import {connect} from "react-redux";
 import * as actions from "../../store/actions";
 
-class Vote extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            number: this.props.number,
-            userId: this.props.userId,
-            conId: this.props.conId,
-            type: this.props.type,
-            value: this.props.value,
-            uid:this.props.uid,
-        }
-    }
-    click(event){
-        if(event=="up"){
-            if(this.state.value==1){
-                this.setState({value: 0},function () {
-                    console.log(this.state);
-                })
-                this.setState({number:this.state.number-1})
-            }
-            else{
-                this.setState({value:1},function () {
-                    console.log(this.state);
-                })
-                this.setState({number:this.state.number+1})
-            }
-        }
-        else if(event=="down"){
-            if(this.state.value==-1){
-                this.setState({value: 0},function () {
-                    console.log(this.state);
-                })
-                this.setState({number:this.state.number+1})
-            }
-            else{
-                this.setState({value:-1},function () {
-                    console.log(this.state);
-                })
-                this.setState({number:this.state.number-1})
-            }
-        }
-    }
-    valueRender() {
+const Vote = (props) => {
+    const [Number, setNumber] = useState(props.number);
+    const [UserId] = useState(props.userId);
+    const [ConId] = useState(props.conId);
+    const [Type] = useState(props.type);
+    const [Value, setValue] = useState(props.value);
+    const [Uid] = useState(props.uid);
+    const [RadioValue] = useState(props.radioValue);
 
-        if(this.state.value==1){
-            console.log(this.state.value)
-            return(
-                <p style={{color: "#038505"}}>
-                    {this.state.number}
-                </p>
-            )
+    const click = (event) => {
+        if (event == "up") {
+            if (Value == 1) {
+                setValue(0)
+                setNumber(Number - 1)
+            } else {
+                setValue(1)
+                setNumber(Number + 1)
+            }
+        } else if (event == "down") {
+            if (Value == -1) {
+                setValue(0)
+                setNumber(Number + 1)
+            } else {
+                setValue(-1)
+                setNumber(Number - 1)
+            }
         }
-        else if(this.state.value==-1){
-            return(
-                <p style={{color: "#850303"}}>
-                    {this.state.number}
-                </p>
-            )
-        }
-        else {
+        toDatabase()
+    }
+    const toDatabase = () => {
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        let raw = JSON.stringify({
+            userId: UserId,
+            conId: ConId,
+            type: Type,
+            value: RadioValue,
+        })
+        let requestOptions = {
+            method: 'PUT',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        fetch('/Vote/', requestOptions).then(response => response.json()).then(data => {
+            console.log(data)
+        })
+    }
+
+    const valueRender = () => {
+        if (Value == 1) {
             return (
-                <p >
-                    {this.state.number}
+                <p style={{color: "#038505"}}>
+                    {Number}
+                </p>
+            )
+        } else if (Value == -1) {
+            return (
+                <p style={{color: "#850303"}}>
+                    {Number}
+                </p>
+            )
+        } else {
+            return (
+                <p>
+                    {Number}
                 </p>
             )
         }
     }
 
-    render() {
-        const style = {
-            "-webkit-transform": "rotate(180deg)",
-            "-moz-transform": "rotate(180deg)",
-            "-ms-transform": "rotate(180deg)",
-            "-o-transform": "rotate(180deg)",
-            "transform": "rotate(180deg)",
-            width:"20px"
-        }
+    const style = {
+        "-webkit-transform": "rotate(180deg)",
+        "-moz-transform": "rotate(180deg)",
+        "-ms-transform": "rotate(180deg)",
+        "-o-transform": "rotate(180deg)",
+        "transform": "rotate(180deg)",
+        width: "20px"
+    }
 
-        return (
-            <>
-                <Container >
-                    <Row>
-                        <Col>
-                            <Image src={arrow} style={{width:"20px"}} onClick={()=>this.click("up")}/>
-                        </Col>
-                        <Col>{this.valueRender()}</Col>
-                        <Col>
-                            <Image style={style} onClick={()=>this.click("down")} src={arrow}/>
-                        </Col>
-                    </Row>
-                </Container>
-            </>
-        )
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onFetchFaculty: () => dispatch(actions.fetchFaculty()),
-        onFetchScience: (id) => dispatch(actions.fetchScience(id))
-    }
+    return (
+        <>
+            <Container>
+                <Row>
+                    <Col>
+                        <Image src={arrow} style={{width: "20px"}} onClick={() => click("up")}/>
+                    </Col>
+                    <Col>{valueRender()}</Col>
+                    <Col>
+                        <Image style={style} onClick={() => click("down")} src={arrow}/>
+                    </Col>
+                </Row>
+            </Container>
+        </>
+    )
+
 }
 
-export default connect(null, mapDispatchToProps)(Vote);
+
+export default Vote;

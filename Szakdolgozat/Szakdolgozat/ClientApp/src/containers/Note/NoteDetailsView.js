@@ -43,6 +43,26 @@ class NoteDetailsView extends Component {
     }
 
     render() {
+        let points=0
+        let value=0
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        let raw = JSON.stringify({
+            userId: this.props.userId,
+            conId: this.props.note.id,
+            type: 'Topic',
+        })
+        let requestOptions = {
+            method: 'PATCH',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        fetch('/Vote/', requestOptions).then(response => response.json()).then(data => {
+            console.log(data)
+            points=data.voteValue
+            value=data.value
+        })
         const style = {
             display: "block",
             marginTop: "10px",
@@ -102,8 +122,8 @@ class NoteDetailsView extends Component {
                                 <Container fluid>
                                     <Row>
                                         <Col xs={1}>
-                                            <Vote number={this.props.note.points} userId={this.props.userId}
-                                                  conId={this.props.note.id} type={"Topic"} value={0}
+                                            <Vote number={points} userId={this.props.userId}
+                                                  conId={this.props.note.id} type={"Topic"} value={value}
                                                   uid={this.props.uid}/>
                                         </Col>
                                         <Col xs={2}>

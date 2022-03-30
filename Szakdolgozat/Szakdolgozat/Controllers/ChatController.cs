@@ -10,34 +10,37 @@ namespace Szakdolgozat.Controllers
     [Route("[controller]")]
     public class ChatController : ControllerBase
     {
-        private DatabaseManager DB = DatabaseManager.Instance();
+        private readonly DatabaseManager DB = DatabaseManager.Instance();
         [HttpGet]
         public IEnumerable<ChatMessage> ListTopic()
         {
-            try
+            using (DatabaseManager DB = DatabaseManager.Instance())
             {
-                DB = DatabaseManager.Instance();
-                List<ChatMessage> chatMessage = new();
-                if (DB.Connect())
+                try
                 {
-                    MySqlDataReader dataReader = DB.DataReader("SELECT user.username,chat.message,chat.created FROM chat inner join user on chat.userId = user.id = user.id ORDER BY created ASC ");
-                    if (dataReader.HasRows)
+                    List<ChatMessage> chatMessage = new();
+                    if (DB.Connect())
                     {
-                        while (dataReader.Read())
+                        MySqlDataReader dataReader = DB.DataReader("SELECT user.username,chat.message,chat.created FROM chat inner join user on chat.userId = user.id ORDER BY created ASC ");
+                        if (dataReader.HasRows)
                         {
-                            chatMessage.Add(new ChatMessage(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetDateTime(2)));
+                            while (dataReader.Read())
+                            {
+                                chatMessage.Add(new ChatMessage(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetDateTime(2)));
+                            }
                         }
+                        dataReader.Close();
+                        DB.Close();
                     }
-                    dataReader.Close();
-                    DB.Close();
+                    return chatMessage;
                 }
-                return chatMessage;
-            }
-            catch (Exception)
-            {
+                catch (Exception)
+                {
 
-                throw;
+                    throw;
+                }
             }
+
         }
     }
 }

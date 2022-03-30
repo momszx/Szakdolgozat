@@ -1,8 +1,14 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.Win32.SafeHandles;
+using MySql.Data.MySqlClient;
+using System;
+using System.Runtime.InteropServices;
+
 namespace Szakdolgozat
 {
-    public class DatabaseManager
+    public class DatabaseManager : IDisposable
     {
+        private bool disposed = false;
+        private readonly SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
         private bool connectionState = false;
         private static readonly string server = "192.168.50.15";
         private static readonly string database = "EKEHub";
@@ -59,6 +65,27 @@ namespace Szakdolgozat
                 connection.Close();
                 connectionState = false;
             }
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                handle.Dispose();
+                // Free any other managed objects here.
+                //
+            }
+
+            disposed = true;
         }
     }
 }
