@@ -20,13 +20,13 @@ namespace Szakdolgozat.Controllers
                     List<Topic> topics = new();
                     if (DB.Connect())
                     {
-                        MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT topic.id,topic.userId,topic.subjectId,topic.name,topic.text,topic.dateTime,topic.themeType,topic.point,user.username FROM topic inner join user on topic.userId = user.id where subjectId={0}", subject.Id));
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT topic.id,topic.userId,topic.subjectId,topic.name,topic.text,topic.dateTime,topic.themeType,topic.point,topic.open,user.username FROM topic inner join user on topic.userId = user.id where subjectId={0}", subject.Id));
                         if (dataReader.HasRows)
                         {
 
                             while (dataReader.Read())
                             {
-                                topics.Add(new Topic(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), dataReader.GetString(4), "", dataReader.GetDateTime(5), dataReader.GetString(6), dataReader.GetInt32(7), dataReader.GetString(8)));
+                                topics.Add(new Topic(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), dataReader.GetString(4), "", dataReader.GetDateTime(5), dataReader.GetString(6), dataReader.GetInt32(7), dataReader.GetBoolean(8), dataReader.GetString(9)));
                             }
                         }
                         dataReader.Close();
@@ -36,7 +36,6 @@ namespace Szakdolgozat.Controllers
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }
             }
@@ -51,7 +50,7 @@ namespace Szakdolgozat.Controllers
                 {
                     if (DB.Connect())
                     {
-                        MySqlDataReader dataReader = DB.DataReader(string.Format("insert into topic(userId, subjectId, name, text, dateTime ,themeType) value ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')", topic.UserId, topic.SubjectId, topic.Name, topic.Text, DateTime.Now.ToString("yyyy-MM-dd H:mm:ss"), topic.ThemeType));
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("insert into topic(userId, subjectId, name, text, dateTime ,themeType,open) value ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')", topic.UserId, topic.SubjectId, topic.Name, topic.Text, DateTime.Now.ToString("yyyy-MM-dd H:mm:ss"), topic.ThemeType,topic.Open));
                         dataReader.Close();
                         DB.Close();
                     }
@@ -72,7 +71,7 @@ namespace Szakdolgozat.Controllers
                 {
                     if (DB.Connect())
                     {
-                        MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE topic set name='{0}',text='{1}' where id='{2}'", topic.Name, topic.Text, topic.Id));
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE topic set name='{0}',text='{1}',open='{2}' where id='{3}'", topic.Name, topic.Text,topic.Open, topic.Id));
                         dataReader.Close();
                         DB.Close();
                     }

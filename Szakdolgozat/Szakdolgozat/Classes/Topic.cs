@@ -11,8 +11,9 @@ namespace Szakdolgozat.Classes
         private DateTime dateTime;
         private string themeType;
         private int points;
+        private bool open;
         private string user;
-        public Topic(int id, int userId, int subjectId, string name, string text, string Uid, DateTime dateTime, string themeType, int points, string user) : base(id, Uid)
+        public Topic(int id, int userId, int subjectId, string name, string text, string Uid, DateTime dateTime, string themeType, int points, bool open, string user) : base(id, Uid)
         {
             UserId = userId;
             SubjectId = subjectId;
@@ -22,6 +23,7 @@ namespace Szakdolgozat.Classes
             ThemeType = themeType;
             Points = points;
             User = user;
+            Open = open;
         }
 
         public int SubjectId { get => subjectId; set => subjectId = value; }
@@ -32,5 +34,6 @@ namespace Szakdolgozat.Classes
         public string ThemeType { get => themeType; set => themeType = value; }
         public int Points { get => points; set => points = value; }
         public string User { get => user; set => user = value; }
+        public bool Open { get => open; set => open = value; }
     }
 }

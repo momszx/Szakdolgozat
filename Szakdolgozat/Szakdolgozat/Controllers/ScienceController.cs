@@ -37,7 +37,7 @@ namespace Szakdolgozat
                 }
                 catch (Exception)
                 {
-
+                    DB.Close();
                     throw;
                 }
             }
@@ -60,6 +60,7 @@ namespace Szakdolgozat
                 }
                 catch (Exception)
                 {
+                    DB.Close();
                     throw;
                 }
             }

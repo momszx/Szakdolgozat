@@ -20,7 +20,8 @@ class AddEditor extends React.Component {
             id: this.props.id,
             uid: this.props.uId,
             themeType: this.props.themeType,
-            topic: this.props.topic
+            topic: this.props.topic,
+            open: false
         }
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -34,7 +35,8 @@ class AddEditor extends React.Component {
         this.setState({showModal: false});
     }
 
-    myAction(actionType, TopicId, UserId, Text, SubjectId, Name, Id, uId, ThemeType) {
+    myAction(actionType, TopicId, UserId, Text, SubjectId, Name, Id, uId, ThemeType, Open) {
+        console.log(Open)
         let temp = {
             topicId: TopicId,
             userId: UserId,
@@ -43,7 +45,8 @@ class AddEditor extends React.Component {
             name: Name,
             id: Id,
             uid: uId,
-            themeType: ThemeType
+            themeType: ThemeType,
+            open: Open
         }
         switch (actionType) {
             case "AddComment":
@@ -57,14 +60,20 @@ class AddEditor extends React.Component {
     }
 
     render() {
-        let topic = (
-            <>
-            </>
-        )
+        let topic
+        let openHelper
+        if (this.state.themeType == "Note") {
+            openHelper = (<Form.Check defaultChecked={false} type="switch" label="Check this switch"
+                                      onChange={(event, editor) => {
+                                          this.setState({open: event.target.checked})
+                                      }}/>)
+        } else {
+            openHelper = (<></>)
+        }
         if (this.props.topic) {
             topic = (
                 <>
-                    <Form.Control type="text" placeholder="Kérlek add meg a címet" onChange={(event, editor) => {
+                    <Form.Control type="text" placeholder="Mások is szerkeszthetik?" onChange={(event, editor) => {
                         this.setState({name: event.target.value})
                     }}></Form.Control>
                     <br/>
@@ -76,6 +85,7 @@ class AddEditor extends React.Component {
                         <option value={"Question"}>Kérdés</option>
                     </Form.Control>
                     <br/>
+                    {openHelper}
                 </>
             )
         } else {
@@ -104,7 +114,8 @@ class AddEditor extends React.Component {
                                 this.state.name,
                                 this.state.id,
                                 this.state.uid,
-                                this.state.themeType)}>
+                                this.state.themeType,
+                                this.state.open)}>
                         Save
                     </Button>
                 </div>

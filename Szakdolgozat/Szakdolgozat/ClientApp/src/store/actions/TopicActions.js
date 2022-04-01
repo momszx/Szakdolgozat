@@ -41,6 +41,7 @@ export const addTopic=(strResult)=>{
         "text": strResult.text,
         "userId": strResult.userId,
         "themeType": strResult.themeType,
+        "open":strResult.open
     })
     let requestOptions = {
         method: 'PUT',
@@ -67,6 +68,7 @@ export const updateTopic=(strResult)=>{
         "text": strResult.text,
         "userId": strResult.userId,
         "themeType": strResult.themeType,
+        "open":strResult.open
     })
     let requestOptions = {
         method: 'PATCH',

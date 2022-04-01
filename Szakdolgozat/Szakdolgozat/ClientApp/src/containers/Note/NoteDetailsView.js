@@ -17,16 +17,22 @@ class NoteDetailsView extends Component {
         return dateTime.replace("T", " ");
     }
 
-    MyAction(text, actionType, topicId, userId, subjectId, name, id, uId, themeType, loginUserId, action) {
-        if (userId == loginUserId) {
+    MyAction(text, actionType, topicId, userId, subjectId, name, id, uId, themeType, loginUserId, action, open) {
+        if (userId == loginUserId && !open) {
             return (
                 <>
-                    {/*<ModalEditor text={text} actionType={actionType}
+                    <ModalEditor text={text} actionType={actionType}
                                  topicId={id}
                                  userId={userId} subjectId={subjectId}
                                  name={name} id={id}
                                  uId={uId}
-                                 themeType={themeType}/>*/}
+                                 themeType={themeType}/>
+                    <DeleteButton click={action}/>
+                </>
+            )
+        } else if (open && uId != "") {
+            return (
+                <>
                     <Link to={"/liveEditor"}>
                         <Image
                             style={{width: "20px"}} src={EditIcon}/>
@@ -43,8 +49,8 @@ class NoteDetailsView extends Component {
     }
 
     render() {
-        let points=0
-        let value=0
+        let points = 0
+        let value = 0
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         let raw = JSON.stringify({
@@ -60,8 +66,8 @@ class NoteDetailsView extends Component {
         };
         fetch('/Vote/', requestOptions).then(response => response.json()).then(data => {
             console.log(data)
-            points=data.voteValue
-            value=data.value
+            points = data.voteValue
+            value = data.value
         })
         const style = {
             display: "block",
@@ -84,7 +90,7 @@ class NoteDetailsView extends Component {
                 <Comment dateTime={strResult.dateTime} points={strResult.points} user={strResult.user}
                          text={strResult.text} action={(
                     <>
-                        {this.MyAction(strResult.text, "ModComment", this.props.note.id, strResult.userId, "", "", strResult.id, this.props.uid, "", this.props.userId, () => this.props.onDeleteComment(strResult))}
+                        {this.MyAction(strResult.text, "ModComment", this.props.note.id, strResult.userId, "", "", strResult.id, this.props.uid, "", this.props.userId, () => this.props.onDeleteComment(strResult),this.props.note.open)}
                     </>
 
                 )} userId={this.props.userId} conId={strResult.id} uid={this.props.userId} value={0}
@@ -139,7 +145,7 @@ class NoteDetailsView extends Component {
                                             {this.MyAction(this.props.note.text, "ModTopic", "", this.props.note.userId,
                                                 this.props.note.subjectId, "", this.props.note.id, this.props.uid,
                                                 this.props.note.themeType, this.props.userId,
-                                                () => this.props.onDeleteTopic(this.props.note))}
+                                                () => this.props.onDeleteTopic(this.props.note),this.props.note.open)}
                                         </Col>
                                     </Row>
                                 </Container>

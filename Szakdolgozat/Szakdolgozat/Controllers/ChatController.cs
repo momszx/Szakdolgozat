@@ -36,7 +36,6 @@ namespace Szakdolgozat.Controllers
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }
             }

@@ -48,7 +48,6 @@ namespace Szakdolgozat
             }
             catch (System.Exception)
             {
-
                 throw;
             }
         }
@@ -93,7 +92,6 @@ namespace Szakdolgozat
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -114,7 +112,6 @@ namespace Szakdolgozat
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

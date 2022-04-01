@@ -37,7 +37,6 @@ namespace Szakdolgozat
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }
             }
