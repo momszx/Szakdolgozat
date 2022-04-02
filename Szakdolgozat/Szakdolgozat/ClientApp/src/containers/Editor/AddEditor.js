@@ -1,6 +1,4 @@
 import React from 'react'
-import {CKEditor} from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import {Button, Form} from "react-bootstrap";
 import * as actions from "../../store/actions";
 import {connect} from "react-redux";
@@ -12,7 +10,6 @@ class AddEditor extends React.Component {
         this.state = {
             text: RichTextEditor.createValueFromString(this.props.text, 'html'),
             actionType: this.props.actionType,
-            showModal: false,
             topicId: this.props.topicId,
             userId: this.props.userId,
             subjectId: this.props.subjectId,
@@ -36,7 +33,6 @@ class AddEditor extends React.Component {
     }
 
     myAction(actionType, TopicId, UserId, Text, SubjectId, Name, Id, uId, ThemeType, Open) {
-        console.log(Open)
         let temp = {
             topicId: TopicId,
             userId: UserId,
@@ -63,7 +59,7 @@ class AddEditor extends React.Component {
         let topic
         let openHelper
         if (this.state.themeType == "Note") {
-            openHelper = (<Form.Check defaultChecked={false} type="switch" label="Check this switch"
+            openHelper = (<Form.Check defaultChecked={false} type="switch" label="Mindenki szerekesztheti"
                                       onChange={(event, editor) => {
                                           this.setState({open: event.target.checked})
                                       }}/>)

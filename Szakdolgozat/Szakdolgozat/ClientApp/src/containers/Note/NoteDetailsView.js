@@ -11,10 +11,32 @@ import * as actions from "../../store/actions";
 import Vote from "../Rection/Vote";
 import Reactions from "../Rection/Reactions";
 import EditIcon from "../../IMG/edit-svgrepo-com.svg";
+import ForkEditor from "../Editor/ForkEditor";
 
 class NoteDetailsView extends Component {
     dateReplace(dateTime) {
         return dateTime.replace("T", " ");
+    }
+
+    Fork(text, actionType, topicId, userId, subjectId, name, id, uId, themeType, loginUserId) {
+        if (userId == loginUserId) {
+            console.log(text)
+            return (
+                <>
+                    <ForkEditor text={text} actionType={actionType}
+                                topicId={id}
+                                userId={userId} subjectId={subjectId}
+                                name={name} id={id}
+                                uId={uId}
+                                themeType={themeType} topic={"Note"}/>
+                </>
+            )
+        } else {
+            return (
+                <>
+                </>
+            )
+        }
     }
 
     MyAction(text, actionType, topicId, userId, subjectId, name, id, uId, themeType, loginUserId, action, open) {
@@ -90,18 +112,14 @@ class NoteDetailsView extends Component {
                 <Comment dateTime={strResult.dateTime} points={strResult.points} user={strResult.user}
                          text={strResult.text} action={(
                     <>
-                        {this.MyAction(strResult.text, "ModComment", this.props.note.id, strResult.userId, "", "", strResult.id, this.props.uid, "", this.props.userId, () => this.props.onDeleteComment(strResult),this.props.note.open)}
+                        {this.MyAction(strResult.text, "ModComment", this.props.note.id, strResult.userId, "", "", strResult.id, this.props.uid, "", this.props.userId, () => this.props.onDeleteComment(strResult), this.props.note.open)}
                     </>
 
                 )} userId={this.props.userId} conId={strResult.id} uid={this.props.userId} value={0}
                          reactionNumber={reactionNumber} radioValue={radioValue}/>
             ))
         }
-        let editor = (
-            <>
-                Kérlek <Link to="/user">jelentkezz be</Link> vagy <Link to="/user">regisztrálj</Link> először
-            </>
-        )
+        let editor
         if (this.props.uid != "") {
             editor = (
                 <AddEditor text={""} actionType={"AddComment"}
@@ -142,10 +160,15 @@ class NoteDetailsView extends Component {
                                             {this.dateReplace(this.props.note.dateTime)}
                                         </Col>
                                         <Col xs={1}>
+                                            {this.Fork(this.props.note.text, "ModTopic", "", this.props.userId,
+                                                this.props.note.subjectId, "", "", this.props.uid,
+                                                this.props.note.themeType, this.props.userId)}
+                                        </Col>
+                                        <Col xs={1}>
                                             {this.MyAction(this.props.note.text, "ModTopic", "", this.props.note.userId,
                                                 this.props.note.subjectId, "", this.props.note.id, this.props.uid,
                                                 this.props.note.themeType, this.props.userId,
-                                                () => this.props.onDeleteTopic(this.props.note),this.props.note.open)}
+                                                () => this.props.onDeleteTopic(this.props.note), this.props.note.open)}
                                         </Col>
                                     </Row>
                                 </Container>

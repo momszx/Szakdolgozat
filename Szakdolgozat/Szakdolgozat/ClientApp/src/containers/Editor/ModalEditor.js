@@ -44,7 +44,6 @@ class ModalEditor extends Component {
             uid: uId,
             themeType: ThemeType
         }
-        console.log(temp)
         switch (actionType) {
             case "ModComment":
                 this.props.onUpdateComment(temp)
