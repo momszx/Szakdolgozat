@@ -4,8 +4,6 @@ import ChatWindow from "./ChatWindow";
 import ChatInput from "./ChatInput";
 import {Col, Container, Row} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import {Link} from "react-router-dom";
-import {fetchFacultySuccess} from "../../store/actions";
 
 const LiveChat = (props) => {
     const [connection, setConnection] = useState(null);

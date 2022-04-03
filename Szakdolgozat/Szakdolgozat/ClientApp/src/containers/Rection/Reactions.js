@@ -25,7 +25,6 @@ class Reactions extends React.Component {
     }
 
     toDb() {
-        console.log("valami !")
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         let raw = JSON.stringify({
@@ -42,9 +41,7 @@ class Reactions extends React.Component {
             body: raw,
             redirect: 'follow'
         };
-        console.log(raw)
         fetch('/Vote/', requestOptions).then(response => response.json()).then(data => {
-            console.log(data)
         })
     }
 

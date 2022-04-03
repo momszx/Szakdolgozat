@@ -20,7 +20,6 @@ class NoteDetailsView extends Component {
 
     Fork(text, actionType, topicId, userId, subjectId, name, id, uId, themeType, loginUserId) {
         if (userId == loginUserId) {
-            console.log(text)
             return (
                 <>
                     <ForkEditor text={text} actionType={actionType}
@@ -87,7 +86,6 @@ class NoteDetailsView extends Component {
             redirect: 'follow'
         };
         fetch('/Vote/', requestOptions).then(response => response.json()).then(data => {
-            console.log(data)
             points = data.voteValue
             value = data.value
         })
@@ -146,9 +144,9 @@ class NoteDetailsView extends Component {
                                 <Container fluid>
                                     <Row>
                                         <Col xs={1}>
-                                            <Vote number={points} userId={this.props.userId}
+                                            <Vote number={this.props.note.points} userId={this.props.userId}
                                                   conId={this.props.note.id} type={"Topic"} value={value}
-                                                  uid={this.props.uid}/>
+                                                  uid={this.props.uid} id={this.props.note.myVoteId}/>
                                         </Col>
                                         <Col xs={2}>
                                             {this.props.note.user}

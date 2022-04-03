@@ -47,7 +47,6 @@ class SubjectDetailsView extends Component {
             </>
         )
         if (this.props.uid != "" &&this.props.topic[0]!=undefined) {
-            console.log(this.props.topic[0])
             editor = (
                 <Card style={style} className="text-center">
                     <Card.Text>

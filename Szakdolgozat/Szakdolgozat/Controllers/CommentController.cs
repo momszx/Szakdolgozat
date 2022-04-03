@@ -21,12 +21,12 @@ namespace Szakdolgozat.Controllers
                     List<Comment> comments = new();
                     if (DB.Connect())
                     {
-                        MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT comment.id,comment.topicId,comment.userId,comment.text,comment.dateTime,comment.point,user.username FROM comment inner join user on comment.userId = user.id where topicId={0}", topic.Id));
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT comment.id,comment.topicId,comment.userId,comment.text,comment.dateTime,user.username, ifnull((SELECT sum(value) FROM upDownVote where conId=comment.id and type='Comment' ),0)as Vote, ifnull((select value from upDownVote where userId='{0}' and conId=comment.id and type='Comment'),0)as myVote, ifnull((select id from upDownVote where userId='{0}' and conId=comment.id and type='Comment'),0)as myVoteId FROM comment inner join user on comment.userId = user.id where topicId='{1}';", topic.UserId,topic.Id));
                         if (dataReader.HasRows)
                         {
                             while (dataReader.Read())
                             {
-                                comments.Add(new Comment(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), "", dataReader.GetDateTime(4), dataReader.GetInt32(5), dataReader.GetString(6)));
+                                comments.Add(new Comment(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3),"",dataReader.GetDateTime(4),dataReader.GetString(5),dataReader.GetInt32(6), dataReader.GetInt32(7), dataReader.GetInt32(8)));
                             }
                         }
                         dataReader.Close();

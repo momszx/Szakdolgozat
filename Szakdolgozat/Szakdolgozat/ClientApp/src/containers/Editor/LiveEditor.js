@@ -11,9 +11,7 @@ const LiveEditor = (props) => {
     const onSubmit = () => {
         if (uid && uid !== '' && uid !== null && text && text !== null) {
             sendMessage(text.toString('html'));
-        } else {
-            console.log('Please insert an user and a message.' + uid + " " + text);
-        }
+        } 
     }
     const onMessageUpdate = (e) => {
         setText(e);
@@ -36,9 +34,7 @@ const LiveEditor = (props) => {
                 } catch (e) {
                     console.log(e);
                 }
-            } else {
-                console.log('No connection to server yet.');
-            }
+            } 
         } catch (e) {
 
         }
@@ -64,9 +60,7 @@ const LiveEditor = (props) => {
             } catch (e) {
                 console.log(e);
             }
-        } else {
-            console.log('No connection to server yet.');
-        }
+        } 
     }
 
     return (<>

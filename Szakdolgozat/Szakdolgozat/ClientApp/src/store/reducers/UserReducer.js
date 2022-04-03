@@ -20,7 +20,6 @@ const loginStart = (state,action) => {
     });
 }
 const loginSuccess = (state,action) => {
-    console.log(action.user)
     return updateObject(state, {
         loading: false,
         username:action.user.username,

@@ -11,13 +11,17 @@ const Vote = (props) => {
     const [Type] = useState(props.type);
     const [Value, setValue] = useState(props.value);
     const [Uid] = useState(props.uid);
-    const [RadioValue] = useState(props.radioValue);
+    const [Id] = useState(props.id);
+    const [changed, setChanged] = useState(false)
 
     const click = (event) => {
         if (event == "up") {
             if (Value == 1) {
                 setValue(0)
                 setNumber(Number - 1)
+            } else if (Value == -1) {
+                setValue(1)
+                setNumber(Number + 2)
             } else {
                 setValue(1)
                 setNumber(Number + 1)
@@ -26,13 +30,39 @@ const Vote = (props) => {
             if (Value == -1) {
                 setValue(0)
                 setNumber(Number + 1)
+            } else if (Value == 1) {
+                setValue(-1)
+                setNumber(Number - 2)
             } else {
                 setValue(-1)
                 setNumber(Number - 1)
             }
         }
-        toDatabase()
+        setChanged(true)
+
     }
+    useEffect(() => {
+        if (changed) {
+            let myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            let raw = JSON.stringify({
+                userId: UserId,
+                conId: ConId,
+                type: Type,
+                value: Value,
+                uid: Uid,
+                id: Id
+            })
+            let requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            fetch('/Vote/', requestOptions).then(response => response.json()).then(data => {
+            })
+        }
+    }, [Value])
     const toDatabase = () => {
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -40,7 +70,9 @@ const Vote = (props) => {
             userId: UserId,
             conId: ConId,
             type: Type,
-            value: RadioValue,
+            value: Value,
+            uid: Uid,
+            id: Id
         })
         let requestOptions = {
             method: 'PUT',
@@ -49,7 +81,6 @@ const Vote = (props) => {
             redirect: 'follow'
         };
         fetch('/Vote/', requestOptions).then(response => response.json()).then(data => {
-            console.log(data)
         })
     }
 

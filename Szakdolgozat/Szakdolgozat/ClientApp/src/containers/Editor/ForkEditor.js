@@ -36,7 +36,6 @@ class ForkEditor extends React.Component {
     }
 
     myAction(actionType, TopicId, UserId, Text, SubjectId, Name, Id, uId, ThemeType, Open) {
-        console.log(Open)
         let temp = {
             topicId: TopicId,
             userId: UserId,

@@ -96,7 +96,6 @@ export const updateEmployee = (employee) => {
         body: raw,
         redirect: 'follow'
     };
-    console.log(raw)
     return dispatch => {
         dispatch(updateEmployeeStart())
         fetch('Employee', requestOptions)

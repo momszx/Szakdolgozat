@@ -35,7 +35,6 @@ export  const fetchCommentSuccess=(comment)=>{
     }
 }
 export const setTopic=(strResult)=>{
-    console.log(strResult)
     return{
         type:actionTypes.SET_TOPIC,
         topic:strResult
@@ -63,14 +62,12 @@ export const addComment=(strResult)=>{
     return dispatch=>{
         fetch('/Comment',requestOptions).then(response=>response.json()).then(data=>{
             setTimeout(function(){
-                console.log(strResult.topicId)
                 dispatch(fetchComment(temp,false))
             }, 100)
         })
     }
 }
 export  const updateComment=(strResult)=>{
-    console.log(strResult)
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     let raw = JSON.stringify({

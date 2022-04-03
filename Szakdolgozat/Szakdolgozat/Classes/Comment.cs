@@ -10,9 +10,11 @@ namespace Szakdolgozat.Classes
         private DateTime dateTime;
         private int points;
         private string user;
+        private int myVote;
+        private int myVoteId;
 
 
-        public Comment(int id, int topicId, int userId, string text, string Uid, DateTime dateTime, int points, string user) : base(id, Uid)
+        public Comment(int id, int topicId, int userId, string text, string Uid, DateTime dateTime , string user, int points, int myVote, int myVoteId) : base(id, Uid)
         {
             TopicId = topicId;
             UserId = userId;
@@ -20,6 +22,8 @@ namespace Szakdolgozat.Classes
             DateTime = dateTime;
             Points = points;
             User = user;
+            MyVote = myVote;
+            MyVoteId = myVoteId;
         }
 
         public int TopicId { get => topicId; set => topicId = value; }
@@ -28,5 +32,7 @@ namespace Szakdolgozat.Classes
         public DateTime DateTime { get => dateTime; set => dateTime = value; }
         public int Points { get => points; set => points = value; }
         public string User { get => user; set => user = value; }
+        public int MyVote { get => myVote; set => myVote = value; }
+        public int MyVoteId { get => myVoteId; set => myVoteId = value; }
     }
 }

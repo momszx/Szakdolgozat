@@ -20,13 +20,13 @@ namespace Szakdolgozat.Controllers
                     List<Topic> topics = new();
                     if (DB.Connect())
                     {
-                        MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT topic.id,topic.userId,topic.subjectId,topic.name,topic.text,topic.dateTime,topic.themeType,topic.point,topic.open,user.username FROM topic inner join user on topic.userId = user.id where subjectId={0}", subject.Id));
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT topic.id,topic.userId,topic.subjectId,topic.name,topic.text,topic.dateTime,topic.themeType,topic.open,user.username,ifnull((SELECT sum(value) FROM upDownVote where conId=topic.id and type='Topic' ),0) as Vote,ifnull((select value from upDownVote where userId='{0}' and conId=topic.id and type='Topic'),0)as myVote,ifnull((select id from upDownVote where userId='{0}' and conId=topic.id and type='Topic'),0)as myVoteId FROM topic inner join user on topic.userId = user.id where subjectId='{1}';", subject.UserId, subject.Id));
                         if (dataReader.HasRows)
                         {
 
                             while (dataReader.Read())
                             {
-                                topics.Add(new Topic(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), dataReader.GetString(4), "", dataReader.GetDateTime(5), dataReader.GetString(6), dataReader.GetInt32(7), dataReader.GetBoolean(8), dataReader.GetString(9)));
+                                topics.Add(new Topic(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), dataReader.GetString(4), "", dataReader.GetDateTime(5), dataReader.GetString(6), dataReader.GetBoolean(7), dataReader.GetString(8), dataReader.GetInt32(9), dataReader.GetInt32(10) , dataReader.GetInt32(11)));
                             }
                         }
                         dataReader.Close();
