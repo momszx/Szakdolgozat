@@ -16,12 +16,48 @@ class Registration extends Component {
                         }, 100)
                     }}
                     validationSchema={Yup.object().shape({
-                        username: Yup.string().required('Add meg a felhasználóneved.'),
-                        password: Yup.string().required('Add meg a jelszavad.').min(8, 'Minimum jelszó hossz 8 karakter.'),
-                        passwordConfirmation: Yup.string().required('Add meg a jelszavad.').min(8, 'Minimum jelszó hossz 8 karakter.').oneOf([Yup.ref('password'), null], 'Jelszavak nem eggyeznek')
+                        username: Yup.string().min(3, "Minimum 3 karakter")
+                            .max(30, "Maximum 30 karakter").required('Add meg a felhasználóneved.'),
+                        password: Yup.string().required('Add meg a jelszavad.').min(8, 'Minimum jelszó hossz 8 karakter.')
+                            .test("isValidPass", " Nem megfelelő jelszó tratalmaznia kell 1 nagy betűt, 1 kis betűt ,egyszámot és egy speciális karaktert", (value, context) => {
+                                const hasUpperCase = /[A-Z]/.test(value);
+                                const hasLowerCase = /[a-z]/.test(value);
+                                const hasNumber = /[0-9]/.test(value);
+                                const hasSymbole = /[!@#%&]/.test(value);
+                                let validConditions = 0;
+                                const numberOfMustBeValidConditions = 3;
+                                const conditions = [hasLowerCase, hasUpperCase, hasNumber, hasSymbole];
+                                conditions.forEach((condition) =>
+                                    condition ? validConditions++ : null
+                                );
+                                if (validConditions >= numberOfMustBeValidConditions) {
+                                    return true;
+                                }
+                                return false;
+                            }),
+                        passwordConfirmation: Yup.string().required('Add meg a jelszavad.').min(8, 'Minimum jelszó hossz 8 karakter.')
+                            .test("isValidPass", " Nem megfelelő jelszó tratalmaznia kell 1 nagy betűt, 1 kis betűt ,egyszámot és egy speciális karaktert", (value, context) => {
+                                const hasUpperCase = /[A-Z]/.test(value);
+                                const hasLowerCase = /[a-z]/.test(value);
+                                const hasNumber = /[0-9]/.test(value);
+                                const hasSymbole = /[!@#%&]/.test(value);
+                                let validConditions = 0;
+                                const numberOfMustBeValidConditions = 3;
+                                const conditions = [hasLowerCase, hasUpperCase, hasNumber, hasSymbole];
+                                conditions.forEach((condition) =>
+                                    condition ? validConditions++ : null
+                                );
+                                if (validConditions >= numberOfMustBeValidConditions) {
+                                    return true;
+                                }
+                                return false;
+                            }).oneOf([Yup.ref('password'), null], 'Jelszavak nem eggyeznek')
                     })}>
                 {(props) => {
-                    const {values, touched, errors, isSubmitting, handleChange, handleBlur, handleSubmit} = props;
+                    let {values, touched, errors, isSubmitting, handleChange, handleBlur, handleSubmit} = props;
+                    if (this.props.username != "") {
+                        isSubmitting = true;
+                    }
                     return (
                         <>
                             <Form onSubmit={handleSubmit}>
@@ -45,7 +81,8 @@ class Registration extends Component {
                                 </Form.Group>
                                 <Form.Group as={Col}>
                                     <Form.Label>Jelszó megerősítése</Form.Label>
-                                    <Form.Control name="passwordConfirmation" type="password" placeholder="Add meg a jelszó megerősítése"
+                                    <Form.Control name="passwordConfirmation" type="password"
+                                                  placeholder="Add meg a jelszó megerősítése"
                                                   onChange={handleChange} onBlur={handleBlur}
                                                   className={errors.passwordConfirmation && touched.passwordConfirmation ? "form-control is-invalid" : "form-control"}/>
                                     {errors.passwordConfirmation && touched.passwordConfirmation && (
@@ -69,11 +106,13 @@ class Registration extends Component {
 }
 
 const mapStateToProps = state => {
-    return {};
+    return {
+        username: state.user.username
+    };
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        onRegistration:(user) =>dispatch(actions.registration(user))
+        onRegistration: (user) => dispatch(actions.registration(user))
     }
 }
 

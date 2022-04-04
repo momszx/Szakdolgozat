@@ -21,7 +21,10 @@ class Login extends Component {
                         password: Yup.string().required('Add meg a jelszavad.')
                     })}>
                 {(props) => {
-                    const {values, touched, errors, isSubmitting, handleChange, handleBlur, handleSubmit} = props;
+                    let {values, touched, errors, isSubmitting, handleChange, handleBlur, handleSubmit} = props;
+                    if(this.props.username!=""){
+                        isSubmitting=true;
+                    }
                     return (
                         <>
                             <Form onSubmit={handleSubmit}>
@@ -61,7 +64,9 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => {
-    return {};
+    return {
+        username: state.user.username
+    };
 }
 const mapDispatchToProps = (dispatch) => {
     return {
