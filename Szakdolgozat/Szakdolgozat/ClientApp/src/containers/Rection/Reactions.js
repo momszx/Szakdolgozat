@@ -13,7 +13,7 @@ const Reactions = (props) => {
     const [uid] = useState(props.uid);
     const [changed, setChanged] = useState(false)
 
-
+console.log(radioValue)
     const click = (e, idx) => {
         if (radioValue !== e.currentTarget.value) {
             setRadioValue(e.currentTarget.value)

@@ -8,7 +8,7 @@ import MyCard from "../MyCard";
 
 class SubjectView extends React.Component {
     mod(strResult) {
-        this.props.onFetchTopic(strResult.id)
+        this.props.onFetchTopic(strResult.id,this.props.userId)
         return
     }
 
@@ -47,13 +47,14 @@ class SubjectView extends React.Component {
 const mapStateToProps = state => {
     return {
         subject: state.subject.subject,
-        loading: state.subject.loading
+        loading: state.subject.loading,
+        userId: state.user.id
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onFetchTopic: (id) => dispatch(actions.fetchTopic(id))
+        onFetchTopic: (id,userId) => dispatch(actions.fetchTopic(id,userId))
     }
 }
 

@@ -1,10 +1,11 @@
 import * as actionTypes from './actionsTypes';
 
-export  const fetchComment=(strResult,needSet)=>{
+export  const fetchComment=(strResult,needSet,userId)=>{
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     let raw = JSON.stringify({
         "id": strResult.id,
+        "userId":userId,
         "name": '',
     })
     let requestOptions = {

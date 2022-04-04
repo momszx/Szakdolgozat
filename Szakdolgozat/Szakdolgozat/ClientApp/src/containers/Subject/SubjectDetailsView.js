@@ -9,7 +9,7 @@ import AddEditor from "../Editor/AddEditor";
 
 class SubjectDetailsView extends Component {
     fetchComment(strResult) {
-        this.props.onFetchComment(strResult)
+        this.props.onFetchComment(strResult,this.props.userId)
         return
     }
 
@@ -96,7 +96,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        onFetchComment: (strResult) => dispatch(actions.fetchComment(strResult,true)),
+        onFetchComment: (strResult,userId) => dispatch(actions.fetchComment(strResult,true,userId)),
     }
 }
 
