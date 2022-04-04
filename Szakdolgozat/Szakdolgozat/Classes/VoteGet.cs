@@ -2,7 +2,7 @@
 {
     public class VoteGet : Vote
     {
-        int voteValue;
+        private int voteValue;
         public VoteGet() : base(0, 0, 0, "", 0, "")
         {
 

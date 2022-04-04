@@ -63,26 +63,6 @@ const Vote = (props) => {
             })
         }
     }, [Value])
-    const toDatabase = () => {
-        let myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        let raw = JSON.stringify({
-            userId: UserId,
-            conId: ConId,
-            type: Type,
-            value: Value,
-            uid: Uid,
-            id: Id
-        })
-        let requestOptions = {
-            method: 'PUT',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-        fetch('/Vote/', requestOptions).then(response => response.json()).then(data => {
-        })
-    }
 
     const valueRender = () => {
         if (Value == 1) {
@@ -122,7 +102,11 @@ const Vote = (props) => {
                     <Col>
                         <Image src={arrow} style={{width: "20px"}} onClick={() => click("up")}/>
                     </Col>
+                </Row>
+                <Row>
                     <Col>{valueRender()}</Col>
+                </Row>
+                <Row>
                     <Col>
                         <Image style={style} onClick={() => click("down")} src={arrow}/>
                     </Col>

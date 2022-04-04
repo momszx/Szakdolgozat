@@ -15,7 +15,10 @@ namespace Szakdolgozat.Classes
         private string user;
         private int myVote;
         private int myVoteId;
-        public Topic(int id, int userId, int subjectId, string name, string text, string Uid, DateTime dateTime, string themeType, bool open, string user, int points,int myVote,int myVoteId) : base(id, Uid)
+        private int[] reaction = new int[3];
+        private int myReactioId;
+        private int myReactionValue;
+        public Topic(int id, int userId, int subjectId, string name, string text, string Uid, DateTime dateTime, string themeType, bool open, string user, int points, int myVote, int myVoteId, int[] reaction, int myReactioId, int myReactionValue) : base(id, Uid)
         {
             UserId = userId;
             SubjectId = subjectId;
@@ -28,6 +31,9 @@ namespace Szakdolgozat.Classes
             Open = open;
             MyVote = myVote;
             MyVoteId = myVoteId;
+            Reaction = reaction;
+            MyReactioId = myReactioId;
+            MyReactionValue = myReactionValue;
         }
 
         public int SubjectId { get => subjectId; set => subjectId = value; }
@@ -41,5 +47,8 @@ namespace Szakdolgozat.Classes
         public bool Open { get => open; set => open = value; }
         public int MyVote { get => myVote; set => myVote = value; }
         public int MyVoteId { get => myVoteId; set => myVoteId = value; }
+        public int[] Reaction { get => reaction; set => reaction = value; }
+        public int MyReactioId { get => myReactioId; set => myReactioId = value; }
+        public int MyReactionValue { get => myReactionValue; set => myReactionValue = value; }
     }
 }

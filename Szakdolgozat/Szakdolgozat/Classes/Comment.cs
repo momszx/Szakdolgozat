@@ -12,9 +12,12 @@ namespace Szakdolgozat.Classes
         private string user;
         private int myVote;
         private int myVoteId;
+        private int[] reaction = new int[3];
+        private int myReactioId;
+        private int myReactionValue;
 
 
-        public Comment(int id, int topicId, int userId, string text, string Uid, DateTime dateTime , string user, int points, int myVote, int myVoteId) : base(id, Uid)
+        public Comment(int id, int topicId, int userId, string text, string Uid, DateTime dateTime, string user, int points, int myVote, int myVoteId, int[] reaction, int myReactioId, int myReactionValue) : base(id, Uid)
         {
             TopicId = topicId;
             UserId = userId;
@@ -24,6 +27,9 @@ namespace Szakdolgozat.Classes
             User = user;
             MyVote = myVote;
             MyVoteId = myVoteId;
+            Reaction = reaction;
+            MyReactioId = myReactioId;
+            MyReactionValue = myReactionValue;
         }
 
         public int TopicId { get => topicId; set => topicId = value; }
@@ -34,5 +40,8 @@ namespace Szakdolgozat.Classes
         public string User { get => user; set => user = value; }
         public int MyVote { get => myVote; set => myVote = value; }
         public int MyVoteId { get => myVoteId; set => myVoteId = value; }
+        public int[] Reaction { get => reaction; set => reaction = value; }
+        public int MyReactioId { get => myReactioId; set => myReactioId = value; }
+        public int MyReactionValue { get => myReactionValue; set => myReactionValue = value; }
     }
 }

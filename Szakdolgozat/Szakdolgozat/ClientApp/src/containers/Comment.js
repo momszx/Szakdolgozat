@@ -8,23 +8,27 @@ class Comment extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            text:this.props.text,
-            user:this.props.user,
-            points:this.props.points,
-            dateTime:this.props.dateTime,
-            action:this.props.action,
-            userId:this.props.userId,
-            conId:this.props.conId,
-            uid:this.props.uid,
-            value:this.props.value,
-            reactionNumber:this.props.reactionNumber,
-            radioValue:this.props.radioValue
+            text: this.props.text,
+            user: this.props.user,
+            points: this.props.points,
+            dateTime: this.props.dateTime,
+            action: this.props.action,
+            userId: this.props.userId,
+            conId: this.props.conId,
+            uid: this.props.uid,
+            value: this.props.value,
+            reactionNumber: this.props.reactionNumber,
+            radioValue: this.props.radioValue,
+            voteId: this.props.voteId,
+            reactionId: this.props.reactionId
         }
     }
+
     render() {
         const myStyle = {
-            marginBottom:"20px"
+            marginBottom: "20px"
         }
+        console.log(this.state.radioValue)
         return (
             <>
                 <Card style={myStyle}>
@@ -33,7 +37,9 @@ class Comment extends React.Component {
                             <Row>
                                 <Col xs={1}>
                                     <Vote number={this.state.points} userId={this.state.userId}
-                                          conId={this.state.conId} type={"Comment"} value={this.state.value} uid={this.state.uid}/>
+                                          conId={this.state.conId} type={"Comment"} value={this.state.value}
+                                          uid={this.state.uid}
+                                          id={this.state.voteId}/>
                                 </Col>
                                 <Col>
                                     {this.state.user}
@@ -53,7 +59,12 @@ class Comment extends React.Component {
                             <div className="d-flex flex-row-reverse">
                                 <div className="p-2">
                                     <Reactions reactionNumber={this.state.reactionNumber}
-                                               radioValue={this.state.radioValue}/>
+                                               radionValue={this.state.radioValue}
+                                               id={this.state.reactionId}
+                                               userId={this.state.userId}
+                                               conId={this.state.conId} type={"Comment"} value={this.state.value}
+                                               uid={this.state.uid}
+                                               id={this.state.voteId}/>
                                 </div>
                             </div>
                         </Card.Text>
@@ -62,8 +73,10 @@ class Comment extends React.Component {
             </>
         )
     }
+
     dateReplace(dateTime) {
         return dateTime.replace("T", " ");
     }
 }
+
 export default Comment

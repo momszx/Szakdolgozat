@@ -70,8 +70,6 @@ class NoteDetailsView extends Component {
     }
 
     render() {
-        let points = 0
-        let value = 0
         const style = {
             display: "block",
             marginTop: "10px",
@@ -91,13 +89,15 @@ class NoteDetailsView extends Component {
         if (!this.props.loading && this.props.comment != []) {
             commentList = this.props.comment.map(strResult => (
                 <Comment dateTime={strResult.dateTime} points={strResult.points} user={strResult.user}
-                         text={strResult.text} action={(
-                    <>
-                        {this.MyAction(strResult.text, "ModComment", this.props.note.id, strResult.userId, "", "", strResult.id, this.props.uid, "", this.props.userId, () => this.props.onDeleteComment(strResult), this.props.note.open)}
-                    </>
-
-                )} userId={this.props.userId} conId={strResult.id} uid={this.props.userId} value={0}
-                         reactionNumber={reactionNumber} radioValue={radioValue}/>
+                         text={strResult.text} id={strResult.myVoteId} userId={this.props.userId} conId={strResult.id}
+                         uid={this.props.userId} value={strResult.value}
+                         reactionNumber={strResult.reaction} radioValue={strResult.myReactionValue}
+                         voteId={strResult.myVoteId} reactionId={strResult.myReactionId}
+                         action={(
+                             <>
+                                 {this.MyAction(strResult.text, "ModComment", this.props.note.id, strResult.userId, "", "", strResult.id, this.props.uid, "", this.props.userId, () => this.props.onDeleteComment(strResult), this.props.note.open)}
+                             </>
+                         )}/>
             ))
         }
         let editor
@@ -128,7 +128,8 @@ class NoteDetailsView extends Component {
                                     <Row>
                                         <Col xs={1}>
                                             <Vote number={this.props.note.points} userId={this.props.userId}
-                                                  conId={this.props.note.id} type={"Topic"} value={value}
+                                                  conId={this.props.note.id} type={"Topic"}
+                                                  value={this.props.note.value}
                                                   uid={this.props.uid} id={this.props.note.myVoteId}/>
                                         </Col>
                                         <Col xs={2}>
@@ -159,8 +160,14 @@ class NoteDetailsView extends Component {
                                     {parse(this.props.note.text)}
                                     <div className="d-flex flex-row-reverse">
                                         <div className="p-2">
-                                            <Reactions reactionNumber={reactionNumber}
-                                                       radioValue={radioValue}/>
+                                            <Reactions reactionNumber={this.props.note.reaction}
+                                                       radioValue={this.props.note.myReactionValue}
+                                                       id={this.props.note.myReactioId}
+                                                       userId={this.props.userId}
+                                                       conId={this.props.note.id}
+                                                       type={"Topic"}
+                                                       value={this.props.note.value}
+                                                       uid={this.props.uid}/>
                                         </div>
                                     </div>
                                 </Card.Text>
