@@ -7,7 +7,7 @@ const initialState = {
     username:'',
     coin:0,
     uid:'',
-    id:''
+    id:0
 };
 const fetch = (state, action) => {
     return updateObject(state, {

@@ -9,6 +9,7 @@ import {Link} from "react-router-dom";
 import * as actions from "../../store/actions";
 import DeleteButton from "../DeleteButton";
 import Reactions from "../Rection/Reactions";
+import Vote from "../Rection/Vote";
 
 class QuestionDetailsView extends Component {
     dateReplace(dateTime) {
@@ -56,20 +57,18 @@ class QuestionDetailsView extends Component {
         if (!this.props.loading && this.props.comment != []) {
             commentList = this.props.comment.map(strResult => (
                 <Comment dateTime={strResult.dateTime} points={strResult.points} user={strResult.user}
-                         text={strResult.text} action={(
-                    <>
-                        {this.MyAction(strResult.text, "ModTopic", this.props.note.id, strResult.userId, "", "", strResult.id, this.props.uid, "", this.props.userId, () => this.props.onDeleteComment(strResult))}
-                    </>
-
-                )} userId={this.props.userId} conId={strResult.id} uid={this.props.userId} value={0}
-                         reactionNumber={reactionNumber} radioValue={radioValue}/>
+                         text={strResult.text} id={strResult.myVoteId} userId={this.props.userId} conId={strResult.id}
+                         uid={this.props.userId} value={strResult.value}
+                         reactionNumber={strResult.reaction} radioValue={strResult.myReactionValue}
+                         voteId={strResult.myVoteId} reactionId={strResult.myReactionId}
+                         action={(
+                             <>
+                                 {this.MyAction(strResult.text, "ModComment", this.props.question.id, strResult.userId, "", "", strResult.id, this.props.uid, "", this.props.userId, () => this.props.onDeleteComment(strResult), this.props.question.open)}
+                             </>
+                         )}/>
             ))
         }
-        let editor = (
-            <>
-                Kérlek <Link to="/user">jelentkezz be</Link> vagy <Link to="/user">regisztrálj</Link> először
-            </>
-        )
+        let editor
         if (this.props.uid != "") {
             editor = (
                 <AddEditor text={""} actionType={"AddComment"}
@@ -95,7 +94,10 @@ class QuestionDetailsView extends Component {
                                 <Container>
                                     <Row>
                                         <Col xs={1}>
-                                            {this.props.question.points}
+                                            <Vote number={this.props.question.points} userId={this.props.userId}
+                                                  conId={this.props.question.id} type={"Topic"}
+                                                  value={this.props.question.value}
+                                                  uid={this.props.uid} id={this.props.question.myVoteId}/>
                                         </Col>
                                         <Col xs={2}>
                                             {this.props.question.user}
@@ -107,19 +109,15 @@ class QuestionDetailsView extends Component {
                                             {this.dateReplace(this.props.question.dateTime)}
                                         </Col>
                                         <Col xs={1}>
-                                            {this.MyAction(
-                                                this.props.question.text,
-                                                "ModTopic",
-                                                "",
-                                                this.props.question.userId,
-                                                this.props.question.subjectId,
-                                                "",
-                                                this.props.question.id,
-                                                this.props.uid,
-                                                this.props.question.themeType,
-                                                this.props.userId,
-                                                () => this.props.onDeleteTopic(this.props.question))
-                                            }
+                                            {this.Fork(this.props.question.text, "ModTopic", "", this.props.userId,
+                                                this.props.question.subjectId, "", "", this.props.uid,
+                                                this.props.question.themeType, this.props.userId)}
+                                        </Col>
+                                        <Col xs={1}>
+                                            {this.MyAction(this.props.question.text, "ModTopic", "", this.props.question.userId,
+                                                this.props.question.subjectId, "", this.props.question.id, this.props.uid,
+                                                this.props.question.themeType, this.props.userId,
+                                                () => this.props.onDeleteTopic(this.props.question), this.props.question.open)}
                                         </Col>
                                     </Row>
 
@@ -130,8 +128,14 @@ class QuestionDetailsView extends Component {
                                     {parse(this.props.question.text)}
                                     <div className="d-flex flex-row-reverse">
                                         <div className="p-2">
-                                            <Reactions reactionNumber={reactionNumber}
-                                                       radioValue={radioValue}/>
+                                            <Reactions reactionNumber={this.props.question.reaction}
+                                                       radioValue={this.props.question.myReactionValue}
+                                                       id={this.props.question.myReactioId}
+                                                       userId={this.props.userId}
+                                                       conId={this.props.question.id}
+                                                       type={"Topic"}
+                                                       value={this.props.question.value}
+                                                       uid={this.props.uid}/>
                                         </div>
                                     </div>
                                 </Card.Text>

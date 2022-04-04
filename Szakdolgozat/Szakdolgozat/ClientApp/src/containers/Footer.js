@@ -21,17 +21,15 @@ class Footer extends Component {
                                 <h5 className="title">Links</h5>
                                 <ul>
                                     <li className="list-unstyled">
-                                        <a href="#!">Link 1</a>
+                                        <a href="https://github.com/momszx/Szakdolgozat">Dokumnetáció</a>
                                     </li>
                                     <li className="list-unstyled">
-                                        <a href="#!">Link 2</a>
+                                        <a href="#!">Használati feltételek</a>
                                     </li>
                                     <li className="list-unstyled">
-                                        <a href="#!">Link 3</a>
+                                        <a href="https://uni-eszterhazy.hu/">Eszterházy Károly Katolikus Egyetem</a>
                                     </li>
-                                    <li className="list-unstyled">
-                                        <a href="#!">Link 4</a>
-                                    </li>
+
                                 </ul>
                             </MDBCol>
                         </MDBRow>

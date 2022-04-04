@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {Navbar, Container, Offcanvas, Nav, NavDropdown, Form, FormControl, Button, Image} from "react-bootstrap";
 import UniHub from '../IMG/university-svgrepo-com.svg';
 import {Link} from "react-router-dom";
+import * as actions from "../store/actions";
+import {logout} from "../store/actions";
 
 class NavBar extends Component {
     render() {
@@ -18,8 +20,9 @@ class NavBar extends Component {
         if (this.props.username != "") {
             logged = (
                 <>
-                    Signed in as: <Link to="/login"
+                    Be vagy jelentkezve mint: <Link to="/login"
                                         style={{color: "#fcba03"}}>{this.props.username}</Link> Coins:{this.props.coin}
+                    <Button variant="outline-danger" size="sm" onClick={() => this.props.onLogin(this.props.id,this.props.uid)}>Kijelentkezés</Button>
                 </>
             )
         }
@@ -38,8 +41,8 @@ class NavBar extends Component {
                         </Nav>
                         <Navbar.Toggle/>
                         <Navbar.Collapse className="justify-content-end">
-                            <Navbar.Text style={{color: "#ffffff"}}>{this.props.username == "" ? def : logged}
-                            </Navbar.Text>
+                            <Navbar.Text
+                                style={{color: "#ffffff"}}>{this.props.username == "" ? def : logged}</Navbar.Text>
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
@@ -50,10 +53,15 @@ class NavBar extends Component {
 
 function mapStateToProps(state) {
     return {
-        username: state.user.username, coin: state.user.coin
+        username: state.user.username, coin: state.user.coin, uid: state.user.uid, id: state.user.id
     };
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogin:(id,uid)=>dispatch(actions.logout(id,uid))
+    }
 }
 
 export default connect(
-    mapStateToProps,
+    mapStateToProps, mapDispatchToProps
 )(NavBar);
