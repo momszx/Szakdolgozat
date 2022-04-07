@@ -26,7 +26,7 @@ namespace Szakdolgozat.Controllers
 
                             while (dataReader.Read())
                             {
-                                topics.Add(new Topic(dataReader.GetInt32(0),dataReader.GetInt32(1),dataReader.GetInt32(2),dataReader.GetString(3),dataReader.GetString(4),"",dataReader.GetDateTime(5),dataReader.GetString(6),dataReader.GetBoolean(7),dataReader.GetString(8),dataReader.GetInt32(9),dataReader.GetInt32(10),dataReader.GetInt32(11),new int[] {dataReader.GetInt32(12),dataReader.GetInt32(13),dataReader.GetInt32(14)},dataReader.GetInt32(15),dataReader.GetInt32(16)));
+                                topics.Add(new Topic(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetInt32(2), dataReader.GetString(3), dataReader.GetString(4), "", dataReader.GetDateTime(5), dataReader.GetString(6), dataReader.GetBoolean(7), dataReader.GetString(8), dataReader.GetInt32(9), dataReader.GetInt32(10), dataReader.GetInt32(11), new int[] { dataReader.GetInt32(12), dataReader.GetInt32(13), dataReader.GetInt32(14) }, dataReader.GetInt32(15), dataReader.GetInt32(16)));
                             }
                         }
                         dataReader.Close();

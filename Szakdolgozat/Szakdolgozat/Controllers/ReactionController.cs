@@ -9,6 +9,7 @@ namespace Szakdolgozat.Controllers
     [Route("[controller]")]
     public class ReactionController
     {
+        [HttpPut]
         public int Reaction(Reaction reaction)
         {
             bool exist = true;

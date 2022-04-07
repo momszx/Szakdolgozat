@@ -38,7 +38,7 @@ class NoteDetailsView extends Component {
         }
     }
 
-    MyAction(text, actionType, topicId, userId, subjectId, name, id, uId, themeType, loginUserId, action, open) {
+    MyAction(text, actionType, topicId, userId, subjectId, name, id, uId, themeType, loginUserId, action, open, permission) {
         if (userId == loginUserId && !open) {
             return (
                 <>
@@ -51,7 +51,19 @@ class NoteDetailsView extends Component {
                     <DeleteButton click={action}/>
                 </>
             )
-        } else if (open && uId != "") {
+        } else if (permission != 0) {
+            return (
+                <>
+                    <ModalEditor text={text} actionType={actionType}
+                                 topicId={id}
+                                 userId={userId} subjectId={subjectId}
+                                 name={name} id={id}
+                                 uId={uId}
+                                 themeType={themeType}/>
+                    <DeleteButton click={action}/>
+                </>
+            )
+        } else if (open && userId == loginUserId) {
             return (
                 <>
                     <Link to={"/liveEditor"}>
@@ -59,6 +71,15 @@ class NoteDetailsView extends Component {
                             style={{width: "20px"}} src={EditIcon}/>
                     </Link>
                     <DeleteButton click={action}/>
+                </>
+            )
+        } else if (open && uId != "") {
+            return (
+                <>
+                    <Link to={"/liveEditor"}>
+                        <Image
+                            style={{width: "20px"}} src={EditIcon}/>
+                    </Link>
                 </>
             )
         } else {
@@ -81,21 +102,39 @@ class NoteDetailsView extends Component {
             boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
             minHeight: "700px"
         }
-        let reactionNumber = [5, 2, 2];
-        let radioValue = 1;
         let commentList = (<Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
         </Spinner>)
         if (!this.props.loading && this.props.comment != []) {
             commentList = this.props.comment.map(strResult => (
-                <Comment dateTime={strResult.dateTime} points={strResult.points} user={strResult.user}
-                         text={strResult.text} id={strResult.myVoteId} userId={this.props.userId} conId={strResult.id}
-                         uid={this.props.userId} value={strResult.value}
-                         reactionNumber={strResult.reaction} radioValue={strResult.myReactionValue}
-                         voteId={strResult.myVoteId} reactionId={strResult.myReactionId}
+                <Comment dateTime={strResult.dateTime}
+                         points={strResult.points}
+                         user={strResult.user}
+                         text={strResult.text}
+                         id={strResult.myVoteId}
+                         userId={this.props.userId}
+                         conId={strResult.id}
+                         uid={this.props.userId}
+                         value={strResult.value}
+                         reactionNumber={strResult.reaction}
+                         radioValue={strResult.myReactionValue}
+                         voteId={strResult.myVoteId}
+                         reactionId={strResult.myReactionId}
                          action={(
                              <>
-                                 {this.MyAction(strResult.text, "ModComment", this.props.note.id, strResult.userId, "", "", strResult.id, this.props.uid, "", this.props.userId, () => this.props.onDeleteComment(strResult), this.props.note.open)}
+                                 {this.MyAction(strResult.text,
+                                     "ModComment",
+                                     this.props.note.id,
+                                     strResult.userId,
+                                     "",
+                                     "",
+                                     strResult.id,
+                                     this.props.uid,
+                                     "",
+                                     this.props.userId,
+                                     () => this.props.onDeleteComment(strResult),
+                                     this.props.note.open,
+                                     this.props.permission)}
                              </>
                          )}/>
             ))
@@ -127,10 +166,13 @@ class NoteDetailsView extends Component {
                                 <Container fluid>
                                     <Row>
                                         <Col xs={1}>
-                                            <Vote number={this.props.note.points} userId={this.props.userId}
-                                                  conId={this.props.note.id} type={"Topic"}
+                                            <Vote number={this.props.note.points}
+                                                  userId={this.props.userId}
+                                                  conId={this.props.note.id}
+                                                  type={"Topic"}
                                                   value={this.props.note.value}
-                                                  uid={this.props.uid} id={this.props.note.myVoteId}/>
+                                                  uid={this.props.uid}
+                                                  id={this.props.note.myVoteId}/>
                                         </Col>
                                         <Col xs={2}>
                                             {this.props.note.user}
@@ -142,15 +184,30 @@ class NoteDetailsView extends Component {
                                             {this.dateReplace(this.props.note.dateTime)}
                                         </Col>
                                         <Col xs={1}>
-                                            {this.Fork(this.props.note.text, "ModTopic", "", this.props.userId,
-                                                this.props.note.subjectId, "", "", this.props.uid,
-                                                this.props.note.themeType, this.props.userId)}
+                                            {this.Fork(this.props.note.text,
+                                                "ModTopic",
+                                                "",
+                                                this.props.userId,
+                                                this.props.note.subjectId,
+                                                "", "",
+                                                this.props.uid,
+                                                this.props.note.themeType,
+                                                this.props.userId)}
                                         </Col>
                                         <Col xs={1}>
-                                            {this.MyAction(this.props.note.text, "ModTopic", "", this.props.note.userId,
-                                                this.props.note.subjectId, "", this.props.note.id, this.props.uid,
-                                                this.props.note.themeType, this.props.userId,
-                                                () => this.props.onDeleteTopic(this.props.note), this.props.note.open)}
+                                            {this.MyAction(this.props.note.text,
+                                                "ModTopic",
+                                                "",
+                                                this.props.note.userId,
+                                                this.props.note.subjectId,
+                                                "",
+                                                this.props.note.id,
+                                                this.props.uid,
+                                                this.props.note.themeType,
+                                                this.props.userId,
+                                                () => this.props.onDeleteTopic(this.props.note),
+                                                this.props.note.open,
+                                                this.props.permission)}
                                         </Col>
                                     </Row>
                                 </Container>
@@ -196,7 +253,8 @@ const mapStateToProps = state => {
         comment: state.comment.comment,
         loading: state.comment.loading,
         uid: state.user.uid,
-        userId: state.user.id
+        userId: state.user.id,
+        permission: state.user.permission
     };
 }
 const mapDispatchToProps = (dispatch) => {

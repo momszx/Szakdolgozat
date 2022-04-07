@@ -11,7 +11,7 @@ const LiveEditor = (props) => {
     const onSubmit = () => {
         if (uid && uid !== '' && uid !== null && text && text !== null) {
             sendMessage(text.toString('html'));
-        } 
+        }
     }
     const onMessageUpdate = (e) => {
         setText(e);
@@ -34,7 +34,7 @@ const LiveEditor = (props) => {
                 } catch (e) {
                     console.log(e);
                 }
-            } 
+            }
         } catch (e) {
 
         }
@@ -60,16 +60,17 @@ const LiveEditor = (props) => {
             } catch (e) {
                 console.log(e);
             }
-        } 
+        }
     }
 
-    return (<>
-        <RichTextEditor
-            value={text}
-            onChange={onMessageUpdate}
-            placeholder="Szólj hozzá"
-        />
-    </>)
+    return (
+        <>
+            <RichTextEditor
+                value={text}
+                onChange={onMessageUpdate}
+                placeholder="Szólj hozzá"
+            />
+        </>)
 
 }
 

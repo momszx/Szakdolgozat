@@ -21,9 +21,16 @@ class NavBar extends Component {
             logged = (
                 <>
                     Be vagy jelentkezve mint: <Link to="/login"
-                                        style={{color: "#fcba03"}}>{this.props.username}</Link> Coins:{this.props.coin}
-                    <Button variant="outline-danger" size="sm" onClick={() => this.props.onLogin(this.props.id,this.props.uid)}>Kijelentkezés</Button>
+                                                    style={{color: "#fcba03"}}>{this.props.username}</Link> Coins:{this.props.coin}
+                    <Button variant="outline-danger" size="sm"
+                            onClick={() => this.props.onLogin(this.props.id, this.props.uid)}>Kijelentkezés</Button>
                 </>
+            )
+        }
+        let permission = (<></>)
+        if (this.props.permission == 2) {
+            permission = (
+                <Nav.Link><Link to="/permission" style={{color: "#ffffff"}}>Permission</Link></Nav.Link>
             )
         }
         return (
@@ -37,7 +44,7 @@ class NavBar extends Component {
                         <Nav className="me-auto">
                             <Nav.Link><Link to="/" style={{color: "#ffffff"}}>Home</Link></Nav.Link>
                             <Nav.Link><Link to="/user" style={{color: "#ffffff"}}>User</Link></Nav.Link>
-                            <Nav.Link><Link to="/permission" style={{color: "#ffffff"}}>Permission</Link></Nav.Link>
+                            {permission}
                         </Nav>
                         <Navbar.Toggle/>
                         <Navbar.Collapse className="justify-content-end">
@@ -48,17 +55,23 @@ class NavBar extends Component {
                 </Navbar>
             </>
         );
+
     }
 }
 
 function mapStateToProps(state) {
     return {
-        username: state.user.username, coin: state.user.coin, uid: state.user.uid, id: state.user.id
+        username: state.user.username,
+        coin: state.user.coin,
+        uid: state.user.uid,
+        id: state.user.id,
+        permission: state.user.permission,
     };
 }
+
 const mapDispatchToProps = (dispatch) => {
     return {
-        onLogin:(id,uid)=>dispatch(actions.logout(id,uid))
+        onLogin: (id, uid) => dispatch(actions.logout(id, uid))
     }
 }
 

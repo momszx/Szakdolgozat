@@ -25,19 +25,19 @@ namespace Szakdolgozat
                     // DB = DatabaseManager.Instance();
                     if (DB.Connect())
                     {
-                        MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT id,username, ifnull((SELECT sum(value) from upDownVote inner join topic t on upDownVote.conId=t.id where t.userId=user.id),0) as coins FROM user WHERE username ='{0}' && password = md5('{1}');", user.Username, user.Password));
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("select id ,username,ifnull((SELECT sum(value) from upDownVote inner join topic t on upDownVote.conId=t.id where t.userId=user.id),0) as coins,ifnull((select value from perm where userId=user.id),0) as permission FROM user WHERE username ='{0}' && password = md5('{1}');", user.Username, user.Password));
                         if (dataReader.HasRows)
                         {
                             uID = Guid.NewGuid().ToString();
                             while (dataReader.Read())
                             {
-                                baseUser = new User(dataReader.GetInt32(0), dataReader.GetString(1), "", dataReader.GetInt32(2), uID);
+                                baseUser = new User(dataReader.GetInt32(0), dataReader.GetString(1), "", dataReader.GetInt32(2),dataReader.GetInt32(3), uID);
                             }
                             Users.Add(uID, baseUser);
                         }
                         else
                         {
-                            baseUser = new User(0, "", "", 0, "WRONG_LOGIN_INFO");
+                            baseUser = new User(0, "", "", 0,0, "WRONG_LOGIN_INFO");
                         }
                         dataReader.Close();
                         DB.Close();
@@ -81,30 +81,10 @@ namespace Szakdolgozat
                             DB.Close();
                         }
                         Login(user);
-                        //if (DB.Connect())
-                        //{
-                        //    MySqlDataReader dataReader = DB.DataReader(string.Format("SELECT id,username, ifnull((SELECT sum(value) from upDownVote inner join topic t on upDownVote.conId=t.id where t.userId=user.id),0) as coins FROM user WHERE username ='{0}' && password = md5('{1}');", user.Username, user.Password));
-                        //    if (dataReader.HasRows)
-                        //    {
-                        //        uID = Guid.NewGuid().ToString();
-                        //        while (dataReader.Read())
-                        //        {
-                        //            baseUser = new User(dataReader.GetInt32(0), dataReader.GetString(1), "", dataReader.GetInt32(3), uID);
-                        //        }
-                        //        Users.Add(uID, baseUser);
-                        //    }
-                        //    
-                        //    else
-                        //    {
-                        //        baseUser = new User(0, "", "", 0, "WRONG_LOGIN_INFO");
-                        //    }
-                        //    dataReader.Close();
-                        //    DB.Close();
-                        //}
                     }
                     else
                     {
-                        baseUser = new User(0, "", "", 0, "EXISTS_USER");
+                        baseUser = new User(0, "", "", 0,0, "EXISTS_USER");
                     }
                     return baseUser;
                 }

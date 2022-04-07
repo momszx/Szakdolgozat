@@ -16,7 +16,7 @@ class QuestionDetailsView extends Component {
         return dateTime.replace("T", " ");
     }
 
-    MyAction(text, actionType, topicId, userId, subjectId, name, id, uId, themeType, loginUserId, action) {
+    MyAction(text, actionType, topicId, userId, subjectId, name, id, uId, themeType, loginUserId, action, open, permission) {
         if (userId == loginUserId) {
             return (
                 <>
@@ -29,7 +29,19 @@ class QuestionDetailsView extends Component {
                     <DeleteButton click={action}/>
                 </>
             )
-        } else {
+        } else if (permission != 0) {
+            return (
+                <>
+                    <ModalEditor text={text} actionType={actionType}
+                                 topicId={id}
+                                 userId={userId} subjectId={subjectId}
+                                 name={name} id={id}
+                                 uId={uId}
+                                 themeType={themeType}/>
+                    <DeleteButton click={action}/>
+                </>
+            )
+        }else {
             return (
                 <>
                 </>
@@ -56,14 +68,34 @@ class QuestionDetailsView extends Component {
         </Spinner>)
         if (!this.props.loading && this.props.comment != []) {
             commentList = this.props.comment.map(strResult => (
-                <Comment dateTime={strResult.dateTime} points={strResult.points} user={strResult.user}
-                         text={strResult.text} id={strResult.myVoteId} userId={this.props.userId} conId={strResult.id}
-                         uid={this.props.userId} value={strResult.value}
-                         reactionNumber={strResult.reaction} radioValue={strResult.myReactionValue}
-                         voteId={strResult.myVoteId} reactionId={strResult.myReactionId}
+                <Comment dateTime={strResult.dateTime}
+                         points={strResult.points}
+                         user={strResult.user}
+                         text={strResult.text}
+                         id={strResult.myVoteId}
+                         userId={this.props.userId}
+                         conId={strResult.id}
+                         uid={this.props.userId}
+                         value={strResult.value}
+                         reactionNumber={strResult.reaction}
+                         radioValue={strResult.myReactionValue}
+                         voteId={strResult.myVoteId}
+                         reactionId={strResult.myReactionId}
                          action={(
                              <>
-                                 {this.MyAction(strResult.text, "ModComment", this.props.question.id, strResult.userId, "", "", strResult.id, this.props.uid, "", this.props.userId, () => this.props.onDeleteComment(strResult), this.props.question.open)}
+                                 {this.MyAction(strResult.text,
+                                     "ModComment",
+                                     this.props.question.id,
+                                     strResult.userId,
+                                     "",
+                                     "",
+                                     strResult.id,
+                                     this.props.uid,
+                                     "",
+                                     this.props.userId,
+                                     () => this.props.onDeleteComment(strResult),
+                                     this.props.question.open,
+                                     this.props.permission)}
                              </>
                          )}/>
             ))
@@ -94,10 +126,13 @@ class QuestionDetailsView extends Component {
                                 <Container>
                                     <Row>
                                         <Col xs={1}>
-                                            <Vote number={this.props.question.points} userId={this.props.userId}
-                                                  conId={this.props.question.id} type={"Topic"}
+                                            <Vote number={this.props.question.points}
+                                                  userId={this.props.userId}
+                                                  conId={this.props.question.id}
+                                                  type={"Topic"}
                                                   value={this.props.question.value}
-                                                  uid={this.props.uid} id={this.props.question.myVoteId}/>
+                                                  uid={this.props.uid}
+                                                  id={this.props.question.myVoteId}/>
                                         </Col>
                                         <Col xs={2}>
                                             {this.props.question.user}
@@ -109,15 +144,19 @@ class QuestionDetailsView extends Component {
                                             {this.dateReplace(this.props.question.dateTime)}
                                         </Col>
                                         <Col xs={1}>
-                                            {this.Fork(this.props.question.text, "ModTopic", "", this.props.userId,
-                                                this.props.question.subjectId, "", "", this.props.uid,
-                                                this.props.question.themeType, this.props.userId)}
-                                        </Col>
-                                        <Col xs={1}>
-                                            {this.MyAction(this.props.question.text, "ModTopic", "", this.props.question.userId,
-                                                this.props.question.subjectId, "", this.props.question.id, this.props.uid,
-                                                this.props.question.themeType, this.props.userId,
-                                                () => this.props.onDeleteTopic(this.props.question), this.props.question.open)}
+                                            {this.MyAction(this.props.question.text,
+                                                "ModTopic",
+                                                "",
+                                                this.props.question.userId,
+                                                this.props.question.subjectId,
+                                                "",
+                                                this.props.question.id,
+                                                this.props.uid,
+                                                this.props.question.themeType,
+                                                this.props.userId,
+                                                () => this.props.onDeleteTopic(this.props.question),
+                                                this.props.question.open,
+                                                this.props.permission)}
                                         </Col>
                                     </Row>
 
@@ -164,7 +203,8 @@ const mapStateToProps = state => {
         comment: state.comment.comment,
         loading: state.comment.loading,
         uid: state.user.uid,
-        userId: state.user.id
+        userId: state.user.id,
+        permission: state.user.permission
     };
 }
 const mapDispatchToProps = (dispatch) => {

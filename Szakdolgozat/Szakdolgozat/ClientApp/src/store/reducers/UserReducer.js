@@ -7,7 +7,8 @@ const initialState = {
     username:'',
     coin:0,
     uid:'',
-    id:0
+    id:0,
+    permission:0
 };
 const fetch = (state, action) => {
     return updateObject(state, {
@@ -25,7 +26,8 @@ const loginSuccess = (state,action) => {
         username:action.user.username,
         coin:action.user.coin,
         uid:action.user.uid,
-        id:action.user.id
+        id:action.user.id,
+        permission:action.user.permission
     });
 }
 const logoutStart = (state,action) => {
@@ -39,7 +41,8 @@ const logoutSuccess = (state,action) => {
         username:'',
         coin:'',
         uid:'',
-        id:''
+        id:'',
+        permission:0
     });
 }
 

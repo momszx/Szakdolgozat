@@ -90,7 +90,7 @@ namespace Szakdolgozat.Hubs
             if (n != -1)
             {
                 Rooms[n].Userlist.Remove(Context.ConnectionId);
-                if (Rooms[n].Userlist.Count == 0)
+                if (Rooms[n].Userlist.Count == 0 && Rooms[n].Text != "")
                 {
                     using (DatabaseManager DB = DatabaseManager.Instance())
                     {

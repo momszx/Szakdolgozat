@@ -5,7 +5,6 @@ import {Provider} from "react-redux";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import employeeReducer from './store/reducers/employeeReducer'
 import thunk from 'redux-thunk';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import facultyReducer from "./store/reducers/FacultyReducer";
@@ -24,7 +23,6 @@ import {BrowserRouter} from "react-router-dom";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-    employee: employeeReducer,
     faculty: facultyReducer,
     user: UserReducer,
     subject: SubjectReducer,

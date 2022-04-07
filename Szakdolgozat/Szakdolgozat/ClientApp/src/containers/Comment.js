@@ -28,7 +28,6 @@ class Comment extends React.Component {
         const myStyle = {
             marginBottom: "20px"
         }
-        console.log(this.state.radioValue)
         return (
             <>
                 <Card style={myStyle}>

@@ -8,7 +8,7 @@ const initialState = {
 };
 const fetchPermissionSuccess = (state, action) => {
     return updateObject(state, {
-        permission: action.permission,
+        permission: action.userList,
         loading: false
     });
 }

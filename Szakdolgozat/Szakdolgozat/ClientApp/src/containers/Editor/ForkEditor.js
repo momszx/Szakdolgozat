@@ -55,11 +55,11 @@ class ForkEditor extends React.Component {
         if (this.props.topic) {
             topic = (
                 <>
-                    <Form.Control type="text" placeholder="Mások is szerkeszthetik?" onChange={(event, editor) => {
+                    <Form.Control type="text" placeholder="Addj egy cimet neki" onChange={(event, editor) => {
                         this.setState({name: event.target.value})
                     }}></Form.Control>
                     <br/>
-                    <Form.Check defaultChecked={false} type="switch" label="Check this switch"
+                    <Form.Check defaultChecked={false} type="switch" label="Mindenki szerekeszthetiMások is szerkeszthetik?"
                                 onChange={(event, editor) => {
                                     this.setState({open: event.target.checked})
                                 }}/>
