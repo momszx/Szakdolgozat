@@ -2,9 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import * as actions from "../../store/actions";
 import Card from 'react-bootstrap/Card';
-import {Spinner} from "react-bootstrap";
+import {Nav, Spinner} from "react-bootstrap";
 import MyCard from "../MyCard"
 import LiveChat from "../Chat/LiveChat";
+import AddListModal from "../AddListModal";
+import {Link} from "react-router-dom";
 
 class FacultyView extends React.Component {
 
@@ -37,10 +39,17 @@ class FacultyView extends React.Component {
                 <MyCard url={"/science"} name={strResult.name} click={() => this.mod(strResult)}/>
             ))
         }
+        let admin= (<></>)
+        if (this.props.permission == 2) {
+            admin = (
+                <AddListModal type={'faculty'} title={'kar'} id={0}></AddListModal>
+            )
+        }
         return (
             <>
                 <Card style={style} className="text-center">
                     <Card.Text>
+                        {admin}
                         {facultyList}
                         <LiveChat myUsername={this.props.username} uid={this.props.uid} id={this.props.id}/>
                     </Card.Text>
@@ -56,7 +65,8 @@ const mapStareToProps = state => {
         loading: state.faculty.loading,
         username: state.user.username,
         uid:state.user.uId,
-        id:state.user.id
+        id:state.user.id,
+        permission: state.user.permission,
     };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -4,6 +4,7 @@ import * as actions from "../../store/actions";
 import {Spinner} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import MyCard from "../MyCard";
+import AddListModal from "../AddListModal";
 
 class ScienceView extends Component {
     mod(strResult){
@@ -30,10 +31,17 @@ class ScienceView extends Component {
                     <MyCard url={"/subject"} name={strResult.name} click={() =>this.mod(strResult)}/>
             ))
         }
+        let admin= (<></>)
+        if (this.props.permission == 2) {
+            admin = (
+                <AddListModal type={'science'} title={'Képzés'} id={this.props.facultyId}></AddListModal>
+            )
+        }
         return (
             <>
                 <Card style={style} className="text-center">
                     <Card.Text>
+                        {admin}
                         {scienceList}
                     </Card.Text>
                 </Card>
@@ -45,7 +53,9 @@ class ScienceView extends Component {
 const mapStateToProps= state =>{
     return {
         sciences:state.science.science,
-        loading:state.science.loading
+        loading:state.science.loading,
+        facultyId:state.list.facultyId,
+        permission: state.user.permission,
     };
 }
 

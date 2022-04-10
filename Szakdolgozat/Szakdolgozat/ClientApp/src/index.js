@@ -18,6 +18,7 @@ import PermissionReducer from "./store/reducers/PermissionReducer";
 import TopicReducer from "./store/reducers/TopicReducer";
 import CommentReducer from "./store/reducers/CommentReducer";
 import {BrowserRouter} from "react-router-dom";
+import ListReducer from "./store/reducers/ListReducer";
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
     permission: PermissionReducer,
     topic: TopicReducer,
     comment: CommentReducer,
+    list:ListReducer
 });
 
 const loadState = () => {

@@ -15,9 +15,16 @@ export const fetchScience = (id) => {
     };
     return dispatch => {
         dispatch(fetchScienceStart())
+        dispatch(setFacultyId(id))
         fetch('/Science/', requestOptions).then(response => response.json()).then(data => {
             dispatch(fetchScienceSuccess(data))
         })
+    }
+}
+export const setFacultyId=(id)=> {
+    return{
+        type:actionTypes.SET_FACULTY_ID,
+        id:id
     }
 }
 export const fetchScienceStart = () => {

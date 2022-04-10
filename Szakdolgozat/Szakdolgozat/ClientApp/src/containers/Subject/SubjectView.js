@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import {Spinner, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import MyCard from "../MyCard";
+import AddListModal from "../AddListModal";
 
 class SubjectView extends React.Component {
     mod(strResult) {
@@ -32,10 +33,17 @@ class SubjectView extends React.Component {
                 <MyCard url={"/subjectDetails"} name={strResult.name} click={() =>this.mod(strResult)}/>
             ))
         }
+        let admin= (<></>)
+        if (this.props.permission == 2) {
+            admin = (
+                <AddListModal type={'subject'} title={'Tantárgy'} id={this.props.scienceId}></AddListModal>
+            )
+        }
         return (
             <>
                 <Card style={style} className="text-center">
                     <Card.Text>
+                        {admin}
                         {subjectList}
                     </Card.Text>
                 </Card>
@@ -48,7 +56,9 @@ const mapStateToProps = state => {
     return {
         subject: state.subject.subject,
         loading: state.subject.loading,
-        userId: state.user.id
+        userId: state.user.id,
+        scienceId:state.list.scienceId,
+        permission: state.user.permission,
     };
 }
 

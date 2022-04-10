@@ -15,9 +15,16 @@ export const fetchSubject = (id) => {
     };
     return dispatch => {
         dispatch(fetchSubjectStart())
+        dispatch(setScienceId(id))
         fetch('/Subject/', requestOptions).then(response => response.json()).then(data => {
             dispatch(fetchSubjectSuccess(data))
         })
+    }
+}
+export const setScienceId=(id)=> {
+    return{
+        type:actionTypes.SET_SCIENCE_ID,
+        id:id
     }
 }
 export const fetchSubjectStart = () => {
