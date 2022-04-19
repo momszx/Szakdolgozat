@@ -23,7 +23,7 @@ namespace Szakdolgozat.Hubs
                 {
                     MySqlDataReader dataReader = localdb.DataReader(string.Format("insert into chat ( userId, message, created) VALUE ('{0}','{1}','{2}')", chat.UserId, chat.Message, chat.Created));
                     dataReader.Close();
-                    localdb.Close();
+                    localdb.Close(); 
                 }
             }
             catch (Exception)

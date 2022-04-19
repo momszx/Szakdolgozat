@@ -15,6 +15,7 @@ import SubjectDetailsView from "./containers/Subject/SubjectDetailsView";
 import QuestionDetailsView from "./containers/Question/QuestionDetailsView";
 import NoteDetailsView from "./containers/Note/NoteDetailsView";
 import LiveEditorController from "./containers/Editor/LiveEditorController";
+import RegistrationView from "./containers/User/RegistrationView";
 
 function App() {
     return (
@@ -24,6 +25,8 @@ function App() {
                     <Route exact path="/" element={<Home/>}>
                     </Route>
                     <Route exact path="/login" element={<Login/>}>
+                    </Route>
+                    <Route exact path="/registration" element={<RegistrationView/>}>
                     </Route>
                     <Route  path="/science" element={<ScienceView/>}>
                     </Route>

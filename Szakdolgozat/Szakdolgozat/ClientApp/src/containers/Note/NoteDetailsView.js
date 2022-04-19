@@ -19,7 +19,7 @@ class NoteDetailsView extends Component {
     }
 
     Fork(text, actionType, topicId, userId, subjectId, name, id, uId, themeType, loginUserId) {
-        if (userId == loginUserId) {
+        if ( loginUserId!=0) {
             return (
                 <>
                     <ForkEditor text={text} actionType={actionType}

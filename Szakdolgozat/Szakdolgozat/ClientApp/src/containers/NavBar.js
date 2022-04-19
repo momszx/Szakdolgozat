@@ -10,7 +10,9 @@ class NavBar extends Component {
     render() {
         let def = (
             <>
-                <Link to="/login" style={{color: "#ffffff"}}>Login</Link>
+                <Link to="/login" style={{color: "#ffffff"}}>Bejelentkezés</Link>
+                <div>  </div>
+                <Link to="/registration" style={{color: "#ffffff"}}>Regisztáció</Link>
             </>
         )
         let logged = (<>

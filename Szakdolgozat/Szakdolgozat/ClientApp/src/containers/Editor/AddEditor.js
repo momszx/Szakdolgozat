@@ -98,7 +98,7 @@ class AddEditor extends React.Component {
                         <RichTextEditor
                             value={this.state.text}
                             onChange={value => this.setState({text: value})}
-                            placeholder="Szólj hozzá"
+
                         />
                     </div>
                     <Button variant="success"

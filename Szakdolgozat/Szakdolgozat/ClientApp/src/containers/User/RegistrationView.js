@@ -6,7 +6,7 @@ import {Col, Container, Row, Table} from "react-bootstrap";
 import Login from "./Login";
 import Resistration from "./Registration";
 
-class LoginView extends Component {
+class RegistrationView extends Component {
     render() {
         const style = {
             display: "block",
@@ -26,7 +26,7 @@ class LoginView extends Component {
                         <Container>
                             <Row>
                                 <Col>
-                                    <Login/>
+                                    <Resistration/>
                                 </Col>
                             </Row>
                         </Container>
@@ -43,4 +43,4 @@ function mapStateToProps(state) {
 
 export default connect(
     mapStateToProps,
-)(LoginView);
+)(RegistrationView);

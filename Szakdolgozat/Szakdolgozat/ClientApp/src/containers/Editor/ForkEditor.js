@@ -59,7 +59,7 @@ class ForkEditor extends React.Component {
                         this.setState({name: event.target.value})
                     }}></Form.Control>
                     <br/>
-                    <Form.Check defaultChecked={false} type="switch" label="Mindenki szerekeszthetiMások is szerkeszthetik?"
+                    <Form.Check defaultChecked={false} type="switch" label="Mindenki szerekesztheti?"
                                 onChange={(event, editor) => {
                                     this.setState({open: event.target.checked})
                                 }}/>
@@ -85,7 +85,6 @@ class ForkEditor extends React.Component {
                             <RichTextEditor
                                 value={this.state.text}
                                 onChange={value => this.setState({text: value})}
-                                placeholder="Szólj hozzá"
                             />
                         </div>
                         <Button variant="success"

@@ -14,6 +14,14 @@ class SubjectDetailsView extends Component {
     }
 
     render() {
+        const divstyle ={
+            marginTop: "10px",
+            marginLeft: "auto",
+            marginRight: "auto",
+            padding: "20px",
+            textAlign: "center",
+
+        }
         const style = {
             display: "block",
             marginTop: "10px",
@@ -61,9 +69,9 @@ class SubjectDetailsView extends Component {
             )
         } else {
             editor = (
-                <>
+                <div style={divstyle}>
                     Kérlek <Link to="/user">jelentkezz be</Link> vagy <Link to="/user">regisztrálj</Link> először
-                </>
+                </div>
             )
         }
         return (

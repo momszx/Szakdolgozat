@@ -71,7 +71,7 @@ namespace Szakdolgozat.Controllers
                 {
                     if (DB.Connect())
                     {
-                        MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE topic set name='{0}',text='{1}',open='{2}' where id='{3}'", topic.Name, topic.Text, topic.Open, topic.Id));
+                        MySqlDataReader dataReader = DB.DataReader(string.Format("UPDATE topic set text='{0}',open='{1}' where id='{2}'", topic.Text, Convert.ToInt32( topic.Open), topic.Id));
                         dataReader.Close();
                         DB.Close();
                     }
